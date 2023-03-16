@@ -1,7 +1,7 @@
 const CustomerBookingModel = require("../models/CustomerBookingModel")
 const SaloonSchema = require("../models/SaloonSchema")
 const myCache = require("../utils/cache")
-const {Types}=require("mongoose")
+const { Types } = require("mongoose")
 exports.totalAmount = async (req, res) => {
       try {
             const { start, end } = req.body
@@ -185,7 +185,7 @@ exports.getSpecificDateBooking = async (req, res) => {
                         category: 1,
                         status: 1,
                         owner: 1,
-                        selectedDate:1,
+                        selectedDate: 1,
                         servicename: 1,
                         price: {
                               $convert: {
@@ -319,10 +319,18 @@ exports.allBookingsWeb = async (req, res) => {
             const bookings = await CustomerBookingModel.aggregate([
                   {
                         $lookup: {
-                              from: "users",
+                              from: "customerusers",
                               localField: "owner",
                               foreignField: "_id",
                               as: "owner"
+                        }
+                  }, {
+                        $unwind: "$owner",
+                  },
+                  {
+                        $unwind: {
+                              path: "$asignee",
+                              "preserveNullAndEmptyArrays": true 
                         }
                   },
                   {
@@ -333,32 +341,26 @@ exports.allBookingsWeb = async (req, res) => {
                               as: "asignee"
                         }
                   },
-                  { $unwind: "$owner" },
+                  { $unwind: "$asignee" },
                   {
                         $lookup: {
                               from: "saloons",
-                              localField: "owner.saloon",
-                              foreignField: "_id",
-                              as: "owner.saloon"
+                              localField: "shopname",
+                              foreignField: "shopname",
+                              as: "saloon"
                         }
                   },
-                  { $unwind: "$owner.saloon" },
-                  {
-                        $unwind: {
-                              path: "$asignee",
-                              "preserveNullAndEmptyArrays": true
-                        }
-                  },
+                  { $unwind: "$saloon" },
                   {
                         $project: {
                               id: "$_id",
                               stylist: { $concat: ["$asignee.firstname", " ", "$asignee.lastname"] },
                               date: "$date",
-                              salon: "$owner.saloon.shopname",
-                              client: "$name",
-                              mobile: "$phone",
+                              salon: "$saloon.shopname",
+                              client: "$owner.name",
+                              mobile: "$owner.phone",
                               category: "$category",
-                              service: "$service",
+                              service: "$servicename",
                               status: "$status",
                               price: {
                                     $cond: { if: { $eq: ["$price", "0"] }, then: "Custom", else: "$price" }
