@@ -1,5 +1,7 @@
 const Employee = require("../models/EmployeeSchema")
-const ServicesSchema=require("../models/ServicesSchema")
+const ServicesSchema = require("../models/ServicesSchema")
+const { Types } = require("mongoose")
+const EmployeeSchema=require("../models/EmployeeSchema")
 exports.singleEmployees = async (req, res) => {
       try {
             const getEmployees = await Employee.findById(req.params.id);
@@ -15,6 +17,7 @@ exports.singleEmployees = async (req, res) => {
                   getEmployees
             })
       } catch (error) {
+           
             res.status(500).json({
                   success: false,
                   message: error.message
@@ -84,7 +87,7 @@ exports.getAllEmployees = async (req, res) => {
             const employees = await EmployeeSchema.aggregate([
                   {
                         $match: {
-                              owner: Types.ObjectId(req.params.id)
+                              owner: new Types.ObjectId(req.params.id)
                         }
                   },
                   {
@@ -103,6 +106,7 @@ exports.getAllEmployees = async (req, res) => {
                   employees
             })
       } catch (error) {
+            console.log(error)
             res.status(500).json({
                   error: error.message
             })
@@ -113,7 +117,7 @@ exports.getEmployeesByServiceId = async (req, res) => {
             const employees = await ServicesSchema.aggregate([
                   {
                         $match: {
-                              _id: Types.ObjectId(req.params.id)
+                              _id: new Types.ObjectId(req.params.id)
                         }
                   }, {
                         $lookup: {

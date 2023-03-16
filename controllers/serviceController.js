@@ -1,9 +1,11 @@
-const ServicesSchema=require("../models/ServicesSchema")
+const ServicesSchema = require("../models/ServicesSchema")
+const SaloonSchema = require("../models/SaloonSchema")
+const {Types}=require("mongoose")
 exports.getallServicesForSaloon = async (req, res) => {
       try {
             const service = await SaloonSchema.aggregate([
                   {
-                        $match: { _id: Types.ObjectId(req.params.id) }
+                        $match: { _id: new Types.ObjectId(req.params.id) }
                   },
                   {
                         $lookup: {
@@ -41,6 +43,7 @@ exports.getallServicesForSaloon = async (req, res) => {
                   service
             })
       } catch (error) {
+            console.log(error)
             res.status(500).json({
                   success: false,
                   message: error.message,

@@ -14,9 +14,7 @@ const WebAuth = async (req, res, next) => {
         }
 
         const decodeData = jwt.verify(token, process.env.JWT_SECRET);
-
         req.user = await WebUserModel.findById(decodeData.id);
-        // console.log(req.user);
         next()
     } catch (error) {
         return res.status(500).json({

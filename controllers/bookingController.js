@@ -1,6 +1,7 @@
 const CustomerBookingModel = require("../models/CustomerBookingModel")
 const SaloonSchema = require("../models/SaloonSchema")
 const myCache = require("../utils/cache")
+const {Types}=require("mongoose")
 exports.totalAmount = async (req, res) => {
       try {
             const { start, end } = req.body
@@ -89,7 +90,7 @@ exports.getAllBookingsOfSaloon = async (req, res) => {
       try {
             const bookings = await SaloonSchema.aggregate([{
                   $match: {
-                        _id: Types.ObjectId(req.params.id)
+                        _id: new Types.ObjectId(req.params.id)
                   }
             }
                   , {
