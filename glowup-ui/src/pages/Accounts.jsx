@@ -84,7 +84,7 @@ const Accounts = () => {
         {error && <p>{error}</p>}
         {saloons?.length ? (
           <DataGrid
-            rows={saloons?.length > 0 ? saloons : []}
+            rows={saloons?.length? saloons : []}
             columns={columns}
             pageSize={15}
             autoHeight
