@@ -24,7 +24,6 @@
     "morgan": "^1.10.0",
     "node-cache": "^5.1.2",
     "nodemon": "^2.0.21",
-    "validator": "^13.9.0",
-    "node": "^17.7.1"
+    "validator": "^13.9.0"
   }
 }
