@@ -4,9 +4,9 @@ const {
       getSpecificDateBooking,
 } = require("../controllers/bookingController");
 const { isCareUser } = require("../utils/authUserToken")
-router.post("/register", registerCareUser)
-router.post("/login", login)
-router.get("/profile", isCareUser, profile)
-router.post("/logout", isCareUser, logout)
+router.post("/customer-care/register", registerCareUser)
+router.post("/customer-care/login", login)
+router.get("/customer-care/profile", isCareUser, profile)
+router.post("/customer-care/logout", isCareUser, logout)
 router.post("/date/bookings",isCareUser, getSpecificDateBooking)
 module.exports = router

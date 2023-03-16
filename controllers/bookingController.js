@@ -184,6 +184,7 @@ exports.getSpecificDateBooking = async (req, res) => {
                         category: 1,
                         status: 1,
                         owner: 1,
+                        selectedDate:1,
                         servicename: 1,
                         price: {
                               $convert: {

@@ -39,7 +39,7 @@ app.use("/api/v2",coupans)
 app.use("/api/v2",employees)
 app.use("/api/v2",bookings)
 app.use("/api/v2",service)
-app.use("/api/v2/customer-care", cc)
+app.use("/api/v2", cc)
 if (process.env.NODE_ENV === "production") {
       //Set static folder
       app.use(express.static("glowup-ui/build"));
