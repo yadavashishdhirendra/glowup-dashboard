@@ -41,9 +41,9 @@ app.use("/api/v2",service)
 app.use("/api/v2/customer-care", cc)
 if (process.env.NODE_ENV === "production") {
       //Set static folder
-      app.use(express.static("insta/build"));
+      app.use(express.static("glowup-ui/build"));
       app.get("*", (req, res) => {
-            res.sendFile(path.resolve(__dirname, "insta", "build", "index.html"));
+            res.sendFile(path.resolve(__dirname, "glowup-ui", "build", "index.html"));
       });
 }
 app.listen(PORT, () => {
