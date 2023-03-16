@@ -293,13 +293,13 @@ exports.getSpecificDateBooking = async (req, res) => {
                               }
                         }
                   ])
+                  console.log(bookings)
                   myCache.set(date, JSON.stringify(bookings), 300)
                   res.status(200).json({
                         cached: false,
-                        bookings:bookings
+                        bookings
                   })
             }
-
       } catch (error) {
             res.status(500).json({
                   error: error.message
