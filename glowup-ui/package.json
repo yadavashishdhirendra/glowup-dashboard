@@ -56,5 +56,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://glowup-dashboard.herokuapp.com/"
+  "proxy": "http://localhost:8000"
 }

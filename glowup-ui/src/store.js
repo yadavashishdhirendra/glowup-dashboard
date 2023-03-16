@@ -1,7 +1,7 @@
 import {legacy_createStore as createStore,combineReducers,applyMiddleware} from "redux";
 import { bookingsReducer, dateBookingsReducer, userReducer } from './Reducers/UserReducers';
 import thunk from "redux-thunk"
-import { composeWithDevTools } from "redux-devtools-extension"
+import { composeWithDevTools } from "redux-devtools-extension/developmentOnly"
 import { createCoupanReducer, deleteCoupanReducer, fetchAllCoupansReducer } from "./Reducers/CoupanReducers";
 import { fetchAllSaloonsReducer, getServicesReducer, updateServicesReducer } from "./Reducers/SaloonReducers";
 import { deleteEmployeeReducer, editEmployeeReducer, getEmployeesReducer } from "./Reducers/EmployeesReducer";
