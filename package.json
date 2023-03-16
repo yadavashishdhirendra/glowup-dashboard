@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix insta && npm run build --prefix glowup-ui",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
