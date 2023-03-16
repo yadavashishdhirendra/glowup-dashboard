@@ -171,6 +171,7 @@ exports.getSpecificDateBooking = async (req, res) => {
             const { selectedDate } = req.body
             const newDate = new Date(Date.now()).toISOString().split('T')[0]
             let date = selectedDate ? selectedDate : newDate
+            console.log(date)
             let response = await myCache.get(date)
             if (response) {
                   return res.status(200).json({
@@ -293,7 +294,6 @@ exports.getSpecificDateBooking = async (req, res) => {
                               }
                         }
                   ])
-                  console.log(bookings)
                   myCache.set(date, JSON.stringify(bookings), 300)
                   res.status(200).json({
                         cached: false,
