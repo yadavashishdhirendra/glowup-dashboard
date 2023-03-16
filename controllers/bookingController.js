@@ -296,7 +296,7 @@ exports.getSpecificDateBooking = async (req, res) => {
                   myCache.set(date, JSON.stringify(bookings), 300)
                   res.status(200).json({
                         cached: false,
-                        bookings
+                        bookings:bookings
                   })
             }
 
