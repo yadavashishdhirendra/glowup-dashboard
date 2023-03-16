@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { GET_BOOKINGS_ERROR, GET_BOOKINGS_REQUEST, GET_BOOKINGS_SUCCESS, GET_CUSTOMER_CARE_BOOKINGS_ERROR, GET_CUSTOMER_CARE_BOOKINGS_REQUEST, GET_CUSTOMER_CARE_BOOKINGS_SUCCESS, GET_DATE_BOOKINGS_ERROR, GET_DATE_BOOKINGS_REQUEST, GET_DATE_BOOKINGS_SUCCESS } from '../constants/BookingsConstants';
 import { LOAD_USER_ERROR, LOAD_USER_REQUEST, LOAD_USER_SUCCESS, LOGIN_ERROR, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_ERROR, LOGOUT_SUCCESS } from '../constants/UserConstants';
-import { Axios,url } from '../Axios';
 export const loginUser = (email, password) => async (dispatch) => {
     try {
         dispatch({
