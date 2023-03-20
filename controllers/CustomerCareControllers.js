@@ -6,9 +6,7 @@ exports.registerCareUser = async (req, res) => {
             res.status(201).json({
                   user
             })
-
       } catch (error) {
-            console.log(error)
             res.status(500).json({
                   error: error.message
             })
@@ -24,7 +22,6 @@ exports.login = async (req, res) => {
                   token,
             });
       } catch (error) {
-            console.log(error)
             res.status(500).json({
                   error: error.message
             })

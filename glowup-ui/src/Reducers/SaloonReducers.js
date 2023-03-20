@@ -2,8 +2,30 @@ import {
       ACCOUNTS_ERROR,
       ACCOUNTS_REQUEST,
       ACCOUNTS_SUCCESS,
-      FETCH_ALL_SALOONS_ERROR, FETCH_ALL_SALOONS_REQUEST, FETCH_ALL_SALOONS_SUCCESS,
-      GET_SERVICES_ERROR, GET_SERVICES_REQUEST, GET_SERVICES_SUCCESS, UPDATE_SERVICES_ERROR, UPDATE_SERVICES_REQUEST, UPDATE_SERVICES_RESET, UPDATE_SERVICES_SUCCESS
+
+      FETCH_ALL_SALOONS_ERROR,
+      FETCH_ALL_SALOONS_REQUEST,
+      FETCH_ALL_SALOONS_SUCCESS,
+
+      GET_SERVICES_ERROR,
+      GET_SERVICES_REQUEST,
+      GET_SERVICES_SUCCESS,
+      
+      GET_SINGLE_SALOON_ERROR,
+      GET_SINGLE_SALOON_REQUEST,
+      GET_SINGLE_SALOON_SUCCESS,
+      
+      UPDATE_SERVICES_ERROR,
+      UPDATE_SERVICES_REQUEST,
+      UPDATE_SERVICES_RESET,
+      UPDATE_SERVICES_SUCCESS,
+
+      UPDATE_SALOON_TAGS_REQUEST,
+      UPDATE_SALOON_TAGS_SUCCESS,
+      UPDATE_SALOON_TAGS_ERROR,
+
+      CLEAR_SALOON_ERROR
+      
 } from "../constants/SaloonConstants";
 let initialState = {
       saloons: []
@@ -23,6 +45,26 @@ export const fetchAllSaloonsReducer = (state = initialState, action) => {
                   }
             case FETCH_ALL_SALOONS_ERROR:
             case ACCOUNTS_ERROR:
+                  return {
+                        loading: false,
+                        error: action.payload
+                  }
+            default:
+                  return state
+      }
+}
+export const getSingleSaloonReducer = (state = {}, action) => {
+      switch (action.type) {
+            case GET_SINGLE_SALOON_REQUEST:
+                  return {
+                        loading: true
+                  }
+            case GET_SINGLE_SALOON_SUCCESS:
+                  return {
+                        loading: false,
+                        saloon: action.payload
+                  }
+            case GET_SINGLE_SALOON_ERROR:
                   return {
                         loading: false,
                         error: action.payload
@@ -71,6 +113,30 @@ export const updateServicesReducer = (state = {}, action) => {
             case UPDATE_SERVICES_RESET:
                   return {
                         updating: null,
+                  }
+            default:
+                  return state
+      }
+}
+export const updateTagsReducers = (state = {}, action) => {
+      switch (action.type) {
+            case UPDATE_SALOON_TAGS_REQUEST:
+                  return {
+                        loading: true
+                  }
+            case UPDATE_SALOON_TAGS_SUCCESS:
+                  return {
+                        loading: false,
+                        updated: action.payload
+                  }
+            case UPDATE_SALOON_TAGS_ERROR:
+                  return {
+                        loading: false,
+                        error: action.payload
+                  }
+            case CLEAR_SALOON_ERROR:
+                  return {
+                        error: null
                   }
             default:
                   return state

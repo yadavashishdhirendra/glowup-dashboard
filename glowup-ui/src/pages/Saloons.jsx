@@ -1,15 +1,97 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllSaloonsAction } from "../actions/SaloonAction";
+import {
+  fetchAllSaloonsAction,
+  updateSaloonTags,
+} from "../actions/SaloonAction";
 import { DataGrid } from "@material-ui/data-grid";
 import SideBar from "../components/Sidebar/Sidebar";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { confirmAlert } from "react-confirm-alert"; // Import
+import "react-confirm-alert/src/react-confirm-alert.css";
+let staticTags = [
+  "Male",
+  "Female",
+  "Unisex",
+  "Nails",
+  "Hair Treatment",
+  "Mani/Pedi",
+  "Skin Care",
+  "Waxing",
+  "Spa",
+  "Extra Massage",
+  "Extra Piercing",
+  "Extra Threading",
+];
 const Saloons = () => {
   const dispatch = useDispatch();
   const { saloons } = useSelector((state) => state.allSaloons);
+  const { updated, loading } = useSelector((state) => state.tagsUpdate);
+  const [action, setAction] = useState("");
+  const [ids, setIds] = useState([]);
+  const [keys, setKeys] = useState();
+  const renderKeys = (action) => {
+    if (action === "Add" || action === "Remove") {
+      return (
+        <div>
+          <label>Select Tags</label>
+          <br />
+          <select value={keys} onChange={(e) => setKeys(e.target.value)}>
+            <option> </option>
+            {staticTags.map((key) => (
+              <option value={key} key={key}>
+                {key}
+              </option>
+            ))}
+          </select>
+        </div>
+      );
+    } else {
+      return <></>;
+    }
+  };
+  const updateHandler = async (e) => {
+    e.preventDefault();
+    if (!action || action === "") {
+      return toast("select action");
+    }
+    if (ids.length === 0) {
+      return toast("SELECT SALOONS");
+    } else {
+      confirmAlert({
+        title: "Update Saloons",
+        message: "Are you sure to do this?",
+        buttons: [
+          {
+            label: "Yes",
+            onClick: () =>
+              dispatch(
+                updateSaloonTags(
+                  action,
+                  ids,
+                  action === "AddAllKeys" ? staticTags : keys
+                )
+              ),
+          },
+          {
+            label: "No",
+            onClick: () => {},
+          },
+        ],
+        closeOnClickOutside: true,
+        closeOnEscape: true,
+      });
+    }
+  };
   useEffect(() => {
     dispatch(fetchAllSaloonsAction());
-  }, [dispatch]);
+    if (updated?.length) {
+      toast("Updated")
+      dispatch(fetchAllSaloonsAction());
+    }
+  }, [dispatch, updated]);
   const columns = [
     { field: "id", headerName: "Saloon Id", minWidth: 200, flex: 1 },
     { field: "name", headerName: "Saloon Name", minWidth: 150, flex: 1 },
@@ -26,48 +108,92 @@ const Saloons = () => {
       flex: 1,
     },
     {
+      field: "keys",
+      headerName: "tags",
+      minWidth: 350,
+      flex: 12,
+    },
+    {
       field: "ratings",
       headerName: "Ratings",
-      minWidth: 100,
-      flex: 0.5,
+      minWidth: 150,
+      flex: 2,
     },
     {
       field: "actions",
       headerName: "Actions",
       type: "number",
-      minWidth: 100,
-      flex: 0.5,
+      minWidth: 150,
+      flex: 1,
       sortable: false,
       renderCell: (params) => {
         return (
-          <>
-            <Link to={`/saloon/${params.getValue(params.id, "id")}/services/${params.row.owner_id}`}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Link
+              to={`/saloon/${params.getValue(params.id, "id")}/services/${
+                params.row.owner_id
+              }`}
+            >
               view services
             </Link>
-          </>
+          </div>
         );
       },
     },
   ];
-  const saloonData = [];
-  saloons &&
-    saloons.forEach((saloon) => {
-      saloonData.push({
-        id: saloon._id,
-        name: saloon.shopname,
-        owner_id: saloon.owner,
-        address: `${saloon.address},${saloon.addresssec},${saloon.city},${saloon.pincode}`,
-        ratings: saloon.ratings,
-      });
-    });
   return (
     <div>
       <SideBar />
       <div className="data-table-wrapper">
+        <ToastContainer
+          position="top-center"
+          hideProgressBar={true}
+          theme="colored"
+        />
         <h1>Saloons</h1>
+        <form onSubmit={updateHandler}>
+          <section
+            style={{
+              display: "flex",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+            }}
+          >
+            <div>
+              <label>Tags Update Action</label>
+              <br />
+              <select
+                value={action}
+                onChange={(e) => setAction(e.target.value)}
+              >
+                <option> </option>
+                <option value="Add">Add</option>
+                <option value="AddAllKeys">Add All Keys</option>
+                <option value="Remove">Remove</option>
+                <option value="RemoveAllKeys">Remove All Keys</option>
+              </select>
+            </div>
+            {renderKeys(action)}
+            <div className="login-btn">
+              <button type="submit" onClick={() => {}}>
+                {loading ? "Updating" : "Update"}
+              </button>
+            </div>
+          </section>
+        </form>
         <DataGrid
-          rows={saloonData}
+          rows={saloons?.length?saloons:[]}
+          checkboxSelection
           columns={columns}
+          onSelectionModelChange={(itm) => {
+            setIds(itm);
+          }}
           pageSize={15}
           autoHeight
           sortingOrder="null"

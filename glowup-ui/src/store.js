@@ -3,7 +3,7 @@ import { bookingsReducer, dateBookingsReducer, userReducer } from './Reducers/Us
 import thunk from "redux-thunk"
 import { composeWithDevTools } from "redux-devtools-extension/developmentOnly"
 import { createCoupanReducer, deleteCoupanReducer, fetchAllCoupansReducer } from "./Reducers/CoupanReducers";
-import { fetchAllSaloonsReducer, getServicesReducer, updateServicesReducer } from "./Reducers/SaloonReducers";
+import { fetchAllSaloonsReducer, getServicesReducer, getSingleSaloonReducer, updateServicesReducer, updateTagsReducers } from "./Reducers/SaloonReducers";
 import { deleteEmployeeReducer, editEmployeeReducer, getEmployeesReducer } from "./Reducers/EmployeesReducer";
 import { CustomerCareUserReducer } from "./Reducers/CareReducer";
 const reducer = combineReducers({
@@ -13,6 +13,8 @@ const reducer = combineReducers({
         coupans: fetchAllCoupansReducer,
         deleteCoupan: deleteCoupanReducer,
         allSaloons: fetchAllSaloonsReducer,
+        saloon: getSingleSaloonReducer,
+        tagsUpdate:updateTagsReducers,
         services: getServicesReducer,
         employees: getEmployeesReducer,
         updateServices: updateServicesReducer,

@@ -33,10 +33,10 @@ const SaloonSchema = new mongoose.Schema({
     },
     avatar: {
         public_id: {
-            type: String,
+            type:String
         },
         url: {
-            type: String,
+            type:String
         }
     },
     businesshours: [{
@@ -94,6 +94,9 @@ const SaloonSchema = new mongoose.Schema({
         ref: "User",
         required: true
     },
+    tags: [{
+        type: String
+    }],
     location: {
         type: {
             type: String,

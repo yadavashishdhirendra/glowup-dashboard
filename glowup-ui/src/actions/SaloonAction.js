@@ -4,8 +4,28 @@ import {
       ACCOUNTS_ERROR,
       ACCOUNTS_REQUEST,
       ACCOUNTS_SUCCESS,
-      FETCH_ALL_SALOONS_ERROR, FETCH_ALL_SALOONS_REQUEST, FETCH_ALL_SALOONS_SUCCESS,
-      GET_SERVICES_ERROR, GET_SERVICES_REQUEST, GET_SERVICES_SUCCESS, UPDATE_SERVICES_ERROR, UPDATE_SERVICES_REQUEST, UPDATE_SERVICES_SUCCESS
+
+      FETCH_ALL_SALOONS_ERROR,
+      FETCH_ALL_SALOONS_REQUEST,
+      FETCH_ALL_SALOONS_SUCCESS,
+
+      GET_SERVICES_ERROR,
+      GET_SERVICES_REQUEST,
+      GET_SERVICES_SUCCESS,
+
+      GET_SINGLE_SALOON_ERROR,
+      GET_SINGLE_SALOON_REQUEST,
+      GET_SINGLE_SALOON_SUCCESS,
+
+      UPDATE_SALOON_TAGS_ERROR,
+
+      UPDATE_SALOON_TAGS_REQUEST,
+
+      UPDATE_SALOON_TAGS_SUCCESS,
+
+      UPDATE_SERVICES_ERROR,
+      UPDATE_SERVICES_REQUEST,
+      UPDATE_SERVICES_SUCCESS
 } from "../constants/SaloonConstants"
 
 export const fetchAllSaloonsAction = () => async (dispatch) => {
@@ -58,6 +78,40 @@ export const getAllBookingsOfSaloon = (id) => async (dispatch) => {
       } catch (error) {
             dispatch({
                   type: GET_BOOKINGS_ERROR,
+                  payload: error.response.data.message
+            })
+      }
+}
+export const fetchSingleSaloon = (id) =>async(dispatch)=> {
+      try {
+            dispatch({
+                  type: GET_SINGLE_SALOON_REQUEST
+            })
+            const { data } = await axios.get(`/api/v2/saloon/${id}`)
+            dispatch({
+                  type: GET_SINGLE_SALOON_SUCCESS,
+                  payload: data.saloon
+            })
+      } catch (error) {
+            dispatch({
+                  type: GET_SINGLE_SALOON_ERROR,
+                  payload: error.response.data.message
+            })
+      }
+}
+export const updateSaloonTags = (action, ids, values) => async (dispatch) => {
+      try {
+            dispatch({
+                  type: UPDATE_SALOON_TAGS_REQUEST
+            })
+            const { data } = await axios.put(`/api/v2/tags-saloon`,{action,ids,values})
+            dispatch({
+                  type: UPDATE_SALOON_TAGS_SUCCESS,
+                  payload: data.response
+            })
+      } catch (error) {
+            dispatch({
+                  type: UPDATE_SALOON_TAGS_ERROR,
                   payload: error.response.data.message
             })
       }

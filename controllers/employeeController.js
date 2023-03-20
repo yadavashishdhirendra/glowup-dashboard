@@ -17,7 +17,6 @@ exports.singleEmployees = async (req, res) => {
                   getEmployees
             })
       } catch (error) {
-           
             res.status(500).json({
                   success: false,
                   message: error.message
@@ -106,7 +105,6 @@ exports.getAllEmployees = async (req, res) => {
                   employees
             })
       } catch (error) {
-            console.log(error)
             res.status(500).json({
                   error: error.message
             })

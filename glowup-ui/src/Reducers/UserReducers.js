@@ -68,6 +68,7 @@ export const bookingsReducer = (state = {}, action) => {
             return state
     }
 }
+
 export const dateBookingsReducer = (state = {}, action) => {
     switch (action.type) {
         case GET_DATE_BOOKINGS_REQUEST:
