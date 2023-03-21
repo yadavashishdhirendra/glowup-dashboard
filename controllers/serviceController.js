@@ -93,9 +93,9 @@ exports.addServicesFromSheet = async (req, res) => {
             console.log(req.file.path)
             const path = req.file.path
             const data = await ReadExcelFile(path)
+            await ServicesSchema.deleteMany({ owner: req.params.id })
             const response = await Promise.all(
                   data.map(async (service) => {
-                        console.log(service["Description of the services"])
                         const newService = await ServicesSchema.create({
                               servicename: service.servicename,
                               servicetype: service.servicetype,

@@ -10,7 +10,6 @@ const ServicesSchema = new mongoose.Schema({
     },
     servicename: {
         type: String,
-        required: true,
         trim: true,
         lowercase: true
     },
