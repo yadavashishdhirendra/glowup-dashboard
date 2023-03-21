@@ -1,6 +1,7 @@
 const ServicesSchema = require("../models/ServicesSchema")
 const SaloonSchema = require("../models/SaloonSchema")
-const {Types}=require("mongoose")
+const { ReadExcelFile } = require("../utils/excelFileUtil")
+const { Types } = require("mongoose")
 exports.getallServicesForSaloon = async (req, res) => {
       try {
             const service = await SaloonSchema.aggregate([
@@ -18,8 +19,8 @@ exports.getallServicesForSaloon = async (req, res) => {
                   {
                         $lookup: {
                               from: "services",
-                              localField: "owner.services",
-                              foreignField: "_id",
+                              localField: "owner._id",
+                              foreignField: "owner",
                               as: "services"
                         }
                   },
@@ -81,6 +82,41 @@ exports.updateServicesById = async (req, res) => {
                   })
             }
       } catch (error) {
+            res.status(500).json({
+                  error: error.message
+            })
+      }
+}
+
+exports.addServicesFromSheet = async (req, res) => {
+      try {
+            console.log(req.file.path)
+            const path = req.file.path
+            const data = await ReadExcelFile(path)
+            const response = await Promise.all(
+                  data.map(async (service) => {
+                        console.log(service["Description of the services"])
+                        const newService = await ServicesSchema.create({
+                              servicename: service.servicename,
+                              servicetype: service.servicetype,
+                              category: service.category,
+                              addons: service["Add Ons"],
+                              gender: service.gender,
+                              hour: service.hour,
+                              price: service.price,
+                              newprice: service.price,
+                              description: service["Description of the services"],
+                              owner: req.params.id
+                        })
+                        return newService
+                  })
+            )
+            res.status(200).json({
+                  response
+            })
+
+      } catch (error) {
+            console.log(error)
             res.status(500).json({
                   error: error.message
             })

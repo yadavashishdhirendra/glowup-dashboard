@@ -5,6 +5,12 @@ import {
       ACCOUNTS_REQUEST,
       ACCOUNTS_SUCCESS,
 
+      ADD_NEW_SERVICES_ERROR,
+
+      ADD_NEW_SERVICES_REQUEST,
+
+      ADD_NEW_SERVICES_SUCCESS,
+
       FETCH_ALL_SALOONS_ERROR,
       FETCH_ALL_SALOONS_REQUEST,
       FETCH_ALL_SALOONS_SUCCESS,
@@ -39,27 +45,27 @@ export const fetchAllSaloonsAction = () => async (dispatch) => {
 }
 export const getServicesAction = (id) => async (dispatch) => {
       try {
-            dispatch({ type:GET_SERVICES_REQUEST })
+            dispatch({ type: GET_SERVICES_REQUEST })
             const { data } = await axios.get(`/api/v2/services/${id}`)
             dispatch({ type: GET_SERVICES_SUCCESS, payload: data.service })
       } catch (error) {
             dispatch({ type: GET_SERVICES_ERROR, payload: error.response.data.error })
       }
 }
-export const updateServicesAction = (field,value,ids,empIds) => async (dispatch) => {
+export const updateServicesAction = (field, value, ids, empIds) => async (dispatch) => {
       try {
             dispatch({ type: UPDATE_SERVICES_REQUEST })
-            const { data } = await axios.patch("/api/v2/updateservices",{field,value:empIds.length?empIds:value,ids,empIds})
-            dispatch({type:UPDATE_SERVICES_SUCCESS,payload:data})
+            const { data } = await axios.patch("/api/v2/updateservices", { field, value: empIds.length ? empIds : value, ids, empIds })
+            dispatch({ type: UPDATE_SERVICES_SUCCESS, payload: data })
       } catch (error) {
-            dispatch({type:UPDATE_SERVICES_ERROR,payload:error.response.data.error})
+            dispatch({ type: UPDATE_SERVICES_ERROR, payload: error.response.data.error })
       }
 }
-export const accountsAction = (start,end) => async (dispatch) => {
+export const accountsAction = (start, end) => async (dispatch) => {
       try {
-            console.log(start,end)
+            console.log(start, end)
             dispatch({ type: ACCOUNTS_REQUEST })
-            const { data } = await axios.post("/api/v2/account", { start:start,end:end})
+            const { data } = await axios.post("/api/v2/account", { start: start, end: end })
             dispatch({ type: ACCOUNTS_SUCCESS, payload: data.bookings })
       } catch (error) {
             dispatch({ type: ACCOUNTS_ERROR, payload: error.response.data.error })
@@ -82,7 +88,7 @@ export const getAllBookingsOfSaloon = (id) => async (dispatch) => {
             })
       }
 }
-export const fetchSingleSaloon = (id) =>async(dispatch)=> {
+export const fetchSingleSaloon = (id) => async (dispatch) => {
       try {
             dispatch({
                   type: GET_SINGLE_SALOON_REQUEST
@@ -104,7 +110,7 @@ export const updateSaloonTags = (action, ids, values) => async (dispatch) => {
             dispatch({
                   type: UPDATE_SALOON_TAGS_REQUEST
             })
-            const { data } = await axios.put(`/api/v2/tags-saloon`,{action,ids,values})
+            const { data } = await axios.put(`/api/v2/tags-saloon`, { action, ids, values })
             dispatch({
                   type: UPDATE_SALOON_TAGS_SUCCESS,
                   payload: data.response
@@ -114,5 +120,15 @@ export const updateSaloonTags = (action, ids, values) => async (dispatch) => {
                   type: UPDATE_SALOON_TAGS_ERROR,
                   payload: error.response.data.message
             })
+      }
+}
+export const addNewServicesAction = (id, file) => async (dispatch) => {
+      try {
+            dispatch({ type: ADD_NEW_SERVICES_REQUEST })
+            const config = { headers: { "Content-Type": "multipart/form-data" } }
+            const { data } = await axios.post(`/api/v2/add-services/${id}`, { file },config)
+            dispatch({ type: ADD_NEW_SERVICES_SUCCESS, payload: data.response })
+      } catch (error) {
+            dispatch({ type: ADD_NEW_SERVICES_ERROR, payload: error.response.data.error })
       }
 }

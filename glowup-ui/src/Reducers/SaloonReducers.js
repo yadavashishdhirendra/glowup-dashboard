@@ -10,11 +10,11 @@ import {
       GET_SERVICES_ERROR,
       GET_SERVICES_REQUEST,
       GET_SERVICES_SUCCESS,
-      
+
       GET_SINGLE_SALOON_ERROR,
       GET_SINGLE_SALOON_REQUEST,
       GET_SINGLE_SALOON_SUCCESS,
-      
+
       UPDATE_SERVICES_ERROR,
       UPDATE_SERVICES_REQUEST,
       UPDATE_SERVICES_RESET,
@@ -24,8 +24,11 @@ import {
       UPDATE_SALOON_TAGS_SUCCESS,
       UPDATE_SALOON_TAGS_ERROR,
 
-      CLEAR_SALOON_ERROR
-      
+      CLEAR_SALOON_ERROR,
+      ADD_NEW_SERVICES_REQUEST,
+      ADD_NEW_SERVICES_SUCCESS,
+      ADD_NEW_SERVICES_ERROR
+
 } from "../constants/SaloonConstants";
 let initialState = {
       saloons: []
@@ -113,6 +116,24 @@ export const updateServicesReducer = (state = {}, action) => {
             case UPDATE_SERVICES_RESET:
                   return {
                         updating: null,
+                  }
+            case ADD_NEW_SERVICES_REQUEST:
+                  return {
+                        adding: true
+                  }
+            case ADD_NEW_SERVICES_SUCCESS:
+                  return {
+                        adding: false,
+                        newServices: action.payload,
+                  }
+            case ADD_NEW_SERVICES_ERROR:
+                  return {
+                        adding: false,
+                        error: action.payload
+                  }
+            case CLEAR_SALOON_ERROR:
+                  return {
+                        error: null
                   }
             default:
                   return state

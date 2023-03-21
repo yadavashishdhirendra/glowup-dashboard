@@ -1,14 +1,16 @@
-body{
+body {
     background-color: #FAF4FF;
 }
 
-.MuiDataGrid-root .MuiDataGrid-overlay{
+.MuiDataGrid-root .MuiDataGrid-overlay {
     font-family: 'Montserrat', 'sans-serif';
     font-weight: bolder;
 }
+
 .data-table-wrapper {
     max-width: 1500px;
     margin: auto;
+    font-family: 'Montserrat', 'sans-serif';
     padding: 0px 20px 0px 20px;
 }
 
@@ -28,35 +30,35 @@ body{
 }
 
 
-.data-table-wrapper>h1{
+.data-table-wrapper>h1 {
     font-family: 'Montserrat', 'sans-serif';
     font-weight: bolder;
     font-size: 24px;
     margin-bottom: 0.5rem;
 }
 
-.data-table-wrapper>p{
+.data-table-wrapper>p {
     font-family: 'Montserrat', 'sans-serif';
     font-weight: 400;
     font-size: 14px;
     margin-bottom: 3.5rem;
 }
 
-.MuiIconButton-label>svg{
+.MuiIconButton-label>svg {
     color: #000 !important;
 }
 
-.MuiDataGrid-root .MuiDataGrid-columnHeader:focus-within, .MuiDataGrid-root .MuiDataGrid-cell:focus-within{
+.MuiDataGrid-root .MuiDataGrid-columnHeader:focus-within, .MuiDataGrid-root .MuiDataGrid-cell:focus-within {
     outline-offset: initial !important;
     outline: none !important;
 }
 
-.MuiDataGrid-cell{
+.MuiDataGrid-cell {
     font-family: 'Montserrat', 'sans-serif';
     font-size: 14px;
 }
 
-.export-csv{
+.export-csv {
     cursor: progress;
     display: flex;
     column-gap: 5px;
@@ -74,13 +76,13 @@ body{
     -o-border-radius: 5px;
 }
 
-.center-align{
+.center-align {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
 }
 
-.export-csv>button{
+.export-csv>button {
     align-items: center;
     font-family: 'Montserrat', 'sans-serif';
     font-weight: bolder;
@@ -104,7 +106,7 @@ body{
     -o-border-radius: 3px;
 }
 
-.MuiButton-textPrimary{
+.MuiButton-textPrimary {
     color: white !important;
     font-weight: bolder !important;
     letter-spacing: 1px !important;
@@ -115,16 +117,16 @@ body{
     padding: 4px 15px 7px 15px !important;
 }
 
-.MuiDataGrid-root .MuiDataGrid-cell--textLeft{
+.MuiDataGrid-root .MuiDataGrid-cell--textLeft {
     text-transform: capitalize;
 }
 
-.greenColor{
+.greenColor {
     color: green;
     font-weight: bolder;
 }
 
-.redColor{
+.redColor {
     color: red;
     font-weight: bolder;
 }

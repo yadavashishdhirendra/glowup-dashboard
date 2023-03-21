@@ -148,19 +148,6 @@ const Services = () => {
       minWidth: 150,
       flex: 1,
     },
-    // {
-    //   field: "services",
-    //   headerName: "Services",
-    //   minWidth: 150,
-    //   flex: 10,
-    //   renderCell: (params) => {
-    //     return (
-    //       <div style={{overflow: "scroll" }}>
-    //         {params?.value?.toString()}
-    //       </div>
-    //     );
-    //   },
-    // },
     {
       field: "actions",
       headerName: "Actions",
@@ -174,7 +161,7 @@ const Services = () => {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              width:"50%"
+              width: "50%",
             }}
           >
             <DeleteIcon
@@ -247,7 +234,13 @@ const Services = () => {
             theme="colored"
           />
           <div className="data-table-wrapper">
-            <h1>Employees</h1>
+            <section style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"20px"}}>
+              <h1>Employees</h1>
+              <div className="login-btn">
+                <Link to={`/${params.owner}/new-employee/${params.id}`}>Add Employee</Link>
+              </div>
+            </section>
+
             <DataGrid
               rows={employees?.length ? employees : []}
               columns={employeesColumn}

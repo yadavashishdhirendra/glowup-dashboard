@@ -18,11 +18,17 @@ import {
       GET_SINGLE_EMPLOYEE_ERROR,
       GET_SINGLE_EMPLOYEE_REQUEST,
       GET_SINGLE_EMPLOYEE_SUCCESS,
+
       CLEAR_EMPLOYEES_ERRORS,
+
       EDIT_EMPLOYEE_REQUEST,
       EDIT_EMPLOYEE_SUCCESS,
       EDIT_EMPLOYEE_ERROR,
-      EDIT_EMPLOYEE_RESET
+      EDIT_EMPLOYEE_RESET,
+
+      ADD_NEW_EMPLOYEE_REQUEST,
+      ADD_NEW_EMPLOYEE_SUCCESS,
+      ADD_NEW_EMPLOYEE_ERROR
 
 } from "../constants/EmployeeConstants";
 
@@ -103,6 +109,20 @@ export const editEmployeeReducer = (state = {}, action) => {
                   return {
                         loading: null,
                         edited: null
+                  }
+            case ADD_NEW_EMPLOYEE_REQUEST:
+                  return {
+                        creating: true
+                  }
+            case ADD_NEW_EMPLOYEE_SUCCESS:
+                  return {
+                        creating: false,
+                        newEmployee: action.payload
+                  }
+            case ADD_NEW_EMPLOYEE_ERROR:
+                  return {
+                        creating: false,
+                        error: action.payload
                   }
             case CLEAR_EMPLOYEES_ERRORS:
                   return {

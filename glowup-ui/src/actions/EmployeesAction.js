@@ -18,7 +18,10 @@ import {
       CLEAR_EMPLOYEES_ERRORS,
       EDIT_EMPLOYEE_REQUEST,
       EDIT_EMPLOYEE_SUCCESS,
-      EDIT_EMPLOYEE_ERROR
+      EDIT_EMPLOYEE_ERROR,
+      ADD_NEW_EMPLOYEE_REQUEST,
+      ADD_NEW_EMPLOYEE_ERROR,
+      ADD_NEW_EMPLOYEE_SUCCESS
 } from "../constants/EmployeeConstants"
 
 export const getEmployeesAction = (id) => async (dispatch) => {
@@ -86,6 +89,19 @@ export const editEmployeeAction = (id,firstname,lastname,intime,outtime,status) 
             dispatch({ type: EDIT_EMPLOYEE_SUCCESS, payload: data.success })
       } catch (error) {
             dispatch({ type: EDIT_EMPLOYEE_ERROR, payload: error.response.data.error })
+            setTimeout(() => {
+                  dispatch({ type: CLEAR_EMPLOYEES_ERRORS })
+            }, 5000)
+      }
+}
+export const addNewEmployeeAction = (owner, firstname, lastname, intime, outtime, status) => async (dispatch) => {
+      try {
+            dispatch({ type: ADD_NEW_EMPLOYEE_REQUEST})
+            const { data } = await axios.post(`/api/v2/new-employee`, { firstname, lastname, intime, outtime, status, owner })
+            console.log(data)
+            dispatch({ type: ADD_NEW_EMPLOYEE_SUCCESS, payload: data.newEmployee })
+      } catch (error) {
+            dispatch({ type: ADD_NEW_EMPLOYEE_ERROR, payload: error.response.data.error })
             setTimeout(() => {
                   dispatch({ type: CLEAR_EMPLOYEES_ERRORS })
             }, 5000)

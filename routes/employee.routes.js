@@ -6,12 +6,14 @@ const {
       addEmployee,
       getAllEmployees,
       getEmployeesByServiceId,
-      removeEmployeeFromService
+      removeEmployeeFromService,
+      addNewEmployee
 } = require("../controllers/employeeController")
 const { WebAuth } = require("../utils/authUserToken")
 router.get("/single/employee/:id", WebAuth, singleEmployees)
 router.get("/employees/:id", WebAuth, getEmployeesByServiceId)
 router.get("/allemployees/:id", WebAuth, getAllEmployees)
+router.post("/new-employee",WebAuth,addNewEmployee)
 router.patch("/addemployee/:id", WebAuth, addEmployee)
 router.put("/service/:serviceId/employee/:employeeId", WebAuth, removeEmployeeFromService)
 router.put("/edit-employee/:id", WebAuth, editEmployee)

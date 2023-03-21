@@ -81,6 +81,18 @@ exports.editEmployee = async (req, res) => {
             })
       }
 }
+exports.addNewEmployee = async (req, res) => {
+      try {
+            const newEmployee = await EmployeeSchema.create(req.body)
+            res.status(200).json({
+                  newEmployee
+            })
+      } catch (error) {
+            res.status(500).json({
+                 error:error.message
+           })
+      }
+}
 exports.getAllEmployees = async (req, res) => {
       try {
             const employees = await EmployeeSchema.aggregate([

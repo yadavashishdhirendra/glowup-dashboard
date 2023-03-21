@@ -88,7 +88,7 @@ const Saloons = () => {
   useEffect(() => {
     dispatch(fetchAllSaloonsAction());
     if (updated?.length) {
-      toast("Updated")
+      toast("Updated");
       dispatch(fetchAllSaloonsAction());
     }
   }, [dispatch, updated]);
@@ -124,9 +124,10 @@ const Saloons = () => {
       headerName: "Actions",
       type: "number",
       minWidth: 150,
-      flex: 1,
+      flex: 4,
       sortable: false,
       renderCell: (params) => {
+        console.log(params);
         return (
           <div
             style={{
@@ -135,12 +136,12 @@ const Saloons = () => {
               alignItems: "center",
             }}
           >
-            <Link
-              to={`/saloon/${params.getValue(params.id, "id")}/services/${
-                params.row.owner_id
-              }`}
-            >
+            <Link to={`/saloon/${params.id}/services/${params.row.owner_id}`}>
               view services
+            </Link>
+            <p style={{padding:"20px"}}></p>
+            <Link to={`/add-services/${params.row.owner_id}`}>
+              Add services
             </Link>
           </div>
         );
@@ -188,7 +189,7 @@ const Saloons = () => {
           </section>
         </form>
         <DataGrid
-          rows={saloons?.length?saloons:[]}
+          rows={saloons?.length ? saloons : []}
           checkboxSelection
           columns={columns}
           onSelectionModelChange={(itm) => {

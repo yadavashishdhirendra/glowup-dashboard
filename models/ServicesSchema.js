@@ -7,10 +7,6 @@ const ServicesSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        required: true
-    },
-    gender: {
-        type:String
     },
     servicename: {
         type: String,
@@ -26,6 +22,18 @@ const ServicesSchema = new mongoose.Schema({
         required: true
     },
     about: {
+        type: String,
+    },
+    description: {
+        type: String,
+    },
+    gender: {
+        type: String,
+    },
+    addons: {
+        type: String,
+    },
+    newprice: {
         type: String,
     },
     myemployees: [{

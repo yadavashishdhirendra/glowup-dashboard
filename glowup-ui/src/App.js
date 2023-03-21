@@ -20,6 +20,8 @@ import CustomerCareLogin from './pages/CustomerCareLogin';
 import { CareUserload } from './actions/CareUserAction';
 import ProctectedDashBoardRoute from './components/ProctectedDashBoardRoute';
 import CcProtectedRoute from './components/CcRoutes';
+import NewEmployee from './pages/NewEmployee';
+import AddServices from './pages/AddServices';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -73,6 +75,18 @@ const App = () => {
           <Route exact path='/edit/employee/:id' element={
             <ProctectedDashBoardRoute>
               <EditEmployee />
+            </ProctectedDashBoardRoute>
+          } />
+
+          <Route exact path='/:owner/new-employee/:id' element={
+            <ProctectedDashBoardRoute>
+              <NewEmployee/>
+            </ProctectedDashBoardRoute>
+          } />
+
+          <Route exact path='/add-services/:id' element={
+            <ProctectedDashBoardRoute>
+              <AddServices/>
             </ProctectedDashBoardRoute>
           } />
           <Route exact path='/accounting' element={
