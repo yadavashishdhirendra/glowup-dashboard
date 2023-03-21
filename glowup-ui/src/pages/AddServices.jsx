@@ -52,7 +52,7 @@ const AddServices = () => {
               disabled={adding ? true : false}
               onClick={addserviceshandler}
             >
-              {adding ? "Loading" : "Login"}
+              {adding ? "uploading.." : "Upload"}
             </button>
           </div>
         </div>
