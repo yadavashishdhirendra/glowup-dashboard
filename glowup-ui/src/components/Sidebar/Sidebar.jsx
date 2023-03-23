@@ -1,8 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { ProSidebarProvider, Menu, MenuItem } from "react-pro-sidebar";
-import DashboardIcon from "@material-ui/icons/Dashboard";
 import Bookings from "@material-ui/icons/Book";
-import ServiceIcon from "@material-ui/icons/Settings";
 import MenuIcon from "@material-ui/icons/Menu";
 import { GiTicket } from "react-icons/gi";
 import { HiTicket } from "react-icons/hi";
@@ -46,12 +44,6 @@ const SideBar = () => {
             </div>
             <Menu iconShape="circle">
               <Link to="/">
-                <MenuItem icon={<DashboardIcon />}>Home</MenuItem>
-              </Link>
-              <Link to="/">
-                <MenuItem icon={<ServiceIcon />}>Services</MenuItem>
-              </Link>
-              <Link to="/">
                 <MenuItem icon={<Bookings />}>Bookings</MenuItem>
               </Link>
               <Link to="/coupans">
@@ -60,25 +52,25 @@ const SideBar = () => {
                     <GiTicket style={{ color: "white", fontSize: "24px" }} />
                   }
                 >
-                  All Coupans
+                  All Coupons
                 </MenuItem>
               </Link>
-              <Link to="/create-coupans">
+              <Link to="/create-coupons">
                 <MenuItem
                   icon={
                     <HiTicket style={{ color: "white", fontSize: "24px" }} />
                   }
                 >
-                  Create Coupan
+                  Create Coupon
                 </MenuItem>
               </Link>
-              <Link to="/saloons">
+              <Link to="/salons">
                 <MenuItem
                   icon={
                     <AiFillShop style={{ color: "white", fontSize: "24px" }} />
                   }
                 >
-                  Saloons
+                  Salons
                 </MenuItem>
               </Link>
 

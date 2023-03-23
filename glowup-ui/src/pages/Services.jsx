@@ -5,7 +5,6 @@ import {
   getServicesAction,
   updateServicesAction,
 } from "../actions/SaloonAction";
-import { DataGrid } from "@material-ui/data-grid";
 import SideBar from "../components/Sidebar/Sidebar";
 import Input from "../components/Input/Input";
 import {
@@ -19,6 +18,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { AiFillEdit } from "react-icons/ai";
+import MetaTitle from "../components/MetaTitle/MetaTitle";
+import TableData from "../components/Table";
 const Services = () => {
   const params = useParams();
   const dispatch = useDispatch();
@@ -179,7 +180,8 @@ const Services = () => {
   ];
   const keys = Object.keys(services?.length ? services[0] : "");
   return (
-    <div style={{ height: "150vh" }}>
+    <div>
+      <MetaTitle title={"services"} />
       <div>
         <SideBar />
         <div className="data-table-wrapper">
@@ -216,15 +218,14 @@ const Services = () => {
               </button>
             </div>
           </div>
-          <DataGrid
-            rows={services?.length ? services : []}
+
+          <TableData
+            data={services?.length ? services : []}
             columns={servicesColumns}
-            style={{ textOverflow: "inherit" }}
-            checkboxSelection
-            onSelectionModelChange={(itm) => setIds(itm)}
-            pageSize={8}
-            autoHeight
-            sortingOrder="null"
+            title="services"
+            onSelectionModelChange={(itm) => {
+              setIds(itm);
+            }}
           />
         </div>
         <div style={{ marginTop: "40px", marginBottom: "20px" }}>
@@ -233,25 +234,31 @@ const Services = () => {
             hideProgressBar={true}
             theme="colored"
           />
-          <div className="data-table-wrapper">
-            <section style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"20px"}}>
+          <div className="data-table-wrapper" style={{ marginBottom: "20px" }}>
+            <section
+              style={{
+                display: "flex",
+                flexDirection:"column",
+                marginBottom: "20px",
+              }}
+            >
               <h1>Employees</h1>
               <div className="login-btn">
-                <Link to={`/${params.owner}/new-employee/${params.id}`}>Add Employee</Link>
+                <Link to={`/${params.owner}/new-employee/${params.id}`}>
+                  Add New Employee
+                </Link>
               </div>
             </section>
-
-            <DataGrid
-              rows={employees?.length ? employees : []}
-              columns={employeesColumn}
-              style={{ textOverflow: "inherit" }}
-              checkboxSelection
-              onSelectionModelChange={(itm) => {
-                setEmpids(itm);
-              }}
-              autoHeight
-              sortingOrder="null"
-            />
+            <div style={{ marginBottom: "200px" }}>
+              <TableData
+                data={employees?.length ? employees : []}
+                columns={employeesColumn}
+                title="employees"
+                onSelectionModelChange={(itm) => {
+                  setEmpids(itm);
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>

@@ -11,6 +11,9 @@ const coupanSchema = new mongoose.Schema({
       category: {
             type: String,
       },
+      gender: {
+            type:String
+      },
       maxDiscount: {
             type: Number,
             required: true

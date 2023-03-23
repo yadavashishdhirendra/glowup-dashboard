@@ -6,11 +6,11 @@ import {
 } from "../actions/CoupanActions";
 import { Button } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { DataGrid } from "@material-ui/data-grid";
 import SideBar from "../components/Sidebar/Sidebar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { DELETE_COUPAN_RESET } from "../constants/CoupanConstansts";
+import TableData from "../components/Table";
 const Coupans = () => {
   const dispatch = useDispatch();
   const { coupans } = useSelector((state) => state.coupans);
@@ -100,13 +100,7 @@ const Coupans = () => {
           theme="colored"
         />
         <h1>Coupans</h1>
-        <DataGrid
-          rows={coupans?.length?coupans:[]}
-          columns={columns}
-          pageSize={15}
-          autoHeight
-          sortingOrder="null"
-        />
+        <TableData data={coupans?.length ? coupans : []} columns={columns} />
       </div>
     </div>
   );

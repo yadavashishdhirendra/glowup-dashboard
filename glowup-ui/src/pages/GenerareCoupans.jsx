@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { fetchAllSaloonsAction } from "../actions/SaloonAction";
 import Select from "react-dropdown-select";
+import axios from "axios";
 const GenerareCoupans = () => {
   const [name, setName] = useState();
   const [description, setDescription] = useState();
@@ -15,7 +16,9 @@ const GenerareCoupans = () => {
   const [maxDis, setMaxDis] = useState(0);
   const [startDate, setStartState] = useState();
   const [endDate, setEndDate] = useState();
+  const [gender, setGender] = useState([]);
   const [category, setCategory] = useState([]);
+  const [fetched, setFetched] = useState([]);
   const [minAmount, setMinAmount] = useState();
   const [vendors, setVendors] = useState("");
   const [limit, setLimit] = useState(1);
@@ -23,41 +26,47 @@ const GenerareCoupans = () => {
   const [resUse, setReUse] = useState(0);
   const { coupan, error } = useSelector((state) => state.newCoupan);
   const { saloons } = useSelector((state) => state.allSaloons);
+  console.log(saloons)
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const serviceCtaegories = ["Female", "Male", "Both"];
+  const serviceCtaegories = ["Female", "Male", "Unisex"];
+  const fetchCategories = async () => {
+    try {
+      const { data } = await axios.get("/api/v2/categories");
+      setFetched(data?.categories)
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    console.log(selectedVendors);
-    if ( name === "" ||description === "" ||!disPer ||!maxDis ||category === ""||!startDate||!endDate||!minAmount||category===""||vendors==="") {
-      alert("please fill all fields");
-    } else {
-      dispatch(
-        createCoupanAction(
-          name,
-          description,
-          maxDis,
-          disPer,
-          category,
-          startDate,
-          endDate,
-          minAmount,
-          resUse,
-          vendors,
-          selectedVendors,
-          limit
-        )
-      );
-      if (coupan.code) {
-        toast(`Coupan code ${coupan.code} is saved `);
-        navigate("/coupans");
-      }
+    dispatch(
+      createCoupanAction(
+        name,
+        description,
+        maxDis,
+        disPer,
+        category,
+        startDate,
+        endDate,
+        minAmount,
+        resUse,
+        vendors,
+        selectedVendors,
+        limit,
+        gender
+      )
+    );
+    if (coupan.code) {
+      toast(`Coupan code ${coupan.code} is saved `);
+      navigate("/coupans");
     }
   };
   useEffect(() => {
     if (error) {
       toast(error);
     }
+    fetchCategories()
     dispatch(fetchAllSaloonsAction());
   }, [error, dispatch]);
   return (
@@ -113,7 +122,6 @@ const GenerareCoupans = () => {
                   id="disPer"
                   min="0"
                   max="100"
-                  required={true}
                 />
                 <Input
                   laBel={"Max Discount in Rs"}
@@ -124,7 +132,6 @@ const GenerareCoupans = () => {
                   inputType="number"
                   id="maxDis"
                   min="0"
-                  required={true}
                 />
                 <Input
                   laBel={"Min order amount"}
@@ -152,6 +159,24 @@ const GenerareCoupans = () => {
               <div style={{ width: "200px" }}></div>
               <div>
                 <div>
+                  <label htmlFor="Gender">Gender</label>
+                  <br />
+                  <select
+                    name="Gender"
+                    id="Gender"
+                    value={gender}
+                    onChange={(e) => setGender(e.target.value)}
+                    required={true}
+                  >
+                    {serviceCtaegories.map((cat) => (
+                      <option value={cat} key={cat}>
+                        {cat}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
                   <label htmlFor="Category">Category</label>
                   <br />
                   <select
@@ -161,9 +186,9 @@ const GenerareCoupans = () => {
                     onChange={(e) => setCategory(e.target.value)}
                     required={true}
                   >
-                    {serviceCtaegories.map((cat) => (
-                      <option value={cat} key={cat}>
-                        {cat}
+                    {fetched?.map(({category}) => (
+                      <option value={category} key={category}>
+                        {category}
                       </option>
                     ))}
                   </select>
@@ -221,15 +246,15 @@ const GenerareCoupans = () => {
                         width: "400px",
                       }}
                       dropdownHeight="100px"
-                      searchBy="shopname"
+                      searchBy="name"
                       options={saloons?.length ? saloons : []}
-                      labelField="shopname"
-                      valueField="_id"
+                      labelField="name"
+                      valueField="id"
                       dropdownPosition="bottom"
                       multi={true}
                       required
                       onChange={(values) =>
-                        setSelectedVen(values?.map((val) => val._id))
+                        setSelectedVen(values?.map((val) => val.id))
                       }
                     />
                   </div>

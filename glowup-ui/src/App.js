@@ -47,7 +47,7 @@ const App = () => {
             </ProctectedDashBoardRoute>
           } />
 
-          <Route exact path='/create-coupans' element={
+          <Route exact path='/create-coupons' element={
             <ProctectedDashBoardRoute>
               <GenerareCoupans />
             </ProctectedDashBoardRoute>
@@ -57,7 +57,7 @@ const App = () => {
               <Coupans />
             </ProctectedDashBoardRoute>
           } />
-          <Route exact path='/saloons' element={
+          <Route exact path='/salons' element={
             <ProctectedDashBoardRoute>
               <Saloons />
             </ProctectedDashBoardRoute>

@@ -19,8 +19,8 @@ const Accounts = () => {
     }
   };
   const columns = [
-    { field: "id", headerName: "Saloon Id", minWidth: 200, flex: 1 },
-    { field: "name", headerName: "Saloon Name", minWidth: 150, flex: 1 },
+    { field: "id", headerName: "Salon Id", minWidth: 200, flex: 1 },
+    { field: "name", headerName: "Salon Name", minWidth: 150, flex: 1 },
     {
       field: "totatAmountWithDiscount",
       headerName: "After Discount",
@@ -55,7 +55,7 @@ const Accounts = () => {
     <div>
       <SideBar />
       <div className="data-table-wrapper">
-        <h1>Saloons</h1>
+        <h1>Salons</h1>
         <div
           style={{
             display: "flex",
@@ -86,7 +86,7 @@ const Accounts = () => {
           <DataGrid
             rows={saloons?.length? saloons : []}
             columns={columns}
-            pageSize={15}
+            pageSize={100}
             autoHeight
             sortingOrder="null"
           />

@@ -13,7 +13,8 @@ export const createCoupanAction = (
       time_period,
       all_vendors,
       selected_vendors,
-      usage_limit
+      usage_limit,
+      gender
 ) => async (dispatch) => {
       try {
             dispatch({ type: CREATE_COUPAN_REQUEST })
@@ -29,7 +30,8 @@ export const createCoupanAction = (
                   time_period,
                   all_vendors,
                   selected_vendors: all_vendors === "yes" ? [] : selected_vendors,
-                  usage_limit
+                  usage_limit,
+                  gender
             })
             dispatch({ type: CREATE_COUPAN_SUCCESS, payload: data.newCoupan })
       } catch (error) {

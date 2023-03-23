@@ -4,13 +4,14 @@ import {
   fetchAllSaloonsAction,
   updateSaloonTags,
 } from "../actions/SaloonAction";
-import { DataGrid } from "@material-ui/data-grid";
 import SideBar from "../components/Sidebar/Sidebar";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css";
+import MetaTitle from "../components/MetaTitle/MetaTitle";
+import TableData from "../components/Table";
 let staticTags = [
   "Male",
   "Female",
@@ -93,8 +94,8 @@ const Saloons = () => {
     }
   }, [dispatch, updated]);
   const columns = [
-    { field: "id", headerName: "Saloon Id", minWidth: 200, flex: 1 },
-    { field: "name", headerName: "Saloon Name", minWidth: 150, flex: 1 },
+    { field: "id", headerName: "Salon Id", minWidth: 200, flex: 1 },
+    { field: "name", headerName: "Salon Name", minWidth: 150, flex: 1 },
     {
       field: "address",
       headerName: "Address",
@@ -139,7 +140,7 @@ const Saloons = () => {
             <Link to={`/saloon/${params.id}/services/${params.row.owner_id}`}>
               view services
             </Link>
-            <p style={{padding:"20px"}}></p>
+            <p style={{ padding: "20px" }}></p>
             <Link to={`/add-services/${params.row.owner_id}`}>
               Add services
             </Link>
@@ -150,6 +151,7 @@ const Saloons = () => {
   ];
   return (
     <div>
+      <MetaTitle title={"Saloons"} />
       <SideBar />
       <div className="data-table-wrapper">
         <ToastContainer
@@ -157,7 +159,7 @@ const Saloons = () => {
           hideProgressBar={true}
           theme="colored"
         />
-        <h1>Saloons</h1>
+        <h1>Salons</h1>
         <form onSubmit={updateHandler}>
           <section
             style={{
@@ -188,16 +190,12 @@ const Saloons = () => {
             </div>
           </section>
         </form>
-        <DataGrid
-          rows={saloons?.length ? saloons : []}
-          checkboxSelection
+        <TableData
+          data={saloons?.length ? saloons : []}
           columns={columns}
           onSelectionModelChange={(itm) => {
             setIds(itm);
           }}
-          pageSize={15}
-          autoHeight
-          sortingOrder="null"
         />
       </div>
     </div>
