@@ -11,13 +11,6 @@ var storage = multer.diskStorage({
 
 const upload = multer({
       storage: storage,
-      fileFilter: function (req, file, callback) {
-            console.log(file)
-            if (['xls', 'xlsx'].indexOf(file.originalname.split('.')[file.originalname.split('.').length - 1]) === -1) {
-                  return callback(new Error('Wrong extension type'));
-            }
-            callback(null, true);
-      }
 })
 
 module.exports = {

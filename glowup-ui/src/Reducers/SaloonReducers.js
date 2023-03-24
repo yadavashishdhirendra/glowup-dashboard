@@ -27,7 +27,17 @@ import {
       CLEAR_SALOON_ERROR,
       ADD_NEW_SERVICES_REQUEST,
       ADD_NEW_SERVICES_SUCCESS,
-      ADD_NEW_SERVICES_ERROR
+      ADD_NEW_SERVICES_ERROR,
+
+      ADD_IMAGES_REQUEST,
+      ADD_IMAGES_SUCCESS,
+      ADD_IMAGES_ERROR,
+
+      DELETE_IMAGES_REQUEST,
+      DELETE_IMAGES_SUCCESS,
+      DELETE_IMAGES_ERROR,
+      DELETE_IMAGES_RESET,
+      ADD_IMAGES_RESET
 
 } from "../constants/SaloonConstants";
 let initialState = {
@@ -158,6 +168,52 @@ export const updateTagsReducers = (state = {}, action) => {
             case CLEAR_SALOON_ERROR:
                   return {
                         error: null
+                  }
+            default:
+                  return state
+      }
+}
+
+export const saloonImagesReducer = (state = {}, action) => {
+      switch (action.type) {
+            case ADD_IMAGES_REQUEST:
+                  return {
+                        adding: true
+                  }
+            case ADD_IMAGES_SUCCESS:
+                  return {
+                        adding: false,
+                        uploaded: action.payload
+                  }
+            case ADD_IMAGES_ERROR:
+                  return {
+                        error: action.payload,
+                        adding: false
+                  }
+            case ADD_IMAGES_RESET:
+                  return {
+                        error: null,
+                        adding: null,
+                        uploaded:null
+                  }
+            case DELETE_IMAGES_REQUEST:
+                  return {
+                        deleting: true
+                  }
+            case DELETE_IMAGES_SUCCESS:
+                  return {
+                        deleting: false,
+                        deleted: action.payload
+                  }
+            case DELETE_IMAGES_ERROR:
+                  return {
+                        error: action.payload,
+                        deleting: false
+                  }
+            case DELETE_IMAGES_RESET:
+                  return {
+                        error: null,
+                        deleted: null
                   }
             default:
                   return state

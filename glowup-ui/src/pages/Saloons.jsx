@@ -124,11 +124,10 @@ const Saloons = () => {
       field: "actions",
       headerName: "Actions",
       type: "number",
-      minWidth: 150,
-      flex: 4,
+      minWidth: 450,
+      flex: 6,
       sortable: false,
       renderCell: (params) => {
-        console.log(params);
         return (
           <div
             style={{
@@ -143,6 +142,10 @@ const Saloons = () => {
             <p style={{ padding: "20px" }}></p>
             <Link to={`/add-services/${params.row.owner_id}`}>
               Add services
+            </Link>
+            <p style={{ padding: "20px" }}></p>
+            <Link to={`/view-images?saloon=${JSON.stringify(params.row)}`}>
+              Images
             </Link>
           </div>
         );

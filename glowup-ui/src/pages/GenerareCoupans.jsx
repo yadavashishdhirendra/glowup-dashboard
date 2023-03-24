@@ -29,7 +29,7 @@ const GenerareCoupans = () => {
   console.log(saloons)
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const serviceCtaegories = ["Female", "Male", "Unisex"];
+  const serviceCtaegories = ["Female", "Male", "All"];
   const fetchCategories = async () => {
     try {
       const { data } = await axios.get("/api/v2/categories");

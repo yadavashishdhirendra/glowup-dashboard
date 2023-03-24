@@ -3,7 +3,7 @@ import { bookingsReducer, dateBookingsReducer, userReducer } from './Reducers/Us
 import thunk from "redux-thunk"
 import { composeWithDevTools } from "redux-devtools-extension/developmentOnly"
 import { createCoupanReducer, deleteCoupanReducer, fetchAllCoupansReducer } from "./Reducers/CoupanReducers";
-import { fetchAllSaloonsReducer, getServicesReducer, getSingleSaloonReducer, updateServicesReducer, updateTagsReducers } from "./Reducers/SaloonReducers";
+import { fetchAllSaloonsReducer, getServicesReducer, getSingleSaloonReducer, saloonImagesReducer, updateServicesReducer, updateTagsReducers } from "./Reducers/SaloonReducers";
 import { deleteEmployeeReducer, editEmployeeReducer, getEmployeesReducer } from "./Reducers/EmployeesReducer";
 import { CustomerCareUserReducer } from "./Reducers/CareReducer";
 const reducer = combineReducers({
@@ -21,7 +21,8 @@ const reducer = combineReducers({
         deleteEmployee: deleteEmployeeReducer,
         editEmployee: editEmployeeReducer,
         dateBookings: dateBookingsReducer,
-        customerCare:CustomerCareUserReducer
+        customerCare: CustomerCareUserReducer,
+        saloonImages:saloonImagesReducer,
 })
 
 let initialState = {}

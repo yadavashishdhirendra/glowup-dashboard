@@ -22,6 +22,7 @@ import ProctectedDashBoardRoute from './components/ProctectedDashBoardRoute';
 import CcProtectedRoute from './components/CcRoutes';
 import NewEmployee from './pages/NewEmployee';
 import AddServices from './pages/AddServices';
+import SaloonImages from './pages/SaloonImages';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -60,6 +61,11 @@ const App = () => {
           <Route exact path='/salons' element={
             <ProctectedDashBoardRoute>
               <Saloons />
+            </ProctectedDashBoardRoute>
+          } />
+          <Route exact path='/view-images' element={
+            <ProctectedDashBoardRoute>
+              <SaloonImages/>
             </ProctectedDashBoardRoute>
           } />
           <Route exact path='/saloon/:id/services/:owner' element={

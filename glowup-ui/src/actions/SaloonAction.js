@@ -5,11 +5,23 @@ import {
       ACCOUNTS_REQUEST,
       ACCOUNTS_SUCCESS,
 
+      ADD_IMAGES_ERROR,
+
+      ADD_IMAGES_REQUEST,
+
+      ADD_IMAGES_SUCCESS,
+
       ADD_NEW_SERVICES_ERROR,
 
       ADD_NEW_SERVICES_REQUEST,
 
       ADD_NEW_SERVICES_SUCCESS,
+
+      DELETE_IMAGES_ERROR,
+
+      DELETE_IMAGES_REQUEST,
+
+      DELETE_IMAGES_SUCCESS,
 
       FETCH_ALL_SALOONS_ERROR,
       FETCH_ALL_SALOONS_REQUEST,
@@ -126,9 +138,32 @@ export const addNewServicesAction = (id, file) => async (dispatch) => {
       try {
             dispatch({ type: ADD_NEW_SERVICES_REQUEST })
             const config = { headers: { "Content-Type": "multipart/form-data" } }
-            const { data } = await axios.post(`/api/v2/add-services/${id}`, { file },config)
+            const { data } = await axios.post(`/api/v2/add-services/${id}`, { file }, config)
             dispatch({ type: ADD_NEW_SERVICES_SUCCESS, payload: data.response })
       } catch (error) {
             dispatch({ type: ADD_NEW_SERVICES_ERROR, payload: error.response.data.error })
+      }
+}
+export const addSaloonImages = (id, file) => async (dispatch) => {
+      console.log(file)
+      try {
+            dispatch({ type: ADD_IMAGES_REQUEST })
+            const config = { headers: { "Content-Type": "multipart/form-data" } }
+            const { data } = await axios.post(`/api/v2/new-images/${id}`, { file }, config)
+            dispatch({ type: ADD_IMAGES_SUCCESS, payload: data.uploaded })
+      } catch (error) {
+            console.log(error)
+            dispatch({ type: ADD_IMAGES_ERROR, payload: error.response.data.error })
+      }
+}
+export const deleteSaloonImages = (owner, action, public_id) => async (dispatch) => {
+      try {
+            console.log(action)
+            dispatch({ type: DELETE_IMAGES_REQUEST })
+            const { data } = await axios.put(`/api/v2/delete-images?owner=${owner}&id=${public_id}`, { action })
+            dispatch({ type: DELETE_IMAGES_SUCCESS, payload: data.deleted })
+      } catch (error) {
+            console.log(error)
+            dispatch({ type: DELETE_IMAGES_ERROR, payload: error.response.data.error })
       }
 }

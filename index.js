@@ -7,6 +7,7 @@ const mongoose = require("mongoose")
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const path = require("path")
+const cloudinary = require('cloudinary').v2;
 //ROUTES
 const authRoutes = require("./routes/auth.routes")
 const coupans = require("./routes/coupan.routes")
@@ -22,7 +23,11 @@ mongoose.connect(process.env.DATABASE).then((data) => {
 }).catch(err => {
       console.log(err);
 })
-
+cloudinary.config({
+      cloud_name: process.env.CLOUDINARY_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET
+})
 app.use(express.json({ limit: '200mb' }));
 app.use(express.urlencoded({ limit: "200mb", extended: true }))
 app.use(cors())
