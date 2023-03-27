@@ -1,6 +1,38 @@
 const SaloonSchema = require("../models/SaloonSchema");
 const { saloonTags } = require("../utils/Saloon")
 const cloudinary = require('cloudinary').v2;
+const UserSchema = require("../models/UserModel")
+exports.createUserAccount = async (req, res) => {
+      try {
+           const {email,phone,password,name}=req.body
+            const newUser = await UserSchema.create({
+                  email,
+                  password,
+                  name,
+                  mobileno:phone
+            })
+            return res.status(201).json({
+                  newUser
+            })
+      } catch (error) {
+            return res.status(500).json({
+                  error: error.message
+            })
+      }
+}
+exports.createNewSaloon = async (req, res) => {
+      try {
+            console.log(req.body)
+            const newSalon = await SaloonSchema.create(req.body)
+            return res.status(201).json({
+                  newSalon
+            })
+      } catch (error) {
+            return res.status(500).json({
+                  error: error.message
+            })
+      }
+}
 exports.getAllSaloons = async (req, res) => {
       try {
             const saloons = await SaloonSchema.aggregate([

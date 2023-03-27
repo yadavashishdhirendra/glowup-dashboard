@@ -26,11 +26,19 @@ const UserModel = new mongoose.Schema({
         default: Date.now()
     },
     avatar: {
-        public_id: "",
-        url: ""
+        public_id: {
+            type: String,
+            default:""
+        },
+        url: {
+            type: String,
+            default:""
+        }
     },
     mobileno: {
         type: Number,
+        unique: true,
+        required:true
     },
     saloon: [{
         type: mongoose.Schema.Types.ObjectId,

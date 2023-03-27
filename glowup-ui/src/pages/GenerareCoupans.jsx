@@ -142,7 +142,6 @@ const GenerareCoupans = () => {
                   inputType="number"
                   id="min_ord_am"
                   min="0"
-                  required={true}
                 />
                 <Input
                   laBel={"Usage Limit Per User"}

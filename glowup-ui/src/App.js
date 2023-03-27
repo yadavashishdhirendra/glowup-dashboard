@@ -23,7 +23,8 @@ import CcProtectedRoute from './components/CcRoutes';
 import NewEmployee from './pages/NewEmployee';
 import AddServices from './pages/AddServices';
 import SaloonImages from './pages/SaloonImages';
-
+import NewSalon from './pages/NewSalon';
+import NewAccount from './pages/NewAccount';
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -61,6 +62,16 @@ const App = () => {
           <Route exact path='/salons' element={
             <ProctectedDashBoardRoute>
               <Saloons />
+            </ProctectedDashBoardRoute>
+          } />
+          <Route exact path='/new-account' element={
+            <ProctectedDashBoardRoute>
+              <NewAccount/>
+            </ProctectedDashBoardRoute>
+          } />
+          <Route exact path='/new-salon' element={
+            <ProctectedDashBoardRoute>
+              <NewSalon/>
             </ProctectedDashBoardRoute>
           } />
           <Route exact path='/view-images' element={
