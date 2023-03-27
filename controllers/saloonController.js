@@ -22,7 +22,6 @@ exports.createUserAccount = async (req, res) => {
 }
 exports.createNewSaloon = async (req, res) => {
       try {
-            console.log(req.body)
             const newSalon = await SaloonSchema.create(req.body)
             return res.status(201).json({
                   newSalon
