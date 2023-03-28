@@ -33,13 +33,15 @@ const NewAccount = () => {
   return (
     <div>
       <SideBar />
-      <div className="data-table-wrapper">
+      <div className="data-table-wrapper" style={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
+        <h1>Create New Account</h1>
         <form
           style={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "column",
+            marginTop:"20px"
           }}
           onSubmit={createUserHandler}
         >

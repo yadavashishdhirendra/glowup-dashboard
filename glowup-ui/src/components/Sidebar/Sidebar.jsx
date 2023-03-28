@@ -3,9 +3,8 @@ import { ProSidebarProvider, Menu, MenuItem } from "react-pro-sidebar";
 import Bookings from "@material-ui/icons/Book";
 import MenuIcon from "@material-ui/icons/Menu";
 import { GiTicket } from "react-icons/gi";
-import { HiTicket } from "react-icons/hi";
+import { HiTicket, HiOutlineUserAdd } from "react-icons/hi";
 import { AiFillShop, AiFillBank } from "react-icons/ai";
-import { BsShop } from "react-icons/bs";
 import LogoutIcon from "@material-ui/icons/LockOpen";
 import "./Sidebar.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -74,9 +73,9 @@ const SideBar = () => {
                   Salons
                 </MenuItem>
               </Link>
-              <Link to="/new-salon">
+              <Link to="/new-account">
                 <MenuItem
-                  icon={<BsShop style={{ color: "white", fontSize: "20px" }} />}
+                  icon={<HiOutlineUserAdd style={{ color: "white", fontSize: "20px" }} />}
                 >
                   Create Account
                 </MenuItem>
