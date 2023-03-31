@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  deleteSalonDataAction,
   fetchAllSaloonsAction,
   updateSaloonTags,
 } from "../actions/SaloonAction";
@@ -8,9 +9,10 @@ import SideBar from "../components/Sidebar/Sidebar";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { confirmAlert } from "react-confirm-alert"; // Import
+import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import MetaTitle from "../components/MetaTitle/MetaTitle";
+import DeleteIcon from "@material-ui/icons/Delete";
 import TableData from "../components/Table";
 let staticTags = [
   "Male",
@@ -29,6 +31,7 @@ let staticTags = [
 const Saloons = () => {
   const dispatch = useDispatch();
   const { saloons } = useSelector((state) => state.allSaloons);
+  const {deleted}=useSelector(state=>state.deleteSalonData)
   const { updated, loading } = useSelector((state) => state.tagsUpdate);
   const [action, setAction] = useState("");
   const [ids, setIds] = useState([]);
@@ -86,13 +89,37 @@ const Saloons = () => {
       });
     }
   };
+  const confirmDelete = (e,id) => {
+    e.preventDefault();
+  confirmAlert({
+    title: "Delete Salon?",
+    message: "these action will delete all data of salon",
+    buttons: [
+      {
+        label: "Yes",
+        onClick: () => {
+          dispatch(deleteSalonDataAction(id))
+        },
+      },
+      {
+        label: "No",
+        onClick: () => {},
+      },
+    ],
+    closeOnClickOutside: true,
+    closeOnEscape: true,
+  });
+  };
   useEffect(() => {
     dispatch(fetchAllSaloonsAction());
     if (updated?.length) {
       toast("Updated");
       dispatch(fetchAllSaloonsAction());
     }
-  }, [dispatch, updated]);
+    if (deleted) {
+      return window.location.reload()
+    }
+  }, [dispatch, updated,deleted]);
   const columns = [
     { field: "id", headerName: "Salon Id", minWidth: 200, flex: 1 },
     { field: "name", headerName: "Salon Name", minWidth: 150, flex: 1 },
@@ -115,6 +142,12 @@ const Saloons = () => {
       flex: 12,
     },
     {
+      field: "offers",
+      headerName: "Offers",
+      minWidth: 150,
+      flex: 2,
+    },
+    {
       field: "ratings",
       headerName: "Ratings",
       minWidth: 150,
@@ -124,8 +157,8 @@ const Saloons = () => {
       field: "actions",
       headerName: "Actions",
       type: "number",
-      minWidth: 450,
-      flex: 6,
+      minWidth: 550,
+      flex: 8,
       sortable: false,
       renderCell: (params) => {
         return (
@@ -147,6 +180,13 @@ const Saloons = () => {
             <Link to={`/view-images?saloon=${JSON.stringify(params.row)}`}>
               Images
             </Link>
+            <p style={{ padding: "20px" }}></p>
+            <Link to={`/add-offers/${params.row.id}`}>Offers</Link>
+            <p style={{ padding: "20px" }}></p>
+            <DeleteIcon
+              style={{ color: "black" }}
+              onClick={(e) => confirmDelete(e,params.row.id)}
+            />
           </div>
         );
       },

@@ -1,4 +1,26 @@
-import { CLEAR_COUPAN_ERRORS, CREATE_COUPAN_ERROR, CREATE_COUPAN_REQUEST, CREATE_COUPAN_SUCCESS, DELETE_COUPAN_ERROR, DELETE_COUPAN_REQUEST, DELETE_COUPAN_RESET, DELETE_COUPAN_SUCCESS, FETCH_ALL_COUPANS_ERROR, FETCH_ALL_COUPANS_REQUEST, FETCH_ALL_COUPANS_SUCCESS } from "../constants/CoupanConstansts";
+import {
+      ADD_SALON_OFFER_ERROR,
+      ADD_SALON_OFFER_REQUEST,
+      ADD_SALON_OFFER_RESET,
+      ADD_SALON_OFFER_SUCCESS,
+      CLEAR_COUPAN_ERRORS,
+
+      CLEAR_ERRORS,
+
+      CREATE_COUPAN_ERROR,
+      CREATE_COUPAN_REQUEST,
+      CREATE_COUPAN_SUCCESS,
+
+      DELETE_COUPAN_ERROR,
+      DELETE_COUPAN_REQUEST,
+      DELETE_COUPAN_RESET,
+      DELETE_COUPAN_SUCCESS,
+
+      FETCH_ALL_COUPANS_ERROR,
+      FETCH_ALL_COUPANS_REQUEST,
+      FETCH_ALL_COUPANS_SUCCESS
+
+} from "../constants/CoupanConstansts";
 
 export const createCoupanReducer = (state = {}, action) => {
       switch (action.type) {
@@ -73,6 +95,37 @@ export const deleteCoupanReducer = (state = {}, action) => {
             case CLEAR_COUPAN_ERRORS:
                   return {
                         ...state,
+                        error: null
+                  }
+            default:
+                  return state
+      }
+}
+export const addOfferReducer = (state = {}, action) => {
+      switch (action.type) {
+            case ADD_SALON_OFFER_REQUEST:
+                  return {
+                        loading: true
+                  }
+            case ADD_SALON_OFFER_SUCCESS:
+                  return {
+                        loading: false,
+                        done: action.payload
+                  }
+            case ADD_SALON_OFFER_ERROR:
+                  return {
+                        loading: null,
+                        error: action.payload
+                  }
+            case CLEAR_ERRORS:
+                  return {
+                        loading: false,
+                        error: null
+                  }
+            case ADD_SALON_OFFER_RESET:
+                  return {
+                        loading: null,
+                        done: null,
                         error: null
                   }
             default:

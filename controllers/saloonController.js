@@ -2,14 +2,21 @@ const SaloonSchema = require("../models/SaloonSchema");
 const { saloonTags } = require("../utils/Saloon")
 const cloudinary = require('cloudinary').v2;
 const UserSchema = require("../models/UserModel")
+const ServicesSchema = require("../models/ServicesSchema");
+const CustomerBookings = require("../models/CustomerBookingModel")
+const BookingsSchema = require("../models/BookingModel")
+const DeletedCustBookingsSchema = require("../models/DeleteCustBookings")
+const DeletedBookingsSchema = require("../models/DeletedBooking")
+const EmployeeSchema = require("../models/EmployeeSchema");
+const CustomeUserModel = require("../models/CustomeUserModel");
 exports.createUserAccount = async (req, res) => {
       try {
-           const {email,phone,password,name}=req.body
+            const { email, phone, password, name } = req.body
             const newUser = await UserSchema.create({
                   email,
                   password,
                   name,
-                  mobileno:phone
+                  mobileno: phone
             })
             return res.status(201).json({
                   newUser
@@ -44,7 +51,8 @@ exports.getAllSaloons = async (req, res) => {
                               images: 1,
                               address: { $concat: ["$address", ",", "$addresssec", ",", "$city", "$pincode"] },
                               ratings: "$ratings",
-                              keys: "$tags"
+                              keys: "$tags",
+                              offers: 1
                         }
                   }
             ]);
@@ -162,6 +170,73 @@ exports.deleteImage = async (req, res) => {
 
       } catch (error) {
             res.status(500).json({
+                  error: error.message
+            })
+      }
+}
+exports.deleteSaloon = async (req, res) => {
+      try {
+            const { id } = req.params
+            const salon = await SaloonSchema.findByIdAndDelete(id)
+            const customerBookings = await CustomerBookings.find({ shopname: salon.shopname }).populate("owner")
+            const owner = await UserSchema.findByIdAndDelete(salon.owner)
+            const services = await Promise.all(
+                  owner.services.map(async (ser) => {
+                        const service = await ServicesSchema.findByIdAndDelete(ser)
+                        return service
+                  })
+            )
+            const employees = await Promise.all(
+                  owner.employees.map(async (emp) => {
+                        return await EmployeeSchema.findByIdAndDelete(emp)
+                  })
+            )
+            const deleteCustomerBookings = await Promise.all(
+                  customerBookings.map(async (book) => {
+                        const booking = await CustomerBookings.findByIdAndDelete(book._id).populate("owner")
+                        return booking
+                  })
+            )
+            const salonBookings = await BookingsSchema.find({ owner: owner._id })
+            const deletePartnerBookings = await Promise.all(
+                  salonBookings.map(async (book) => {
+                        const booking = await BookingsSchema.findByIdAndDelete(book._id)
+                        return booking
+                  })
+            )
+            await DeletedCustBookingsSchema.insertMany(deleteCustomerBookings)
+            await DeletedBookingsSchema.insertMany(salonBookings)
+            res.status(200).json({
+                  deleted: true,
+                  salon,
+                  owner,
+                  services,
+                  deleteCustomerBookings,
+                  deletePartnerBookings,
+                  employees
+            })
+
+      } catch (error) {
+            res.status(500).json({
+                  error: error.message
+            })
+      }
+}
+exports.addOffersField = async (req, res) => {
+      try {
+            const { text } = req.body
+            console.log(req.body)
+            const salon = await SaloonSchema.findByIdAndUpdate(req.params.id, {
+                  $set: {
+                        offers: text
+                  }
+            })
+            return res.status(200).json({
+                  done: true,
+                  salon
+            })
+      } catch (error) {
+            return res.status(500).json({
                   error: error.message
             })
       }

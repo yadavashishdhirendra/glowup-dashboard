@@ -24,8 +24,8 @@ exports.totalAmount = async (req, res) => {
                                     }
                               },
                               discounted_price: 1,
-                              discounted_amount: 1
-                              , shopname: 1,
+                              discounted_amount: 1,
+                              shopname: 1,
                               selectedDate: {
                                     $convert: {
                                           input: "$selectedDate",

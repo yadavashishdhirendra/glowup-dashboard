@@ -40,4 +40,4 @@ CustomerUserModel.methods.generateTokens = function () {
     )
 }
 
-module.exports = mongoose.model("CustomerUser", CustomerUserModel)
+module.exports = mongoose.model("CustomerUsers", CustomerUserModel)

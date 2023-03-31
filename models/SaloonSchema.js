@@ -33,10 +33,10 @@ const SaloonSchema = new mongoose.Schema({
     },
     avatar: {
         public_id: {
-            type:String
+            type: String
         },
         url: {
-            type:String
+            type: String
         }
     },
     businesshours: [{
@@ -53,6 +53,10 @@ const SaloonSchema = new mongoose.Schema({
             default: "closed",
         },
     }],
+    offers: {
+        type: String,
+        default:""
+    },
     images: [{
         public_id: {
             type: String,

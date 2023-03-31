@@ -6,7 +6,8 @@ import './Bookings.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllBookings } from '../../actions/UserActions'
 import Loader from '../Loader/Loader'
-
+import CustomButton from "../Button/Button"
+import { Link } from 'react-router-dom'
 const BookingsList = () => {
     const dispatch = useDispatch();
     const { bookings, error, loading } = useSelector((state) => state.bookings);
@@ -52,7 +53,7 @@ const BookingsList = () => {
                             <h1>Bookings</h1>
                             <p>{bookings?.length} Records</p>
                             <DataGrid
-                                rows={bookings?.length?bookings:[]}
+                                rows={bookings?.length ? bookings : []}
                                 columns={columns}
                                 pageSize={8}
                                 autoHeight
@@ -61,7 +62,13 @@ const BookingsList = () => {
                                 }}
                                 sortingOrder='null'
                             />
+                            <div style={{ marginTop: "50px" }}>
+                                <Link to={"/deleted-bookings"}>
+                                    <CustomButton text={" view Deleted bookings"} />
+                                </Link>
+                            </div>
                         </div>
+
                     </>
             }
         </div>

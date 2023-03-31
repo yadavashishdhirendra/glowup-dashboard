@@ -15,7 +15,8 @@ const employees = require("./routes/employee.routes")
 const bookings = require("./routes/bookings.routes")
 const service = require("./routes/service.routes")
 const cc = require("./routes/cc.routes")
-const saloon=require("./routes/saloon.routes")
+const saloon = require("./routes/saloon.routes")
+const deleted=require("./routes/deleted.routes")
 require("dotenv").config();
 
 mongoose.connect(process.env.DATABASE).then((data) => {
@@ -45,6 +46,7 @@ app.use("/api/v2",employees)
 app.use("/api/v2",bookings)
 app.use("/api/v2",service)
 app.use("/api/v2", cc)
+app.use("/api/v2",deleted)
 app.use("/api/v2", saloon)
 
 if (process.env.NODE_ENV === "production") {

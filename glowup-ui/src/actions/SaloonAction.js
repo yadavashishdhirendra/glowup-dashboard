@@ -17,11 +17,19 @@ import {
 
       ADD_NEW_SERVICES_SUCCESS,
 
+      CLEAR_SALOON_ERROR,
+
       DELETE_IMAGES_ERROR,
 
       DELETE_IMAGES_REQUEST,
 
       DELETE_IMAGES_SUCCESS,
+
+      DELETE_SALON_DATA_ERROR,
+
+      DELETE_SALON_DATA_REQUEST,
+
+      DELETE_SALON_DATA_SUCCESS,
 
       FETCH_ALL_SALOONS_ERROR,
       FETCH_ALL_SALOONS_REQUEST,
@@ -163,7 +171,18 @@ export const deleteSaloonImages = (owner, action, public_id) => async (dispatch)
             const { data } = await axios.put(`/api/v2/delete-images?owner=${owner}&id=${public_id}`, { action })
             dispatch({ type: DELETE_IMAGES_SUCCESS, payload: data.deleted })
       } catch (error) {
-            console.log(error)
             dispatch({ type: DELETE_IMAGES_ERROR, payload: error.response.data.error })
+      }
+}
+export const deleteSalonDataAction = (id) => async (dispatch) => {
+      try {
+            dispatch({ type: DELETE_SALON_DATA_REQUEST })
+            const { data } = await axios.delete(`/api/v2/saloon/${id}`)
+            dispatch({ type: DELETE_SALON_DATA_SUCCESS, payload: data.deleted })
+      } catch (error) {
+            dispatch({ type: DELETE_SALON_DATA_ERROR, payload: error.response.data.error })
+            setTimeout(() => {
+                  dispatch({ type: CLEAR_SALOON_ERROR })
+            }, 5000)
       }
 }

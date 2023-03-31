@@ -5,11 +5,7 @@ const SelectDropDown = ({ value, onChange, text, array, ...other }) => {
     <div>
       <label htmlFor="Day">{text}</label>
       <br />
-      <select
-        value={value}
-        onChange={onChange}
-        {...other}
-      >
+      <select value={value} onChange={onChange} {...other}>
         <option value={""} key={""}></option>
         {array.map((cat) => (
           <option value={cat} key={cat}>

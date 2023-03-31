@@ -9,7 +9,6 @@ const TableData = ({
   data,
   columns,
   title,
-  sizeChange,
   ...otherProps
 }) => {
   const [size, setSize] = useState(100);

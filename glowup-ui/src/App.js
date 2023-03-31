@@ -25,6 +25,8 @@ import AddServices from './pages/AddServices';
 import SaloonImages from './pages/SaloonImages';
 import NewSalon from './pages/NewSalon';
 import NewAccount from './pages/NewAccount';
+import AddOffers from './pages/AddOffers';
+import DeletedBookings from './pages/DeletedBookings';
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -40,7 +42,6 @@ const App = () => {
   return (
     <div>
       <Router>
-
         <Routes>
           <Route path='/' element={<Login />} />
           <Route exact path='/bookings' element={
@@ -48,7 +49,11 @@ const App = () => {
               <BookingsList />
             </ProctectedDashBoardRoute>
           } />
-
+          <Route exact path='/deleted-bookings' element={
+            <ProctectedDashBoardRoute>
+              <DeletedBookings/>
+            </ProctectedDashBoardRoute>
+          } />
           <Route exact path='/create-coupons' element={
             <ProctectedDashBoardRoute>
               <GenerareCoupans />
@@ -114,6 +119,11 @@ const App = () => {
           <Route exact path='/saloon/:id/bookings' element={
             <ProctectedDashBoardRoute>
               <SaloonBookings />
+            </ProctectedDashBoardRoute>
+          } />
+          <Route exact path='/add-offers/:id' element={
+            <ProctectedDashBoardRoute>
+              <AddOffers/>
             </ProctectedDashBoardRoute>
           } />
 

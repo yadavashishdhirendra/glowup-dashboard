@@ -1,4 +1,4 @@
-import { CLEAR_BOOKINGS_ERRORS, GET_BOOKINGS_ERROR, GET_BOOKINGS_REQUEST, GET_BOOKINGS_SUCCESS, GET_CUSTOMER_CARE_BOOKINGS_ERROR, GET_CUSTOMER_CARE_BOOKINGS_REQUEST, GET_CUSTOMER_CARE_BOOKINGS_SUCCESS, GET_DATE_BOOKINGS_ERROR, GET_DATE_BOOKINGS_REQUEST, GET_DATE_BOOKINGS_SUCCESS } from "../constants/BookingsConstants";
+import { CLEAR_BOOKINGS_ERRORS, GET_BOOKINGS_ERROR, GET_BOOKINGS_REQUEST, GET_BOOKINGS_SUCCESS, GET_CUSTOMER_CARE_BOOKINGS_ERROR, GET_CUSTOMER_CARE_BOOKINGS_REQUEST, GET_CUSTOMER_CARE_BOOKINGS_SUCCESS, GET_DATE_BOOKINGS_ERROR, GET_DATE_BOOKINGS_REQUEST, GET_DATE_BOOKINGS_SUCCESS, GET_DELETED_BOOKINGS_ERROR, GET_DELETED_BOOKINGS_REQUEST, GET_DELETED_BOOKINGS_SUCCESS } from "../constants/BookingsConstants";
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_SUCCESS, LOGOUT_REQUEST, LOGOUT_ERROR, LOAD_USER_REQUEST, LOAD_USER_SUCCESS, LOAD_USER_ERROR, CLEAR_ERRORS } from "../constants/UserConstants";
 const initialState = {
     isAuthenticated: false,
@@ -45,6 +45,7 @@ export const bookingsReducer = (state = {}, action) => {
     switch (action.type) {
         case GET_BOOKINGS_REQUEST:
         case GET_CUSTOMER_CARE_BOOKINGS_REQUEST:
+        case GET_DELETED_BOOKINGS_REQUEST:
             return {
                 loading: true
             }
@@ -54,8 +55,14 @@ export const bookingsReducer = (state = {}, action) => {
                 loading: false,
                 bookings: action.payload
             }
+        case GET_DELETED_BOOKINGS_SUCCESS:
+            return {
+                loading: false,
+                deleted: action.payload
+            }
         case GET_BOOKINGS_ERROR:
         case GET_CUSTOMER_CARE_BOOKINGS_ERROR:
+        case GET_DELETED_BOOKINGS_ERROR:
             return {
                 loading: false,
                 error: action.payload

@@ -61,13 +61,25 @@ exports.fetchCategories = async (req, res) => {
                         }
                   }
             ])
-            categories.push({category:"All"})
+            categories.push({ category: "All" })
             res.status(200).json({
                   categories
             })
       } catch (error) {
             res.status(500).json({
                   error: error.message
+            })
+      }
+}
+exports.deleteCoupan = async (req, res) => {
+      try {
+            const deletedCoupan = await CoupanModel.findByIdAndDelete(req.params.id)
+            res.status(200).json({
+                  deletedCoupan
+            })
+      } catch (error) {
+            res.status(500).json({
+                  err: error.message
             })
       }
 }

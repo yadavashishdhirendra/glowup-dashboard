@@ -76,11 +76,12 @@ const Coupans = () => {
       flex: 0.3,
       sortable: false,
       renderCell: (params) => {
+        console.log(params)
         return (
           <>
             <Button
               onClick={() =>
-                deleteCoupanHandler(params.getValue(params.id, "id"))
+                deleteCoupanHandler(params.row.id)
               }
             >
               <DeleteIcon style={{ color: "black" }} />

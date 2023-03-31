@@ -4,7 +4,9 @@
   box-sizing: border-box;
   font-family: 'Montserrat', 'sans-serif';
 }
-
+a{
+  text-decoration: none;
+}
 
 *::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);

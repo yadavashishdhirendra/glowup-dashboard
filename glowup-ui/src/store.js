@@ -2,8 +2,8 @@ import {legacy_createStore as createStore,combineReducers,applyMiddleware} from 
 import { bookingsReducer, dateBookingsReducer, userReducer } from './Reducers/UserReducers';
 import thunk from "redux-thunk"
 import { composeWithDevTools } from "redux-devtools-extension/developmentOnly"
-import { createCoupanReducer, deleteCoupanReducer, fetchAllCoupansReducer } from "./Reducers/CoupanReducers";
-import { fetchAllSaloonsReducer, getServicesReducer, getSingleSaloonReducer, saloonImagesReducer, updateServicesReducer, updateTagsReducers } from "./Reducers/SaloonReducers";
+import { addOfferReducer, createCoupanReducer, deleteCoupanReducer, fetchAllCoupansReducer } from "./Reducers/CoupanReducers";
+import { deleteSalonReducer, fetchAllSaloonsReducer, getServicesReducer, getSingleSaloonReducer, saloonImagesReducer, updateServicesReducer, updateTagsReducers } from "./Reducers/SaloonReducers";
 import { deleteEmployeeReducer, editEmployeeReducer, getEmployeesReducer } from "./Reducers/EmployeesReducer";
 import { CustomerCareUserReducer } from "./Reducers/CareReducer";
 const reducer = combineReducers({
@@ -22,7 +22,9 @@ const reducer = combineReducers({
         editEmployee: editEmployeeReducer,
         dateBookings: dateBookingsReducer,
         customerCare: CustomerCareUserReducer,
-        saloonImages:saloonImagesReducer,
+        saloonImages: saloonImagesReducer,
+        addSaloonOffer: addOfferReducer,
+        deleteSalonData:deleteSalonReducer
 })
 
 let initialState = {}

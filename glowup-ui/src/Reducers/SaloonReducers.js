@@ -37,6 +37,12 @@ import {
       DELETE_IMAGES_SUCCESS,
       DELETE_IMAGES_ERROR,
       DELETE_IMAGES_RESET,
+
+      DELETE_SALON_DATA_REQUEST,
+      DELETE_SALON_DATA_SUCCESS,
+      DELETE_SALON_DATA_ERROR,
+      DELETE_SALON_DATA_RESET,
+
       ADD_IMAGES_RESET
 
 } from "../constants/SaloonConstants";
@@ -194,7 +200,7 @@ export const saloonImagesReducer = (state = {}, action) => {
                   return {
                         error: null,
                         adding: null,
-                        uploaded:null
+                        uploaded: null
                   }
             case DELETE_IMAGES_REQUEST:
                   return {
@@ -214,6 +220,36 @@ export const saloonImagesReducer = (state = {}, action) => {
                   return {
                         error: null,
                         deleted: null
+                  }
+            default:
+                  return state
+      }
+}
+export const deleteSalonReducer = (state = {}, action) => {
+      switch (action.type) {
+            case DELETE_SALON_DATA_REQUEST:
+                  return {
+                        deleting: true
+                  }
+            case DELETE_SALON_DATA_SUCCESS:
+                  return {
+                        deleting: false,
+                        deleted: action.payload
+                  }
+            case DELETE_SALON_DATA_ERROR:
+                  return {
+                        error: action.payload,
+                        deleting: false
+                  }
+            case DELETE_SALON_DATA_RESET:
+                  return {
+                        error: null,
+                        deleted: null
+                  }
+            case CLEAR_SALOON_ERROR:
+                  return {
+                        error: null,
+                        loading: false
                   }
             default:
                   return state

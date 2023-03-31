@@ -76,7 +76,7 @@ const CustomerBookingModel = new mongoose.Schema({
     },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "CustomerUser",
+        ref: "CustomerUsers",
         required: true
     },
     createdAt: {

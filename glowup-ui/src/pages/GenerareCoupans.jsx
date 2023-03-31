@@ -26,14 +26,14 @@ const GenerareCoupans = () => {
   const [resUse, setReUse] = useState(0);
   const { coupan, error } = useSelector((state) => state.newCoupan);
   const { saloons } = useSelector((state) => state.allSaloons);
-  console.log(saloons)
+  console.log(saloons);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const serviceCtaegories = ["Female", "Male", "All"];
   const fetchCategories = async () => {
     try {
       const { data } = await axios.get("/api/v2/categories");
-      setFetched(data?.categories)
+      setFetched(data?.categories);
     } catch (error) {
       console.log(error);
     }
@@ -66,7 +66,7 @@ const GenerareCoupans = () => {
     if (error) {
       toast(error);
     }
-    fetchCategories()
+    fetchCategories();
     dispatch(fetchAllSaloonsAction());
   }, [error, dispatch]);
   return (
@@ -185,7 +185,10 @@ const GenerareCoupans = () => {
                     onChange={(e) => setCategory(e.target.value)}
                     required={true}
                   >
-                    {fetched?.map(({category}) => (
+                    <option value={""} key={""}>
+                      
+                    </option>
+                    {fetched?.map(({ category }) => (
                       <option value={category} key={category}>
                         {category}
                       </option>
