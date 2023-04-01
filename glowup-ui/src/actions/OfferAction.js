@@ -34,6 +34,7 @@ export const addOffersImages = (images) => async (dispatch) => {
             const { data } = await axios.post("/api/v2/offer-images", { images }, config)
             dispatch({ type: ADD_OFFER_IMAGES_SUCCESS, payload: data.done })
       } catch (error) {
+            console.log(error)
             dispatch({ type: ADD_OFFER_IMAGES_ERROR, payload: error.response.data.error })
             setTimeout(() => {
                   dispatch({ type: CLEAR_ERRORS })
