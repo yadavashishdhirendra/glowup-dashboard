@@ -27,6 +27,7 @@ import NewSalon from './pages/NewSalon';
 import NewAccount from './pages/NewAccount';
 import AddOffers from './pages/AddOffers';
 import DeletedBookings from './pages/DeletedBookings';
+import AddOfferImages from './pages/AddOfferImages';
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -52,6 +53,11 @@ const App = () => {
           <Route exact path='/deleted-bookings' element={
             <ProctectedDashBoardRoute>
               <DeletedBookings/>
+            </ProctectedDashBoardRoute>
+          } />
+          <Route exact path='/offer-images' element={
+            <ProctectedDashBoardRoute>
+              <AddOfferImages/>
             </ProctectedDashBoardRoute>
           } />
           <Route exact path='/create-coupons' element={

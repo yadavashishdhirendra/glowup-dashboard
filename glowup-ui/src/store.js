@@ -6,6 +6,7 @@ import { addOfferReducer, createCoupanReducer, deleteCoupanReducer, fetchAllCoup
 import { deleteSalonReducer, fetchAllSaloonsReducer, getServicesReducer, getSingleSaloonReducer, saloonImagesReducer, updateServicesReducer, updateTagsReducers } from "./Reducers/SaloonReducers";
 import { deleteEmployeeReducer, editEmployeeReducer, getEmployeesReducer } from "./Reducers/EmployeesReducer";
 import { CustomerCareUserReducer } from "./Reducers/CareReducer";
+import { GetAllImagesReducer } from "./Reducers/OfferReducer";
 const reducer = combineReducers({
         user: userReducer,
         bookings: bookingsReducer,
@@ -24,7 +25,8 @@ const reducer = combineReducers({
         customerCare: CustomerCareUserReducer,
         saloonImages: saloonImagesReducer,
         addSaloonOffer: addOfferReducer,
-        deleteSalonData:deleteSalonReducer
+        deleteSalonData: deleteSalonReducer,
+        offerImages:GetAllImagesReducer
 })
 
 let initialState = {}

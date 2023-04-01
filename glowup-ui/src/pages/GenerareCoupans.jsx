@@ -26,7 +26,7 @@ const GenerareCoupans = () => {
   const [resUse, setReUse] = useState(0);
   const { coupan, error } = useSelector((state) => state.newCoupan);
   const { saloons } = useSelector((state) => state.allSaloons);
-  console.log(saloons);
+ 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const serviceCtaegories = ["Female", "Male", "All"];

@@ -1,9 +1,10 @@
-import {ImageList, ImageListItem } from "@material-ui/core";
+import { ImageList, ImageListItem } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { addSaloonImages, deleteSaloonImages } from "../actions/SaloonAction";
 import CustomButton from "../components/Button/Button";
+import ImagesView from "../components/ImagesView/ImagesView";
 import SideBar from "../components/Sidebar/Sidebar";
 import {
   ADD_IMAGES_RESET,
@@ -81,37 +82,18 @@ const SaloonImages = () => {
           }}
         >
           {saloon?.images?.map((image) => (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                margin: "10px",
-              }}
-            >
-              <img
-                src={image?.url}
-                alt={image?._id}
-                style={{ width: "400px", height: "300px" }}
-              ></img>
-              <CustomButton
-                text={"Delete"}
-                disabled={deleting ? true : false}
-                loading={deleting}
-                style={{
-                  backgroundColor: "black",
-                  color: "white",
-                  width: "100%",
-                }}
-                onClick={(e) =>
-                  deleteImageHandler(
-                    e,
-                    saloon?.owner_id,
-                    "deleteOne",
-                    image?.public_id
-                  )
-                }
-              />
-            </div>
+            <ImagesView
+              image={image}
+              deleting={deleting}
+              onClick={(e) =>
+                deleteImageHandler(
+                  e,
+                  saloon?.owner_id,
+                  "deleteOne",
+                  image?.public_id
+                )
+              }
+            />
           ))}
         </div>
 
@@ -137,7 +119,7 @@ const SaloonImages = () => {
                 loading={adding}
               ></CustomButton>
             </div>
-            <div style={{margin:"20px"}}>
+            <div style={{ margin: "20px" }}>
               {imagesPreview.length ? (
                 <ImageList variant="masonry" cols={3} gap={8}>
                   {imagesPreview?.map((item) => (

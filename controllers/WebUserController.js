@@ -1,4 +1,6 @@
 const WebUser = require('../models/UserWebModel');
+const OffersSchema = require("../models/OffersModel")
+const cloudinary = require('cloudinary').v2;
 // ROUTE 1 => REGISTER A USER
 exports.registerWebUser = async (req, res) => {
     try {
@@ -124,5 +126,58 @@ exports.getWebUser = async (req, res) => {
         })
     }
 }
-
+exports.addOfferImages = async (req, res) => {
+    try {
+        const images = await Promise.all(
+            req.files.map(async (file) => {
+                let result = await cloudinary.uploader.upload(file.path,
+                    {
+                        width: 500,
+                        height: 500,
+                        crop: 'fill',
+                        quality: 'auto',
+                        folder: 'Glowup',
+                    })
+                return await OffersSchema.create({
+                    public_id: result.public_id,
+                    url: result.url
+                })
+            })
+        )
+        return res.status(200).json({
+            done: true,
+            images
+        })
+    } catch (error) {
+        res.status(500).json({
+            error: error.message
+        })
+    }
+}
+exports.allImages = async (req, res) => {
+    try {
+        const images = await OffersSchema.find({})
+        return res.status(200).json({
+            images
+        })
+    } catch (error) {
+        res.status(500).json({
+            error: error.message
+        })
+    }
+}
+exports.deleteImage = async (req, res) => {
+    try {
+        const image = await OffersSchema.findByIdAndDelete(req.params.id)
+        await cloudinary.uploader.destroy(image.public_id)
+        return res.status(200).json({
+            deleted:true,
+            image
+        })
+    } catch (error) {
+        res.status(500).json({
+            error: error.message
+        })
+    }
+}
 

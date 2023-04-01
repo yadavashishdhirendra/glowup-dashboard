@@ -225,7 +225,6 @@ exports.deleteSaloon = async (req, res) => {
 exports.addOffersField = async (req, res) => {
       try {
             const { text } = req.body
-            console.log(req.body)
             const salon = await SaloonSchema.findByIdAndUpdate(req.params.id, {
                   $set: {
                         offers: text
