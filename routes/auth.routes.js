@@ -17,8 +17,8 @@ router.post('/register/user/bookings', registerWebUser);
 router.get('/logout/user/bookings', WebAuth, logoutUser);
 router.get('/web/user', WebAuth, getWebUser);
 router.get("/saloons", WebAuth, getAllSaloons)
-router.post("/offer-images",WebAuth, upload.any("images"), addOfferImages)
-router.get("/offer-images", WebAuth, allImages)
+router.post("/offer-images",upload.any("images"), addOfferImages)
+router.get("/offer-images",allImages)
 router.delete("/delete-offer/:id",WebAuth,deleteImage)
 
 module.exports = router;
