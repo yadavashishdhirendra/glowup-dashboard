@@ -128,6 +128,7 @@ exports.getWebUser = async (req, res) => {
 }
 exports.addOfferImages = async (req, res) => {
     try {
+        console.log(req)
         const images = await Promise.all(
             req.files.map(async (file) => {
                 let result = await cloudinary.uploader.upload(file.path,
