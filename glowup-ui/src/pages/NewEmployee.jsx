@@ -50,6 +50,7 @@ const NewEmployee = () => {
       <SideBar />
       <div style={{ display: "flex" }}>
         <div className="data-table-wrapper">
+          <h1 style={{textAlign:"center"}}>Add New Employee</h1>
           <ToastContainer
             position="top-center"
             hideProgressBar={true}

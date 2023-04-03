@@ -15,13 +15,12 @@ const AddOfferImages = () => {
   const { offers, error, adding, done, deleted } = useSelector(
     (state) => state.offerImages
   );
-  console.log(deleted);
   const [images, setImages] = useState();
   const [preview, setPreview] = useState([]);
   const dispatch = useDispatch();
   const addImagesHandler = async (e) => {
     e.preventDefault();
-    dispatch(addOffersImages(images));
+    dispatch(addOffersImages(images))
   };
   const createImagesChange = (e) => {
     const files = Array.from(e.target.files);
