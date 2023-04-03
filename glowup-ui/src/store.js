@@ -31,5 +31,9 @@ const reducer = combineReducers({
 
 let initialState = {}
 const midleware = [thunk]
-const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(...midleware)))
+const devTools =
+        process.env.NODE_ENV === "production"
+                ? applyMiddleware(...midleware)
+                : composeWithDevTools(applyMiddleware(...midleware));
+const store = createStore(reducer, initialState,devTools)
 export default store
