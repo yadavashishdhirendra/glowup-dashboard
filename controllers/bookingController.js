@@ -308,14 +308,6 @@ exports.getSpecificDateBooking = async (req, res) => {
 }
 exports.allBookingsWeb = async (req, res) => {
       try {
-            let respone = await myCache.get("bookings")
-            if (respone) {
-                  return res.status(200).json({
-                        cached: true,
-                        success: true,
-                        bookings: JSON.parse(respone)
-                  })
-            }
             const bookings = await CustomerBookingModel.aggregate([
                   {
                         $lookup: {
@@ -330,7 +322,7 @@ exports.allBookingsWeb = async (req, res) => {
                   {
                         $unwind: {
                               path: "$asignee",
-                              "preserveNullAndEmptyArrays": true 
+                              "preserveNullAndEmptyArrays": true
                         }
                   },
                   {
@@ -341,7 +333,12 @@ exports.allBookingsWeb = async (req, res) => {
                               as: "asignee"
                         }
                   },
-                  { $unwind: "$asignee" },
+                  {
+                        $unwind: {
+                              path: "$asignee",
+                              "preserveNullAndEmptyArrays": true
+                        }
+                  },
                   {
                         $lookup: {
                               from: "saloons",
@@ -350,7 +347,11 @@ exports.allBookingsWeb = async (req, res) => {
                               as: "saloon"
                         }
                   },
-                  { $unwind: "$saloon" },
+                  {
+                        $unwind: {
+                              path: "$saloon",
+                              "preserveNullAndEmptyArrays": true
+                  }},
                   {
                         $project: {
                               id: "$_id",
@@ -370,7 +371,6 @@ exports.allBookingsWeb = async (req, res) => {
                         }
                   }
             ])
-            myCache.set("bookings", JSON.stringify(bookings), 300)
             return res.status(200).json({
                   success: true,
                   bookings
@@ -379,6 +379,19 @@ exports.allBookingsWeb = async (req, res) => {
             res.status(500).json({
                   success: false,
                   message: error.message,
+            })
+      }
+}
+exports.deleteBooking = async (req, res) => {
+      try {
+            const booking = await CustomerBookingModel.findByIdAndDelete(req.params.id)
+            res.status(200).json({
+                  booking,
+                  done:true
+            })
+      } catch (error) {
+            res.status(500).json({
+                  error: error.message
             })
       }
 }
