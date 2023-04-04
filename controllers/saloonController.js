@@ -112,10 +112,6 @@ exports.addImages = async (req, res) => {
                   req.files.map(async (file) => {
                         let result = await cloudinary.uploader.upload(file.path,
                               {
-                                    width: 500,
-                                    height: 500,
-                                    crop: 'fill',
-                                    quality: 'auto',
                                     folder: 'Glowup',
                               })
                         return {

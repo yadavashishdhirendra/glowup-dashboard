@@ -183,10 +183,6 @@ exports.addOfferImages = async (req, res) => {
             req.files.map(async (file) => {
                 let result = await cloudinary.uploader.upload(file.path,
                     {
-                        width: 500,
-                        height: 500,
-                        crop: 'fill',
-                        quality: 'auto',
                         folder: 'Glowup',
                     })
                 return await OffersSchema.create({
@@ -195,6 +191,7 @@ exports.addOfferImages = async (req, res) => {
                 })
             })
         )
+        console.log(images)
         return res.status(200).json({
             done: true,
             images
