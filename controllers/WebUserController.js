@@ -183,7 +183,7 @@ exports.addOfferImages = async (req, res) => {
             req.files.map(async (file) => {
                 let result = await cloudinary.uploader.upload(file.path,
                     {
-                        folder: 'Glowup',
+                        folder: 'offers',
                     })
                 return await OffersSchema.create({
                     public_id: result.public_id,
