@@ -43,7 +43,9 @@ import {
       DELETE_SALON_DATA_ERROR,
       DELETE_SALON_DATA_RESET,
 
-      ADD_IMAGES_RESET
+      ADD_IMAGES_RESET,
+      ADD_NEW_SERVICES_RESET,
+      UPDATE_SALOON_TAGS_RESET
 
 } from "../constants/SaloonConstants";
 let initialState = {
@@ -147,6 +149,12 @@ export const updateServicesReducer = (state = {}, action) => {
                         adding: false,
                         error: action.payload
                   }
+            case ADD_NEW_SERVICES_RESET:
+                  return {
+                        adding: null,
+                        error: null,
+                        newServices: null
+                  }
             case CLEAR_SALOON_ERROR:
                   return {
                         error: null
@@ -170,6 +178,12 @@ export const updateTagsReducers = (state = {}, action) => {
                   return {
                         loading: false,
                         error: action.payload
+                  }
+            case UPDATE_SALOON_TAGS_RESET:
+                  return {
+                        loading: null,
+                        updated: null,
+                        error: null
                   }
             case CLEAR_SALOON_ERROR:
                   return {

@@ -185,7 +185,10 @@ const Services = () => {
       <div>
         <SideBar />
         <div className="data-table-wrapper">
-          <h1>Services</h1>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"20px"}}>
+            <h1>Services</h1>
+            <Link to="/salons">Go Back To Salons Page</Link>
+          </div>
           <div
             style={{
               display: "flex",
@@ -238,7 +241,7 @@ const Services = () => {
             <section
               style={{
                 display: "flex",
-                flexDirection:"column",
+                flexDirection: "column",
                 marginBottom: "20px",
               }}
             >

@@ -5,6 +5,7 @@ import { addNewServicesAction } from "../actions/SaloonAction";
 import SideBar from "../components/Sidebar/Sidebar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ADD_NEW_SERVICES_RESET } from "../constants/SaloonConstants";
 const AddServices = () => {
   const { id } = useParams();
   const [file, setFile] = useState("");
@@ -17,16 +18,20 @@ const AddServices = () => {
     setFile(e.target.files[0]);
   };
   const addserviceshandler = () => {
+    if (!file) {
+      return toast("Select File to Upload")
+    }
     dispatch(addNewServicesAction(id, file));
   };
   useEffect(() => {
     if (newServices?.length) {
-      navigate("/saloons");
+      navigate("/salons");
+      dispatch({type:ADD_NEW_SERVICES_RESET})
     }
     if (error) {
       toast(error);
     }
-  }, [navigate, newServices?.length,error]);
+  }, [navigate, newServices?.length,error,dispatch]);
   return (
     <div>
       <SideBar />

@@ -88,13 +88,12 @@ exports.getSingleSaloon = async (req, res) => {
 exports.updateSaloonTags = async (req, res) => {
       try {
             const { action, ids, values } = req.body
+            console.log(values)
             switch (action) {
                   case 'Add':
                         return await saloonTags(ids, "$addToSet", values, res)
-                  case "AddAllKeys":
-                        return await saloonTags(ids, "$addToSet", values, res)
                   case "Remove":
-                        return await saloonTags(ids, "$pull", values, res)
+                        return await saloonTags(ids, "$pull", {$in:values}, res)
                   case "RemoveAllKeys":
                         return await saloonTags(ids, "$set", [], res)
                   default:
