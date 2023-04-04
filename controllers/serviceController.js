@@ -2,6 +2,7 @@ const ServicesSchema = require("../models/ServicesSchema")
 const SaloonSchema = require("../models/SaloonSchema")
 const { ReadExcelFile } = require("../utils/excelFileUtil")
 const { Types } = require("mongoose")
+const UserModel = require("../models/UserModel")
 exports.getallServicesForSaloon = async (req, res) => {
       try {
             const service = await SaloonSchema.aggregate([
@@ -93,6 +94,7 @@ exports.addServicesFromSheet = async (req, res) => {
             console.log(req.file.path)
             const path = req.file.path
             const data = await ReadExcelFile(path)
+            const owner = await UserModel.findById(req.params.id)
             await ServicesSchema.deleteMany({ owner: req.params.id })
             const response = await Promise.all(
                   data.map(async (service) => {
@@ -108,6 +110,8 @@ exports.addServicesFromSheet = async (req, res) => {
                               description: service["Description of the services"],
                               owner: req.params.id
                         })
+                        owner.services.push(newService._id)
+                        await owner.save()
                         return newService
                   })
             )
