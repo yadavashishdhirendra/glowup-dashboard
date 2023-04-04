@@ -351,7 +351,8 @@ exports.allBookingsWeb = async (req, res) => {
                         $unwind: {
                               path: "$saloon",
                               "preserveNullAndEmptyArrays": true
-                  }},
+                        }
+                  },
                   {
                         $project: {
                               id: "$_id",

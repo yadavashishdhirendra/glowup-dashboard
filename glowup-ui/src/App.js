@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css'
 import Login from './components/Login/Login';
 import WebFont from 'webfontloader';
-import { loadUser } from './actions/UserActions';
+import {loadUser } from './actions/UserActions';
 import { useDispatch} from 'react-redux';
 import store from './store';
 import BookingsList from './components/Bookings/BookingsList';

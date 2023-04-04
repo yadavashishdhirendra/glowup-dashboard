@@ -1,6 +1,8 @@
 const WebUser = require('../models/UserWebModel');
 const OffersSchema = require("../models/OffersModel")
 const cloudinary = require('cloudinary').v2;
+const Users = require("../models/UserModel")
+const bcrypt = require('bcrypt');
 // ROUTE 1 => REGISTER A USER
 exports.registerWebUser = async (req, res) => {
     try {
@@ -90,10 +92,59 @@ exports.loginWebUser = async (req, res) => {
     }
 }
 
-// ROUTE 3 => GET ALL BOOKINGS
-
-
-// ROUTE 4 => LOGOUT USER
+exports.allUsers = async (req, res) => {
+    try {
+        const users = await Users.aggregate([
+            {
+                $lookup: {
+                    from: "saloons",
+                    localField: "_id",
+                    foreignField: "owner",
+                    as: "saloon"
+                }
+            }
+            ,
+            {
+                $unwind: {
+                    path: "$saloon",
+                    "preserveNullAndEmptyArrays": true
+                }
+            },
+            {
+                $project: {
+                    "_id": 0,
+                    id: "$_id",
+                    name: "$name",
+                    email: "$email",
+                    saloonId: { $ifNull: ["$saloon._id", null] },
+                    saloonName: { $ifNull: ["$saloon.shopname", null] },
+                    mobileno: "$mobileno"
+                }
+            }
+        ])
+        return res.status(200).json({
+            users
+        })
+    } catch (error) {
+        res.status(500).json({
+            error: error.message
+        })
+    }
+}
+exports.changeUserPassword = async (req, res) => {
+    try {
+        const hashPass = await bcrypt.hash(req.body.password, 10)
+        const user = await Users.findByIdAndUpdate(req.params.id, { $set: { password: hashPass } })
+        res.status(200).json({
+            user,
+            updated: true
+        })
+    } catch (error) {
+        res.status(500).json({
+            error: error.message
+        })
+    }
+}
 exports.logoutUser = async (req, res) => {
     try {
         res.cookie("token", null, {
@@ -171,7 +222,7 @@ exports.deleteImage = async (req, res) => {
         const image = await OffersSchema.findByIdAndDelete(req.params.id)
         await cloudinary.uploader.destroy(image.public_id)
         return res.status(200).json({
-            deleted:true,
+            deleted: true,
             image
         })
     } catch (error) {

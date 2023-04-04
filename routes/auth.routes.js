@@ -7,7 +7,9 @@ const {
       getWebUser,
       addOfferImages,
       allImages,
-      deleteImage
+      deleteImage,
+      allUsers,
+      changeUserPassword
 } = require('../controllers/WebUserController');
 const {WebAuth }= require("../utils/authUserToken");
 const router = express.Router();
@@ -16,9 +18,11 @@ router.post('/login/user/bookings', loginWebUser);
 router.post('/register/user/bookings', registerWebUser);
 router.get('/logout/user/bookings', WebAuth, logoutUser);
 router.get('/web/user', WebAuth, getWebUser);
+router.get("/all-users",allUsers)
 router.get("/saloons", WebAuth, getAllSaloons)
 router.post("/offer-images",WebAuth, upload.any("images"), addOfferImages)
 router.get("/offer-images", WebAuth, allImages)
+router.put("/change-password/:id",changeUserPassword)
 router.delete("/delete-offer/:id",WebAuth,deleteImage)
 
 module.exports = router;

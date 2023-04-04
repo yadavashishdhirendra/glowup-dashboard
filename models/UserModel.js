@@ -10,7 +10,6 @@ const UserModel = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: true,
         trim: true,
         unique: true,
         validate: [validator.isEmail, 'Please Enter a valid Email']
@@ -28,17 +27,17 @@ const UserModel = new mongoose.Schema({
     avatar: {
         public_id: {
             type: String,
-            default:""
+            default: ""
         },
         url: {
             type: String,
-            default:""
+            default: ""
         }
     },
     mobileno: {
         type: Number,
         unique: true,
-        required:true
+        required: true
     },
     saloon: [{
         type: mongoose.Schema.Types.ObjectId,

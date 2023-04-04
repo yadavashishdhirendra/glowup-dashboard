@@ -1,5 +1,5 @@
 import {legacy_createStore as createStore,combineReducers,applyMiddleware} from "redux";
-import { bookingsReducer, dateBookingsReducer, userReducer } from './Reducers/UserReducers';
+import { allUsersReducers, bookingsReducer, dateBookingsReducer, userReducer } from './Reducers/UserReducers';
 import thunk from "redux-thunk"
 import { composeWithDevTools } from "redux-devtools-extension/developmentOnly"
 import { addOfferReducer, createCoupanReducer, deleteCoupanReducer, fetchAllCoupansReducer } from "./Reducers/CoupanReducers";
@@ -26,7 +26,8 @@ const reducer = combineReducers({
         saloonImages: saloonImagesReducer,
         addSaloonOffer: addOfferReducer,
         deleteSalonData: deleteSalonReducer,
-        offerImages:GetAllImagesReducer
+        offerImages: GetAllImagesReducer,
+        allUsers:allUsersReducers
 })
 
 let initialState = {}

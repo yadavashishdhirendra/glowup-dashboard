@@ -12,7 +12,7 @@ const NewAccount = () => {
   const navigate = useNavigate();
   const createUserHandler = async (e) => {
     e.preventDefault();
-    if (!name || !phone || !email || !password) {
+    if (!name || !phone || !password) {
       return alert("please fill all fields");
     }
     try {
