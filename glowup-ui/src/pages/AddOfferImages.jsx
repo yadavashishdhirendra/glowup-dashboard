@@ -44,6 +44,7 @@ const AddOfferImages = () => {
     if (done) {
       toast("Uploaded Images")
       setImages([])
+      setPreview([])
       dispatch(fetchAllOffersImages());
     }
     if (deleted) {
