@@ -5,6 +5,7 @@ import SideBar from "../components/Sidebar/Sidebar";
 import { Link } from "react-router-dom";
 import Input from "../components/Input/Input";
 import { accountsAction } from "../actions/SaloonAction";
+import MetaTitle from "../components/MetaTitle/MetaTitle";
 const Accounts = () => {
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
@@ -43,7 +44,7 @@ const Accounts = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/saloon/${params.getValue(params?.id, "id")}/bookings`}>
+            <Link to={`/saloon/${params.id}/bookings`}>
               view bookings
             </Link>
           </>
@@ -53,6 +54,7 @@ const Accounts = () => {
   ];
   return (
     <div>
+      <MetaTitle title={"Accounts"}/>
       <SideBar />
       <div className="data-table-wrapper">
         <h1>Salons</h1>

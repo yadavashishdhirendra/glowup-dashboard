@@ -1,17 +1,19 @@
 import React, { Fragment, useState } from "react";
-import { ProSidebarProvider, Menu, MenuItem } from "react-pro-sidebar";
+import { ProSidebarProvider, Menu} from "react-pro-sidebar";
 import Bookings from "@material-ui/icons/Book";
 import MenuIcon from "@material-ui/icons/Menu";
+import {FaUserSecret} from "react-icons/fa"
 import { GiTicket } from "react-icons/gi";
 import { HiTicket, HiOutlineUserAdd } from "react-icons/hi";
 import { AiFillShop, AiFillBank } from "react-icons/ai";
-import {BsImages} from "react-icons/bs"
+import { BsImages } from "react-icons/bs";
 import LogoutIcon from "@material-ui/icons/LockOpen";
 import "./Sidebar.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import GlowupLogo from "../Assets/Logo/rsz_glow_up_logo-04_1 1.png";
 import { useDispatch } from "react-redux";
 import { loadUser, logoutUser } from "../../actions/UserActions";
+import MenuData from "../MenuData/MenuData";
 
 const SideBar = () => {
   const dispatch = useDispatch();
@@ -41,68 +43,41 @@ const SideBar = () => {
             collapsed={open}
           >
             <div className="glowup-sidebar-logo">
-              <img src={GlowupLogo} alt="" />
+              <img src={GlowupLogo} alt="glowup-logo" />
             </div>
             <Menu iconShape="circle">
-              <Link to="/">
-                <MenuItem icon={<Bookings />}>Bookings</MenuItem>
-              </Link>
-              <Link to="/coupans">
-                <MenuItem
-                  icon={
-                    <GiTicket style={{ color: "white", fontSize: "24px" }} />
-                  }
-                >
-                  All Coupons
-                </MenuItem>
-              </Link>
-              <Link to="/create-coupons">
-                <MenuItem
-                  icon={
-                    <HiTicket style={{ color: "white", fontSize: "24px" }} />
-                  }
-                >
-                  Create Coupon
-                </MenuItem>
-              </Link>
-              <Link to="/salons">
-                <MenuItem
-                  icon={
-                    <AiFillShop style={{ color: "white", fontSize: "24px" }} />
-                  }
-                >
-                  Salons
-                </MenuItem>
-              </Link>
-              <Link to="/new-account">
-                <MenuItem
-                  icon={
-                    <HiOutlineUserAdd
-                      style={{ color: "white", fontSize: "20px" }}
-                    />
-                  }
-                >
-                  Create Account
-                </MenuItem>
-              </Link>
-              <Link to="/accounting">
-                <MenuItem
-                  icon={
-                    <AiFillBank style={{ color: "white", fontSize: "24px" }} />
-                  }
-                >
-                  Accounts
-                </MenuItem>
-              </Link>
-              <Link to="/offer-images">
-                <MenuItem
-                  icon={
-                    <BsImages style={{ color: "white", fontSize: "20px" }} />
-                  }
-                >
-                  Add Offers Images
-                </MenuItem>
-              </Link>
+              <MenuData Icon={Bookings} path={"/"} text={"Bookings"} />
+              <MenuData
+                Icon={GiTicket}
+                path={"/coupans"}
+                text={"All Coupans"}
+              />
+              <MenuData
+                Icon={HiTicket}
+                path={"/create-coupons"}
+                text={"Create Coupans"}
+              />
+              <MenuData
+                Icon={HiOutlineUserAdd}
+                path={"/new-account"}
+                text={"Create Account"}
+              />
+              <MenuData
+                Icon={FaUserSecret}
+                path={"/all-users"}
+                text={"Users"}
+              />
+              <MenuData Icon={AiFillShop} path={"/salons"} text={"Salons"} />
+              <MenuData
+                Icon={AiFillBank}
+                path={"/accounting"}
+                text={"Accounts"}
+              />
+              <MenuData
+                Icon={BsImages}
+                path={"/offer-images"}
+                text={"Add offers Images"}
+              />
             </Menu>
           </ProSidebarProvider>
           <div onClick={() => logoutUserHandler()} className="logout-session">

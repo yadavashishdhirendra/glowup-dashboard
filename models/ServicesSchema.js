@@ -17,7 +17,7 @@ const ServicesSchema = new mongoose.Schema({
         type: Number,
     },
     price: {
-        type: String,
+        type: Number,
         required: true
     },
     about: {
@@ -33,7 +33,7 @@ const ServicesSchema = new mongoose.Schema({
         type: String,
     },
     newprice: {
-        type: String,
+        type: Number,
     },
     myemployees: [{
         type: mongoose.Schema.Types.ObjectId,

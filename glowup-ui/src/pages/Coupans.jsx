@@ -11,6 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { DELETE_COUPAN_RESET } from "../constants/CoupanConstansts";
 import TableData from "../components/Table";
+import MetaTitle from "../components/MetaTitle/MetaTitle";
 const Coupans = () => {
   const dispatch = useDispatch();
   const { coupans } = useSelector((state) => state.coupans);
@@ -19,18 +20,18 @@ const Coupans = () => {
     dispatch(deleteCoupanAction(id));
   };
   useEffect(() => {
-        if (deletedCoupan) {
-              toast(`${deletedCoupan.code} is deleted sucessfully`)
-              setTimeout(() => {
-              dispatch({ type: DELETE_COUPAN_RESET });
-              },3000)
-              dispatch(fetchAllCoupansAction())
+    if (deletedCoupan) {
+      toast(`${deletedCoupan.code} is deleted sucessfully`);
+      setTimeout(() => {
+        dispatch({ type: DELETE_COUPAN_RESET });
+      }, 3000);
+      dispatch(fetchAllCoupansAction());
     }
     dispatch(fetchAllCoupansAction());
-  }, [dispatch,deletedCoupan]);
+  }, [dispatch, deletedCoupan]);
 
   const columns = [
-    { field: "id", headerName: "Coupan Id", minWidth: 250, flex:1 },
+    { field: "id", headerName: "Coupan Id", minWidth: 250, flex: 1 },
     { field: "name", headerName: "Name", minWidth: 150, flex: 0.5 },
     {
       field: "code",
@@ -76,14 +77,10 @@ const Coupans = () => {
       flex: 0.3,
       sortable: false,
       renderCell: (params) => {
-        console.log(params)
+        console.log(params);
         return (
           <>
-            <Button
-              onClick={() =>
-                deleteCoupanHandler(params.row.id)
-              }
-            >
+            <Button onClick={() => deleteCoupanHandler(params.row.id)}>
               <DeleteIcon style={{ color: "black" }} />
             </Button>
           </>
@@ -93,6 +90,7 @@ const Coupans = () => {
   ];
   return (
     <div>
+      <MetaTitle title={"Coupans"} />
       <SideBar />
       <div className="data-table-wrapper">
         <ToastContainer

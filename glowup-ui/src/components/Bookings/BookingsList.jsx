@@ -56,7 +56,8 @@ const BookingsList = () => {
         { field: "service", headerName: "Service Name", flex: 1, minWidth: 200 },
         { field: "stylist", headerName: "Stylist", flex: 1, minWidth: 200 },
         {
-            field: "status", headerName: "Status", flex: 1, minWidth: 200, cellClassName: (params) => {
+            field: "status", headerName: "Status", flex: 1, minWidth: 200,
+            cellClassName: (params) => {
                 return params.getValue(params.id, "status") !== "Cancelled" ? "greenColor" : "redColor"
             }
         },

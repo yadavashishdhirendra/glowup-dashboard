@@ -36,7 +36,7 @@ exports.getallServicesForSaloon = async (req, res) => {
                   },
                   {
                         $project: {
-                              id: "$_id", servicetype: 1, category: 1, servicename: 1, hour: 1, price: 1, description: 1, myemployees: 1, owner: 1, _id: 0
+                              id: "$_id", servicetype: 1,about:1, category: 1, servicename: 1, hour: 1, price: 1,newprice:1, description: 1, myemployees: 1, owner: 1, _id: 0
                         }
                   }
             ])
@@ -45,7 +45,6 @@ exports.getallServicesForSaloon = async (req, res) => {
                   service
             })
       } catch (error) {
-            console.log(error)
             res.status(500).json({
                   success: false,
                   message: error.message,
@@ -95,7 +94,6 @@ exports.addServicesFromSheet = async (req, res) => {
             const data = await ReadExcelFile(path)
             const owner = await UserModel.findById(req.params.id)
             await ServicesSchema.deleteMany({ owner: req.params.id })
-
             const response = await Promise.all(
                   data.map(async (service) => {
                         const newService = await ServicesSchema.create({
@@ -104,10 +102,11 @@ exports.addServicesFromSheet = async (req, res) => {
                               category: service.category,
                               addons: service["Add Ons"],
                               gender: service.gender,
+                              about:service.about,
                               hour: service.hour,
                               price: service.price,
-                              newprice: service.price,
-                              description: service["Description of the services"],
+                              newprice: service["New Price"],
+                              description: service["Description of the Services"],
                               owner: req.params.id
                         })
                         return newService._id

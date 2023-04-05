@@ -28,6 +28,8 @@ import NewAccount from './pages/NewAccount';
 import AddOffers from './pages/AddOffers';
 import DeletedBookings from './pages/DeletedBookings';
 import AddOfferImages from './pages/AddOfferImages';
+import Users from './pages/Users';
+import ChangePassword from './pages/ChangePassword';
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -60,6 +62,11 @@ const App = () => {
               <AddOfferImages/>
             </ProctectedDashBoardRoute>
           } />
+          <Route exact path='/all-users' element={
+            <ProctectedDashBoardRoute>
+              <Users/>
+            </ProctectedDashBoardRoute>
+          } />
           <Route exact path='/create-coupons' element={
             <ProctectedDashBoardRoute>
               <GenerareCoupans />
@@ -80,7 +87,7 @@ const App = () => {
               <NewAccount/>
             </ProctectedDashBoardRoute>
           } />
-          <Route exact path='/new-salon' element={
+          <Route exact path='/new-salon/:id' element={
             <ProctectedDashBoardRoute>
               <NewSalon/>
             </ProctectedDashBoardRoute>
@@ -130,6 +137,11 @@ const App = () => {
           <Route exact path='/add-offers/:id' element={
             <ProctectedDashBoardRoute>
               <AddOffers/>
+            </ProctectedDashBoardRoute>
+          } />
+          <Route exact path='/change-password/:id' element={
+            <ProctectedDashBoardRoute>
+              <ChangePassword/>
             </ProctectedDashBoardRoute>
           } />
 

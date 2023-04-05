@@ -23,8 +23,7 @@ const NewAccount = () => {
         name,
       });
       if (data?.newUser) {
-            localStorage.setItem("newUser", JSON.stringify(data?.newUser));
-            navigate("/new-salon")
+            navigate(`/new-salon/${data?.newUser?._id}`)
       }
     } catch (error) {
       alert(error.response.data.error);

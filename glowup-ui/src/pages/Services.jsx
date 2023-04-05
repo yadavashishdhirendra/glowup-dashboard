@@ -97,8 +97,31 @@ const Services = () => {
       field: "description",
       headerName: "Description",
       minWidth: 200,
-      length: 500,
-      flex: 10,
+      flex: 5,
+    },
+    {
+      field: "about",
+      headerName: "About",
+      minWidth: 200,
+      flex: 5,
+    },
+    {
+      field: "hour",
+      headerName: "Hours",
+      minWidth: 150,
+      flex: 1,
+    },
+    {
+      field: "price",
+      headerName: "Price",
+      minWidth: 150,
+      flex: 1,
+    },
+    {
+      field: "newprice",
+      headerName: "New Price",
+      minWidth: 150,
+      flex: 1,
     },
     {
       field: "myemployees",
@@ -114,18 +137,6 @@ const Services = () => {
           </>
         );
       },
-    },
-    {
-      field: "hour",
-      headerName: "Hours",
-      minWidth: 150,
-      flex: 1,
-    },
-    {
-      field: "price",
-      headerName: "Price",
-      minWidth: 150,
-      flex: 1,
     },
   ];
   const employeesColumn = [

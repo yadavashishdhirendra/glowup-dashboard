@@ -5,7 +5,7 @@ import CustomButton from "../components/Button/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SelectDropDown from "../components/SelectDropDown/SelectDropDown";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 const weekDays = [
   "Monday",
   "Tuesday",
@@ -22,7 +22,7 @@ const companyType = [
   "Other",
 ];
 const NewSalon = () => {
-  let user = JSON.parse(localStorage.getItem("newUser"));
+  let { id } = useParams();
   const [shopname, setShopName] = useState("");
   const [ownerName, setOwnerName] = useState("");
   const [businessMailId, setBusinessId] = useState("");
@@ -75,7 +75,7 @@ const NewSalon = () => {
       city,
       state,
       pincode: pin,
-      owner: user?._id,
+      owner: id,
       map,
       businesshours: businessHours,
       location: {
@@ -129,7 +129,7 @@ const NewSalon = () => {
                 required
                 onChange={(e) => setOwnerName(e.target.value)}
               />
-              <Input laBel={"Owner Id"} inputType="text" value={user?._id} />
+              <Input laBel={"Owner Id"} inputType="text" value={id} />
               <Input
                 laBel={"Business Email"}
                 inputType="email"

@@ -116,6 +116,7 @@ exports.allUsers = async (req, res) => {
                     id: "$_id",
                     name: "$name",
                     email: "$email",
+                    phone:"$mobileno",
                     saloonId: { $ifNull: ["$saloon._id", null] },
                     saloonName: { $ifNull: ["$saloon.shopname", null] },
                     mobileno: "$mobileno"
@@ -191,7 +192,6 @@ exports.addOfferImages = async (req, res) => {
                 })
             })
         )
-        console.log(images)
         return res.status(200).json({
             done: true,
             images
