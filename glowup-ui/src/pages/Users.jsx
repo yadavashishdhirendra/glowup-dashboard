@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import SideBar from "../components/Sidebar/Sidebar";
 import TableData from "../components/Table";
 import MetaTitle from "../components/MetaTitle/MetaTitle";
-
 const Users = () => {
   const dispatch = useDispatch();
   const { users } = useSelector((state) => state.allUsers);
@@ -53,7 +52,6 @@ const Users = () => {
             }}
           >
             <Link to={`/change-password/${params.id}`}>Change Password</Link>
-
             {!params?.row?.saloonId ? (
               <Link to={`/new-salon/${params.id}`}>Add Salon</Link>
             ) : (
