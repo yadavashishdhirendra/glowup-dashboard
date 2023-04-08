@@ -104,8 +104,8 @@ exports.addServicesFromSheet = async (req, res) => {
                               gender: service.gender,
                               about:service.about,
                               hour: service.hour,
-                              price: service.price,
-                              newprice: service["New Price"],
+                              price: `${service.price}`,
+                              newprice: `${service["New Price"]}`,
                               description: service["Description of the Services"],
                               owner: req.params.id
                         })
