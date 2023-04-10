@@ -77,7 +77,6 @@ const Coupans = () => {
       flex: 0.3,
       sortable: false,
       renderCell: (params) => {
-        console.log(params);
         return (
           <>
             <Button onClick={() => deleteCoupanHandler(params.row.id)}>

@@ -167,6 +167,7 @@ const GenerareCoupans = () => {
                     onChange={(e) => setGender(e.target.value)}
                     required={true}
                   >
+                     <option value={""}></option>
                     {serviceCtaegories.map((cat) => (
                       <option value={cat} key={cat}>
                         {cat}
@@ -174,7 +175,6 @@ const GenerareCoupans = () => {
                     ))}
                   </select>
                 </div>
-
                 <div>
                   <label htmlFor="Category">Category</label>
                   <br />

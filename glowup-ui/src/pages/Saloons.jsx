@@ -74,20 +74,6 @@ const Saloons = () => {
             required
             onChange={(values) => setKeys(values?.map((val) => val.id))}
           />
-          {/* <label>Select Tags</label>
-          <br />
-          <select
-            style={{height:"20vh"}}
-            onChange={(e) => setKeys(e.target.value)}
-            multiple
-          >
-            <option> </option>
-            {staticTags.map((key) => (
-              <option value={key} key={key}>
-                {key}
-              </option>
-            ))}
-          </select> */}
         </div>
       );
     } else {

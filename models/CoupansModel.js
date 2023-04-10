@@ -16,14 +16,15 @@ const coupanSchema = new mongoose.Schema({
       },
       maxDiscount: {
             type: Number,
-            required: true
+            default:0
       },
       discountPercentage: {
             type: Number,
-            required: true
+            default: 0
       },
       min_amount: {
             type: Number,
+            default: 0
       },
       description: {
             type: String
