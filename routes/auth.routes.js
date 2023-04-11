@@ -18,7 +18,7 @@ router.post('/login/user/bookings', loginWebUser);
 router.post('/register/user/bookings', registerWebUser);
 router.get('/logout/user/bookings', WebAuth, logoutUser);
 router.get('/web/user', WebAuth, getWebUser);
-router.get("/all-users",WebAuth,allUsers)
+router.get("/all-users", WebAuth, allUsers)
 router.get("/saloons", WebAuth, getAllSaloons)
 router.post("/offer-images",WebAuth, upload.any("images"), addOfferImages)
 router.get("/offer-images", WebAuth, allImages)

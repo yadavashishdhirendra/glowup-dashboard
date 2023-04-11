@@ -21,6 +21,8 @@ const AddOfferImages = () => {
   const addImagesHandler = async (e) => {
     e.preventDefault();
     dispatch(addOffersImages(images))
+    setImages([])
+    setPreview([])
   };
   const createImagesChange = (e) => {
     const files = Array.from(e.target.files);

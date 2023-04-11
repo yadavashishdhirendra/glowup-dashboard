@@ -188,7 +188,7 @@ exports.addOfferImages = async (req, res) => {
                     })
                 return await OffersSchema.create({
                     public_id: result.public_id,
-                    url: result.url
+                    url: result.secure_url
                 })
             })
         )
