@@ -31,6 +31,7 @@ import Users from './pages/Users';
 import ChangePassword from './pages/ChangePassword';
 import EmployeesServices from './pages/EmployeesServices';
 import Edit from './pages/Edit';
+import PositionSalonImages from './pages/PositionSalonImages';
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -95,12 +96,17 @@ const App = () => {
           } />
           <Route exact path='/saloon/:id' element={
             <ProctectedDashBoardRoute>
-              <Edit/>
+              <Edit />
             </ProctectedDashBoardRoute>
           } />
           <Route exact path='/view-images/salon/:id' element={
             <ProctectedDashBoardRoute>
               <SaloonImages />
+            </ProctectedDashBoardRoute>
+          } />
+          <Route exact path='/re-position-images/salon/:id' element={
+            <ProctectedDashBoardRoute>
+              <PositionSalonImages />
             </ProctectedDashBoardRoute>
           } />
           <Route exact path='/saloon/:id/services/:owner' element={

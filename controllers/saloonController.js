@@ -53,7 +53,7 @@ exports.getAllSaloons = async (req, res) => {
                               ratings: "$ratings",
                               keys: "$tags",
                               offers: 1,
-                              description:1
+                              description: 1
                         }
                   }
             ]);
@@ -94,7 +94,7 @@ exports.updateSaloonTags = async (req, res) => {
                   case 'Add':
                         return await saloonTags(ids, "$addToSet", values, res)
                   case "Remove":
-                        return await saloonTags(ids, "$pull", {$in:values}, res)
+                        return await saloonTags(ids, "$pull", { $in: values }, res)
                   case "RemoveAllKeys":
                         return await saloonTags(ids, "$set", [], res)
                   default:
@@ -213,7 +213,7 @@ exports.deleteSaloon = async (req, res) => {
             })
 
       } catch (error) {
-           return res.status(500).json({
+            return res.status(500).json({
                   error: error.message
             })
       }
@@ -247,6 +247,21 @@ exports.setDescriptionOfSalon = async (req, res) => {
             return res.status(200).json({
                   done: true,
                   salon
+            })
+      } catch (error) {
+            return res.status(500).json({
+                  error: error.message
+            })
+      }
+}
+exports.changeImagesPosition = async (req, res) => {
+      try {
+            const { images } = req.body
+            const { id } = req.params
+            const salon = await SaloonSchema.findByIdAndUpdate(id, { $set: { images } })
+            return res.status(200).json({
+                  salon,
+                  done: true
             })
       } catch (error) {
             return res.status(500).json({

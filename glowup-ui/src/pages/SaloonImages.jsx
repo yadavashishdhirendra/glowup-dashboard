@@ -1,7 +1,7 @@
 import { ImageList, ImageListItem } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   addSaloonImages,
   deleteSaloonImages,
@@ -56,7 +56,7 @@ const SaloonImages = () => {
     if (deleted | uploaded) {
       dispatch({ type: DELETE_IMAGES_RESET });
       dispatch({ type: ADD_IMAGES_RESET });
-      dispatch(fetchSingleSaloon(id))
+      dispatch(fetchSingleSaloon(id));
     }
     dispatch(fetchSingleSaloon(id));
   }, [navigate, deleted, dispatch, uploaded, id]);
@@ -64,13 +64,19 @@ const SaloonImages = () => {
     <div style={{ height: "150vh" }}>
       <SideBar />
       <div className="data-table-wrapper">
-        <CustomButton
-          disabled={deleting ? true : false}
-          text="Delete All"
-          onClick={(e) =>
-            deleteImageHandler(e, saloon?.owner, "deleteAll", "")
-          }
-        />
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+          <CustomButton
+            disabled={deleting ? true : false}
+            text="Delete All"
+            onClick={(e) =>
+              deleteImageHandler(e, saloon?.owner, "deleteAll", "")
+            }
+          />
+          <Link to={`/re-position-images/salon/${id}`}>
+            <CustomButton text="Change Images Position" />
+          </Link>
+        </div>
+
         <div
           style={{
             margin: "50px",

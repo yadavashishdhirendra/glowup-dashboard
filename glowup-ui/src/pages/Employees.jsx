@@ -70,9 +70,8 @@ const Employees = () => {
         console.log(params);
         return (
           <>
-            <Link to={`/saloon/${params.id}/services/${params.row.owner_id}`}>
-              view services
-            </Link>
+            <Link to={`/employee/${params.id}/services`}>view services</Link>
+            <p style={{ padding: "20px" }}></p>
             <Button onClick={(e) => deleteEmployee(e, params.id)}>
               <DeleteIcon style={{ color: "black" }} />
             </Button>

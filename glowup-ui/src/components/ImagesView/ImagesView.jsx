@@ -1,7 +1,7 @@
-import React from 'react'
-import CustomButton from '../Button/Button';
+import React from "react";
+import CustomButton from "../Button/Button";
 
-const ImagesView = ({image,deleting,onClick}) => {
+const ImagesView = ({ image, deleting, onClick, display, width, height }) => {
   return (
     <div
       style={{
@@ -13,7 +13,10 @@ const ImagesView = ({image,deleting,onClick}) => {
       <img
         src={image?.url}
         alt={image?._id}
-        style={{ width: "400px", height: "300px" }}
+        style={{
+          width: width ? width : "400px",
+          height: height ? height : "300px",
+        }}
       ></img>
       <CustomButton
         text={"Delete"}
@@ -23,11 +26,12 @@ const ImagesView = ({image,deleting,onClick}) => {
           backgroundColor: "black",
           color: "white",
           width: "100%",
+          display: display ? "none" : "block",
         }}
         onClick={onClick}
       />
     </div>
   );
-}
+};
 
-export default ImagesView
+export default ImagesView;
