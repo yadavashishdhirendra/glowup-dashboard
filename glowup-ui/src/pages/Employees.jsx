@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   deleteEmployeeFromServiceAction,
   getEmployeesAction,
@@ -18,13 +18,14 @@ const Employees = () => {
   const deleteEmployee = (e, empId) => {
     e.preventDefault();
     confirmAlert({
-      title: "Delete Employee",
-      message: "Are you sure to do this.",
+      title: "Delete Employee From Service?",
       buttons: [
         {
           label: "Yes",
-          onClick: () =>
-            dispatch(deleteEmployeeFromServiceAction(params.id, empId)),
+          onClick: () => {
+            dispatch(deleteEmployeeFromServiceAction(params.id, empId));
+            dispatch(getEmployeesAction(params.id));
+          },
         },
         {
           label: "No",
@@ -66,10 +67,13 @@ const Employees = () => {
       flex: 1,
       sortable: false,
       renderCell: (params) => {
-        console.log(params)
+        console.log(params);
         return (
           <>
-            <Button onClick={(e) => deleteEmployee(e,params.id)}>
+            <Link to={`/saloon/${params.id}/services/${params.row.owner_id}`}>
+              view services
+            </Link>
+            <Button onClick={(e) => deleteEmployee(e, params.id)}>
               <DeleteIcon style={{ color: "black" }} />
             </Button>
           </>

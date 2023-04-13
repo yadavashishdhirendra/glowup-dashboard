@@ -43,6 +43,11 @@ import {
       DELETE_SALON_DATA_ERROR,
       DELETE_SALON_DATA_RESET,
 
+      UPDATE_SALOON_DETAILS_REQUEST,
+      UPDATE_SALOON_DETAILS_SUCCESS,
+      UPDATE_SALOON_DETAILS_ERROR,
+      UPDATE_SALOON_DETAILS_RESET,
+
       ADD_IMAGES_RESET,
       ADD_NEW_SERVICES_RESET,
       UPDATE_SALOON_TAGS_RESET
@@ -265,6 +270,38 @@ export const deleteSalonReducer = (state = {}, action) => {
                         error: null,
                         loading: false
                   }
+            default:
+                  return state
+      }
+}
+export const updateSaloonDetailsReducer = (state = {}, action) => {
+      switch (action.type) {
+            case UPDATE_SALOON_DETAILS_REQUEST:
+                  return {
+                        loading: true
+                  }
+            case UPDATE_SALOON_DETAILS_SUCCESS:
+                  return {
+                        loading: false,
+                        updated: action.payload
+                  }
+            case UPDATE_SALOON_DETAILS_ERROR:
+                  return {
+                        error: action.payload,
+                        loading: false
+                  }
+            case UPDATE_SALOON_DETAILS_RESET:
+                  return {
+                        error: null,
+                        loading: false,
+                        updated: null
+                  }
+            case CLEAR_SALOON_ERROR:
+                  return {
+                        error: null,
+                        loading: null
+                  }
+
             default:
                   return state
       }

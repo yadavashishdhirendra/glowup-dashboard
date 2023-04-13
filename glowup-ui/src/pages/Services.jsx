@@ -163,8 +163,8 @@ const Services = () => {
     {
       field: "actions",
       headerName: "Actions",
-      minWidth: 150,
-      flex: 1,
+      minWidth: 250,
+      flex: 2,
       sortable: false,
       renderCell: (params) => {
         return (
@@ -173,14 +173,17 @@ const Services = () => {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              width: "50%",
             }}
           >
+            <Link to={`/employee/${params.id}/services`}>
+              view services
+            </Link>
+            <p style={{ padding: "20px" }}></p>
             <DeleteIcon
               style={{ color: "black" }}
               onClick={() => confirmDelete(params.id)}
             />
-
+            <p style={{ padding: "20px" }}></p>
             <Link to={`/edit/employee/${params.id}`}>
               <AiFillEdit style={{ color: "black", fontSize: "24px" }} />
             </Link>

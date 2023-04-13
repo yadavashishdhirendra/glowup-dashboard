@@ -148,7 +148,7 @@ const Saloons = () => {
     }
   }, [dispatch, updated, deleted]);
   const columns = [
-    { field: "id", headerName: "Salon Id", minWidth: 200, flex: 1 },
+    { field: "id", headerName: "Salon Id", minWidth: 250, flex: 2 },
     { field: "name", headerName: "Salon Name", minWidth: 150, flex: 1 },
     {
       field: "address",
@@ -175,6 +175,12 @@ const Saloons = () => {
       flex: 2,
     },
     {
+      field: "description",
+      headerName: "Description",
+      minWidth: 150,
+      flex: 2,
+    },
+    {
       field: "ratings",
       headerName: "Ratings",
       minWidth: 150,
@@ -184,8 +190,8 @@ const Saloons = () => {
       field: "actions",
       headerName: "Actions",
       type: "number",
-      minWidth: 550,
-      flex: 8,
+      minWidth: 500,
+      flex: 4,
       sortable: false,
       renderCell: (params) => {
         return (
@@ -200,15 +206,13 @@ const Saloons = () => {
               view services
             </Link>
             <p style={{ padding: "20px" }}></p>
+            <Link to={`/saloon/${params.id}`}>Edit</Link>
+            <p style={{ padding: "20px" }}></p>
             <Link to={`/add-services/${params.row.owner_id}`}>
               Add services
             </Link>
             <p style={{ padding: "20px" }}></p>
-            <Link to={`/view-images?saloon=${JSON.stringify(params.row)}`}>
-              Images
-            </Link>
-            <p style={{ padding: "20px" }}></p>
-            <Link to={`/add-offers/${params.row.id}`}>Offers</Link>
+            <Link to={`/view-images/salon/${params.id}`}>Images</Link>
             <p style={{ padding: "20px" }}></p>
             <DeleteIcon
               style={{ color: "black" }}

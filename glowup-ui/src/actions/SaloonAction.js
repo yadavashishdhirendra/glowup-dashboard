@@ -6,29 +6,20 @@ import {
       ACCOUNTS_SUCCESS,
 
       ADD_IMAGES_ERROR,
-
       ADD_IMAGES_REQUEST,
-
       ADD_IMAGES_SUCCESS,
 
       ADD_NEW_SERVICES_ERROR,
-
       ADD_NEW_SERVICES_REQUEST,
-
       ADD_NEW_SERVICES_SUCCESS,
-
       CLEAR_SALOON_ERROR,
 
       DELETE_IMAGES_ERROR,
-
       DELETE_IMAGES_REQUEST,
-
       DELETE_IMAGES_SUCCESS,
 
       DELETE_SALON_DATA_ERROR,
-
       DELETE_SALON_DATA_REQUEST,
-
       DELETE_SALON_DATA_SUCCESS,
 
       FETCH_ALL_SALOONS_ERROR,
@@ -43,10 +34,16 @@ import {
       GET_SINGLE_SALOON_REQUEST,
       GET_SINGLE_SALOON_SUCCESS,
 
+      UPDATE_SALOON_DETAILS_ERROR,
+
+      UPDATE_SALOON_DETAILS_REQUEST,
+
+      UPDATE_SALOON_DETAILS_RESET,
+
+      UPDATE_SALOON_DETAILS_SUCCESS,
+
       UPDATE_SALOON_TAGS_ERROR,
-
       UPDATE_SALOON_TAGS_REQUEST,
-
       UPDATE_SALOON_TAGS_SUCCESS,
 
       UPDATE_SERVICES_ERROR,
@@ -140,6 +137,26 @@ export const updateSaloonTags = (action, ids, values) => async (dispatch) => {
                   type: UPDATE_SALOON_TAGS_ERROR,
                   payload: error.response.data.message
             })
+      }
+}
+export const updateSaloonDetailsAction = (id, text) => async (dispatch) => {
+      try {
+            dispatch({
+                  type: UPDATE_SALOON_DETAILS_REQUEST
+            })
+            const { data } = await axios.put(`/api/v2/description/saloon/${id}`, { text })
+            dispatch({
+                  type: UPDATE_SALOON_DETAILS_SUCCESS,
+                  payload: data.done
+            })
+      } catch (error) {
+            dispatch({
+                  type: UPDATE_SALOON_DETAILS_ERROR,
+                  payload: error.response.data.error
+            })
+            setTimeout(() => {
+                  dispatch({ type:CLEAR_SALOON_ERROR })
+            }, 500)
       }
 }
 export const addNewServicesAction = (id, file) => async (dispatch) => {

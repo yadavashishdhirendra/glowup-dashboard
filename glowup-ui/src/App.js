@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css'
 import Login from './components/Login/Login';
 import WebFont from 'webfontloader';
-import {loadUser } from './actions/UserActions';
-import { useDispatch} from 'react-redux';
+import { loadUser } from './actions/UserActions';
+import { useDispatch } from 'react-redux';
 import store from './store';
 import BookingsList from './components/Bookings/BookingsList';
 import GenerareCoupans from './pages/GenerareCoupans';
@@ -25,11 +25,12 @@ import AddServices from './pages/AddServices';
 import SaloonImages from './pages/SaloonImages';
 import NewSalon from './pages/NewSalon';
 import NewAccount from './pages/NewAccount';
-import AddOffers from './pages/AddOffers';
 import DeletedBookings from './pages/DeletedBookings';
 import AddOfferImages from './pages/AddOfferImages';
 import Users from './pages/Users';
 import ChangePassword from './pages/ChangePassword';
+import EmployeesServices from './pages/EmployeesServices';
+import Edit from './pages/Edit';
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -54,17 +55,17 @@ const App = () => {
           } />
           <Route exact path='/deleted-bookings' element={
             <ProctectedDashBoardRoute>
-              <DeletedBookings/>
+              <DeletedBookings />
             </ProctectedDashBoardRoute>
           } />
           <Route exact path='/offer-images' element={
             <ProctectedDashBoardRoute>
-              <AddOfferImages/>
+              <AddOfferImages />
             </ProctectedDashBoardRoute>
           } />
           <Route exact path='/all-users' element={
             <ProctectedDashBoardRoute>
-              <Users/>
+              <Users />
             </ProctectedDashBoardRoute>
           } />
           <Route exact path='/create-coupons' element={
@@ -84,17 +85,22 @@ const App = () => {
           } />
           <Route exact path='/new-account' element={
             <ProctectedDashBoardRoute>
-              <NewAccount/>
+              <NewAccount />
             </ProctectedDashBoardRoute>
           } />
           <Route exact path='/new-salon/:id' element={
             <ProctectedDashBoardRoute>
-              <NewSalon/>
+              <NewSalon />
             </ProctectedDashBoardRoute>
           } />
-          <Route exact path='/view-images' element={
+          <Route exact path='/saloon/:id' element={
             <ProctectedDashBoardRoute>
-              <SaloonImages/>
+              <Edit/>
+            </ProctectedDashBoardRoute>
+          } />
+          <Route exact path='/view-images/salon/:id' element={
+            <ProctectedDashBoardRoute>
+              <SaloonImages />
             </ProctectedDashBoardRoute>
           } />
           <Route exact path='/saloon/:id/services/:owner' element={
@@ -107,6 +113,11 @@ const App = () => {
               <Employees />
             </ProctectedDashBoardRoute>
           } />
+          <Route exact path='/employee/:id/services' element={
+            <ProctectedDashBoardRoute>
+              <EmployeesServices />
+            </ProctectedDashBoardRoute>
+          } />
           <Route exact path='/edit/employee/:id' element={
             <ProctectedDashBoardRoute>
               <EditEmployee />
@@ -115,13 +126,13 @@ const App = () => {
 
           <Route exact path='/:owner/new-employee/:id' element={
             <ProctectedDashBoardRoute>
-              <NewEmployee/>
+              <NewEmployee />
             </ProctectedDashBoardRoute>
           } />
 
           <Route exact path='/add-services/:id' element={
             <ProctectedDashBoardRoute>
-              <AddServices/>
+              <AddServices />
             </ProctectedDashBoardRoute>
           } />
           <Route exact path='/accounting' element={
@@ -134,14 +145,9 @@ const App = () => {
               <SaloonBookings />
             </ProctectedDashBoardRoute>
           } />
-          <Route exact path='/add-offers/:id' element={
-            <ProctectedDashBoardRoute>
-              <AddOffers/>
-            </ProctectedDashBoardRoute>
-          } />
           <Route exact path='/change-password/:id' element={
             <ProctectedDashBoardRoute>
-              <ChangePassword/>
+              <ChangePassword />
             </ProctectedDashBoardRoute>
           } />
 

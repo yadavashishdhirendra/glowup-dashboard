@@ -116,7 +116,7 @@ exports.allUsers = async (req, res) => {
                     id: "$_id",
                     name: "$name",
                     email: "$email",
-                    phone:"$mobileno",
+                    phone: "$mobileno",
                     saloonId: { $ifNull: ["$saloon._id", null] },
                     saloonName: { $ifNull: ["$saloon.shopname", null] },
                     mobileno: "$mobileno"
@@ -181,12 +181,14 @@ exports.getWebUser = async (req, res) => {
 exports.addOfferImages = async (req, res) => {
     try {
         const images = await Promise.all(
-            req.files.map(async (file) => {
+            req.files.map(async (file, index) => {
                 let result = await cloudinary.uploader.upload(file.path,
                     {
                         folder: 'offers',
                     })
+                let count = await OffersSchema.count({})
                 return await OffersSchema.create({
+                    index:count,
                     public_id: result.public_id,
                     url: result.secure_url
                 })
@@ -204,7 +206,7 @@ exports.addOfferImages = async (req, res) => {
 }
 exports.allImages = async (req, res) => {
     try {
-        const images = await OffersSchema.find({})
+        const images = await OffersSchema.find({}).sort({ index:1})
         return res.status(200).json({
             images
         })

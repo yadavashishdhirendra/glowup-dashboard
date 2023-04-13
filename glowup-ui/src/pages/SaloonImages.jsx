@@ -1,8 +1,12 @@
 import { ImageList, ImageListItem } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
-import { addSaloonImages, deleteSaloonImages } from "../actions/SaloonAction";
+import {useNavigate, useParams } from "react-router-dom";
+import {
+  addSaloonImages,
+  deleteSaloonImages,
+  fetchSingleSaloon,
+} from "../actions/SaloonAction";
 import CustomButton from "../components/Button/Button";
 import ImagesView from "../components/ImagesView/ImagesView";
 import SideBar from "../components/Sidebar/Sidebar";
@@ -10,18 +14,17 @@ import {
   ADD_IMAGES_RESET,
   DELETE_IMAGES_RESET,
 } from "../constants/SaloonConstants";
+import Loader from "../components/Loader/Loader";
 
 const SaloonImages = () => {
-  function useQuery() {
-    const { search } = useLocation();
-    return React.useMemo(() => new URLSearchParams(search), [search]);
-  }
+  const { id } = useParams();
   const [images, setImages] = useState();
   const [imagesPreview, setImagesPreview] = useState([]);
   const dispatch = useDispatch();
   const { adding, deleting, deleted, uploaded } = useSelector(
     (state) => state.saloonImages
   );
+  const { saloon, loading } = useSelector((state) => state.saloon);
 
   const navigate = useNavigate();
 
@@ -44,20 +47,19 @@ const SaloonImages = () => {
     e.preventDefault();
     dispatch(deleteSaloonImages(owner, action, id));
   };
-  let query = useQuery();
-  let saloon = JSON.parse(query.get("saloon"));
   const addImagesHandler = async (e) => {
     e.preventDefault();
-    dispatch(addSaloonImages(saloon.owner_id, images));
+    dispatch(addSaloonImages(saloon.owner, images));
   };
 
   useEffect(() => {
     if (deleted | uploaded) {
       dispatch({ type: DELETE_IMAGES_RESET });
       dispatch({ type: ADD_IMAGES_RESET });
-      navigate("/salons");
+      dispatch(fetchSingleSaloon(id))
     }
-  }, [navigate, deleted, dispatch, uploaded]);
+    dispatch(fetchSingleSaloon(id));
+  }, [navigate, deleted, dispatch, uploaded, id]);
   return (
     <div style={{ height: "150vh" }}>
       <SideBar />
@@ -66,7 +68,7 @@ const SaloonImages = () => {
           disabled={deleting ? true : false}
           text="Delete All"
           onClick={(e) =>
-            deleteImageHandler(e, saloon?.owner_id, "deleteAll", "")
+            deleteImageHandler(e, saloon?.owner, "deleteAll", "")
           }
         />
         <div
@@ -81,20 +83,24 @@ const SaloonImages = () => {
             overflowX: "hidden",
           }}
         >
-          {saloon?.images?.map((image) => (
-            <ImagesView
-              image={image}
-              deleting={deleting}
-              onClick={(e) =>
-                deleteImageHandler(
-                  e,
-                  saloon?.owner_id,
-                  "deleteOne",
-                  image?.public_id
-                )
-              }
-            />
-          ))}
+          {loading ? (
+            <Loader />
+          ) : (
+            saloon?.images?.map((image) => (
+              <ImagesView
+                image={image}
+                deleting={deleting}
+                onClick={(e) =>
+                  deleteImageHandler(
+                    e,
+                    saloon?.owner,
+                    "deleteOne",
+                    image?.public_id
+                  )
+                }
+              />
+            ))
+          )}
         </div>
 
         <div style={{ margin: "50px" }} className="data-table-wrapper">

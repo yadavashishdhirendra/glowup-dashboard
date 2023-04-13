@@ -1,7 +1,7 @@
 const Employee = require("../models/EmployeeSchema")
 const ServicesSchema = require("../models/ServicesSchema")
 const { Types } = require("mongoose")
-const EmployeeSchema=require("../models/EmployeeSchema")
+const EmployeeSchema = require("../models/EmployeeSchema")
 exports.singleEmployees = async (req, res) => {
       try {
             const getEmployees = await Employee.findById(req.params.id);
@@ -89,8 +89,8 @@ exports.addNewEmployee = async (req, res) => {
             })
       } catch (error) {
             res.status(500).json({
-                 error:error.message
-           })
+                  error: error.message
+            })
       }
 }
 exports.getAllEmployees = async (req, res) => {
@@ -183,6 +183,43 @@ exports.removeEmployeeFromService = async (req, res) => {
             })
       } catch (error) {
             console.log(error)
+            res.status(500).json({
+                  error: error.message
+            })
+      }
+}
+exports.getServicesOfSingleEmployee = async (req, res) => {
+      try {
+            const services = await ServicesSchema.aggregate([
+                  {
+                        $match: {
+                              myemployees: {
+                                    $in: [new Types.ObjectId(req.params.id)]
+                              }
+                        }
+                  },
+                  {
+                        $project: {
+                              id: "$_id",
+                              servicetype: 1,
+                              about: 1,
+                              category: 1,
+                              servicename: 1,
+                              hour: 1,
+                              price: 1,
+                              newprice: 1,
+                              description: 1,
+                              myemployees: 1,
+                              owner: 1,
+                              _id: 0
+                        }
+                  }
+
+            ])
+            res.status(200).json({
+                  services
+            })
+      } catch (error) {
             res.status(500).json({
                   error: error.message
             })

@@ -52,7 +52,8 @@ exports.getAllSaloons = async (req, res) => {
                               address: { $concat: ["$address", ",", "$addresssec", ",", "$city", "$pincode"] },
                               ratings: "$ratings",
                               keys: "$tags",
-                              offers: 1
+                              offers: 1,
+                              description:1
                         }
                   }
             ]);
@@ -223,6 +224,24 @@ exports.addOffersField = async (req, res) => {
             const salon = await SaloonSchema.findByIdAndUpdate(req.params.id, {
                   $set: {
                         offers: text
+                  }
+            })
+            return res.status(200).json({
+                  done: true,
+                  salon
+            })
+      } catch (error) {
+            return res.status(500).json({
+                  error: error.message
+            })
+      }
+}
+exports.setDescriptionOfSalon = async (req, res) => {
+      try {
+            const { text } = req.body
+            const salon = await SaloonSchema.findByIdAndUpdate(req.params.id, {
+                  $set: {
+                        description: text
                   }
             })
             return res.status(200).json({

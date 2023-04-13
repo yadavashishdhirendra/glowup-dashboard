@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
 const Offers = new mongoose.Schema({
+      index: {
+            type:Number
+      },
       public_id: {
             type: String,
             required: false
