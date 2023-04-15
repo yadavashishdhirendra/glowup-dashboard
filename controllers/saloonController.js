@@ -218,30 +218,29 @@ exports.deleteSaloon = async (req, res) => {
             })
       }
 }
-exports.addOffersField = async (req, res) => {
+// exports.addOffersField = async (req, res) => {
+//       try {
+//             const { text } = req.body
+//             const salon = await SaloonSchema.findByIdAndUpdate(req.params.id, {
+//                   $set: {
+//                         offers: text
+//                   }
+//             })
+//             return res.status(200).json({
+//                   done: true,
+//                   salon
+//             })
+//       } catch (error) {
+//             return res.status(500).json({
+//                   error: error.message
+//             })
+//       }
+// }
+exports.updateSalon = async (req, res) => {
       try {
-            const { text } = req.body
             const salon = await SaloonSchema.findByIdAndUpdate(req.params.id, {
                   $set: {
-                        offers: text
-                  }
-            })
-            return res.status(200).json({
-                  done: true,
-                  salon
-            })
-      } catch (error) {
-            return res.status(500).json({
-                  error: error.message
-            })
-      }
-}
-exports.setDescriptionOfSalon = async (req, res) => {
-      try {
-            const { text } = req.body
-            const salon = await SaloonSchema.findByIdAndUpdate(req.params.id, {
-                  $set: {
-                        description: text
+                       ...req.body
                   }
             })
             return res.status(200).json({

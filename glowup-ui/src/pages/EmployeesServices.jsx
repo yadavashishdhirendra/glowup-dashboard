@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
 import TableData from "../components/Table";
 import SideBar from "../components/Sidebar/Sidebar";
@@ -101,18 +101,17 @@ const EmployeesServices = () => {
       },
     },
   ];
-  const fetchServices = async () => {
+  const fetchServices = useCallback(async () => {
     try {
       const { data } = await axios.get(`/api/v2/employee-services/${id}`);
-      console.log(data);
       setServices(data.services);
     } catch (error) {
       alert(error.response.data.error);
     }
-  };
+  }, [id]);
   useEffect(() => {
     fetchServices();
-  }, []);
+  }, [fetchServices]);
   return (
     <div>
       <SideBar />

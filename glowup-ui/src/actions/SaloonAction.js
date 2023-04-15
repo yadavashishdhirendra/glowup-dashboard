@@ -38,8 +38,6 @@ import {
 
       UPDATE_SALOON_DETAILS_REQUEST,
 
-      UPDATE_SALOON_DETAILS_RESET,
-
       UPDATE_SALOON_DETAILS_SUCCESS,
 
       UPDATE_SALOON_TAGS_ERROR,
@@ -139,12 +137,13 @@ export const updateSaloonTags = (action, ids, values) => async (dispatch) => {
             })
       }
 }
-export const updateSaloonDetailsAction = (id, text) => async (dispatch) => {
+export const updateSaloonDetailsAction = (id, form) => async (dispatch) => {
       try {
+            console.log(form)
             dispatch({
                   type: UPDATE_SALOON_DETAILS_REQUEST
             })
-            const { data } = await axios.put(`/api/v2/description/saloon/${id}`, { text })
+            const { data } = await axios.put(`/api/v2/update/saloon/${id}`, form)
             dispatch({
                   type: UPDATE_SALOON_DETAILS_SUCCESS,
                   payload: data.done

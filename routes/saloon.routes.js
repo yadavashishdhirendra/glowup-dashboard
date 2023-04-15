@@ -9,7 +9,7 @@ const { getAllSaloons,
       createNewSaloon,
       deleteSaloon,
       addOffersField,
-      setDescriptionOfSalon
+      updateSalon
 } = require("../controllers/saloonController");
 const { WebAuth } = require("../utils/authUserToken");
 const { upload } = require("../utils/multer")
@@ -22,7 +22,6 @@ router.put("/tags-saloon", WebAuth, updateSaloonTags)
 router.post("/new-images/:id", upload.any("file"), addImages)
 router.put("/delete-images", WebAuth, deleteImage)
 router.delete("/saloon/:id", WebAuth, deleteSaloon)
-router.put("/offer/saloon/:id", WebAuth, addOffersField)
-router.put("/description/saloon/:id", WebAuth, setDescriptionOfSalon)
+router.put("/update/saloon/:id", WebAuth, updateSalon)
 router.put("/change-image-position/saloon/:id", WebAuth, changeImagesPosition)
 module.exports = router
