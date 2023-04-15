@@ -31,6 +31,7 @@ const ServicesSchema = new mongoose.Schema({
     },
     addons: {
         type: String,
+        default:"0"
     },
     newprice: {
         type: String,
