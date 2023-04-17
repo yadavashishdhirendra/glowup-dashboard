@@ -54,7 +54,6 @@ const Edit = () => {
       city,
       state,
       pincode: pin,
-      owner: id,
       map,
       description,
       offers: offer,
@@ -192,49 +191,42 @@ const Edit = () => {
                 laBel={"Offer"}
                 inputType="text"
                 value={offer}
-                required
                 onChange={(e) => setOffer(e.target.value)}
               />
               <Input
                 laBel={"City"}
                 inputType="text"
                 value={city}
-                required
                 onChange={(e) => setCity(e.target.value)}
               />
               <Input
                 laBel={"State"}
                 inputType="text"
                 value={state}
-                required
                 onChange={(e) => setState(e.target.value)}
               />
               <Input
                 laBel={"Pin Code"}
                 inputType="text"
                 value={pin}
-                required
                 onChange={(e) => setPin(e.target.value)}
               />
               <Input
                 laBel={"map"}
                 inputType="text"
                 value={map}
-                required
                 onChange={(e) => setMap(e.target.value)}
               />
               <Input
                 laBel={"Latitude"}
                 inputType="text"
                 value={latitude}
-                required
                 onChange={(e) => setLatitude(e.target.value)}
               />
               <Input
                 laBel={"Longitude"}
                 inputType="text"
                 value={longitude}
-                required
                 onChange={(e) => setLongitude(e.target.value)}
               />
             </section>
