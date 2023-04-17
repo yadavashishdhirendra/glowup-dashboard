@@ -89,7 +89,6 @@ exports.getSingleSaloon = async (req, res) => {
 exports.updateSaloonTags = async (req, res) => {
       try {
             const { action, ids, values } = req.body
-            console.log(values)
             switch (action) {
                   case 'Add':
                         return await saloonTags(ids, "$addToSet", values, res)
