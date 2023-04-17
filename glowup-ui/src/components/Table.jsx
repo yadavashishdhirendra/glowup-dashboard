@@ -26,12 +26,13 @@ const TableData = ({
       columns={columns}
       rowsPerPageOptions={[25, 50, 100]}
       pageSize={size}
-      onPageSizeChange={(newSize)=>setSize(newSize)}
-      autoPageSize
+      disableRowSelectionOnClick
+      keepNonExistentRowsSelected
+      onPageSizeChange={(newSize) => setSize(newSize)}
       components={{
         Toolbar: MyExportButton,
       }}
-      autoHeight
+      autoHeight={true}
       {...otherProps}
     />
   );

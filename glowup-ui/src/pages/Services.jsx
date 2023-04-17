@@ -199,7 +199,14 @@ const Services = () => {
       <div>
         <SideBar />
         <div className="data-table-wrapper">
-          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"20px"}}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: "20px",
+            }}
+          >
             <h1>Services</h1>
             <Link to="/salons">Go Back To Salons Page</Link>
           </div>
@@ -235,15 +242,17 @@ const Services = () => {
               </button>
             </div>
           </div>
-
-          <TableData
-            data={services?.length ? services : []}
-            columns={servicesColumns}
-            title="services"
-            onSelectionModelChange={(itm) => {
-              setIds(itm);
-            }}
-          />
+          <div style={{height:"min-content"}}>
+            <TableData
+              data={services?.length ? services : []}
+              columns={servicesColumns}
+              title="services"
+              
+              onSelectionModelChange={(itm) => {
+                setIds(itm);
+              }}
+            />
+          </div>
         </div>
         <div style={{ marginTop: "40px", marginBottom: "20px" }}>
           <ToastContainer
@@ -266,7 +275,7 @@ const Services = () => {
                 </Link>
               </div>
             </section>
-            <div style={{ marginBottom: "200px" }}>
+            <div style={{ marginBottom: "200px", height: "min-content" }}>
               <TableData
                 data={employees?.length ? employees : []}
                 columns={employeesColumn}

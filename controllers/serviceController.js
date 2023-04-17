@@ -5,6 +5,7 @@ const { Types } = require("mongoose")
 const UserModel = require("../models/UserModel")
 exports.getallServicesForSaloon = async (req, res) => {
       try {
+            console.log(req.params)
             const service = await SaloonSchema.aggregate([
                   {
                         $match: { _id: new Types.ObjectId(req.params.id) }
@@ -40,6 +41,7 @@ exports.getallServicesForSaloon = async (req, res) => {
                         }
                   }
             ])
+            console.log(service)
             res.status(200).json({
                   success: true,
                   service
@@ -100,7 +102,7 @@ exports.addServicesFromSheet = async (req, res) => {
                               servicename: service.servicename,
                               servicetype: service.servicetype,
                               category: service.category,
-                              addons: service["Add Ons"],
+                              addons: service["Add Ons"]?service["Add Ons"]:"0",
                               gender: service.gender,
                               about:service.about,
                               hour: service.hour,

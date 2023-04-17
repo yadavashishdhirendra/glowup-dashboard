@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SideBar from "../components/Sidebar/Sidebar";
 import { addNewEmployeeAction } from "../actions/EmployeesAction";
+import { ADD_NEW_EMPLOYEE_RESET } from "../constants/EmployeeConstants";
 const NewEmployee = () => {
   const { owner, id } = useParams();
   const [firstName, setFirstName] = useState("");
@@ -39,12 +40,13 @@ const NewEmployee = () => {
   useEffect(() => {
     if (newEmployee?._id) {
       toast(`${newEmployee?._id} is id of new employee`);
+      dispatch({type:ADD_NEW_EMPLOYEE_RESET})
       navigate(`/saloon/${id}/services/${owner}`);
     }
     if (error) {
       toast(error);
     }
-  }, [newEmployee?._id, navigate, owner, id, error]);
+  }, [newEmployee?._id, navigate, owner, id, error,dispatch]);
   return (
     <div>
       <SideBar />

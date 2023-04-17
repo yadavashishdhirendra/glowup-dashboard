@@ -28,7 +28,8 @@ import {
 
       ADD_NEW_EMPLOYEE_REQUEST,
       ADD_NEW_EMPLOYEE_SUCCESS,
-      ADD_NEW_EMPLOYEE_ERROR
+      ADD_NEW_EMPLOYEE_ERROR,
+      ADD_NEW_EMPLOYEE_RESET
 
 } from "../constants/EmployeeConstants";
 
@@ -123,6 +124,12 @@ export const editEmployeeReducer = (state = {}, action) => {
                   return {
                         creating: false,
                         error: action.payload
+                  }
+            case ADD_NEW_EMPLOYEE_RESET:
+                  return {
+                        creating: null,
+                        error: null,
+                        newEmployee:null
                   }
             case CLEAR_EMPLOYEES_ERRORS:
                   return {
