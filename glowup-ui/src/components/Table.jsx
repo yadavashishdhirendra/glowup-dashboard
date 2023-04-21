@@ -3,12 +3,10 @@ import {
   GridToolbarContainer,
   GridToolbarExport,
 } from "@material-ui/data-grid";
-const TableData = ({
-  data,
-  columns,
-  title,
-  ...otherProps
-}) => {
+import { useState } from "react";
+
+const TableData = ({ data, columns, title, selectIds }) => {
+  const [size, setSize] = useState(100);
   const MyExportButton = () => {
     return (
       <GridToolbarContainer title={title}>
@@ -17,18 +15,19 @@ const TableData = ({
     );
   };
   return (
-    <div style={{ height:"100%", width: "100%" }}>
-      <DataGrid
-        rows={data}
-        checkboxSelection
-        columns={columns}
-        components={{
-          Toolbar: MyExportButton,
-        }}
-        autoHeight={true}
-        {...otherProps}
-      />
-    </div>
+    <DataGrid
+      rows={data}
+      columns={columns}
+      checkboxSelection
+      pageSize={size}
+      disableColumnVirtualization
+      onPageSizeChange={(newSize) => setSize(newSize)}
+      autoHeight
+      components={{
+        Toolbar: MyExportButton,
+      }}
+      onSelectionModelChange={selectIds}
+    />
   );
 };
 
