@@ -198,7 +198,7 @@ const Services = () => {
       <MetaTitle title={"services"} />
       <div>
         <SideBar />
-        <div className="data-table-wrapper">
+        <div style={{margin:"40px"}}>
           <div
             style={{
               display: "flex",
@@ -242,7 +242,6 @@ const Services = () => {
               </button>
             </div>
           </div>
-          <div style={{height:"min-content"}}>
             <TableData
               data={services?.length ? services : []}
               columns={servicesColumns}
@@ -252,7 +251,6 @@ const Services = () => {
                 setIds(itm);
               }}
             />
-          </div>
         </div>
         <div style={{ marginTop: "40px", marginBottom: "20px" }}>
           <ToastContainer
@@ -260,7 +258,7 @@ const Services = () => {
             hideProgressBar={true}
             theme="colored"
           />
-          <div className="data-table-wrapper" style={{ marginBottom: "20px" }}>
+          <div style={{ margin: "40px" }}>
             <section
               style={{
                 display: "flex",
