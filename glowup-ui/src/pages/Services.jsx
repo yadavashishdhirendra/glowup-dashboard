@@ -13,7 +13,7 @@ import { UPDATE_SERVICES_RESET } from "../constants/SaloonConstants";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import MetaTitle from "../components/MetaTitle/MetaTitle";
 import SaloonEmployees from "./SaloonEmployees";
-import { DataGrid } from "@material-ui/data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 const Services = () => {
   const params = useParams();
   const dispatch = useDispatch();
@@ -170,18 +170,19 @@ const Services = () => {
               </button>
             </div>
           </div>
-          <DataGrid
-            rows={services?.length ? services : []}
-            columns={servicesColumns}
-            checkboxSelection
-            pageSize={size}
-            disableColumnSelector
-            onPageSizeChange={(newSize) => setSize(newSize)}
-            autoHeight
-            onSelectionModelChange={(itm) => {
-              setIds(itm);
-            }}
-          />
+          <div style={{ height:"max-content", width: "100%" }}>
+            <DataGrid
+              rows={services?.length ? services : []}
+              columns={servicesColumns}
+              checkboxSelection
+              pageSize={size}
+              onPageSizeChange={(newSize) => setSize(newSize)}
+              autoHeight
+              onRowSelectionModelChange={(itm) => {
+                setIds(itm);
+              }}
+            />
+          </div>
         </div>
         <SaloonEmployees params={params} />
       </div>

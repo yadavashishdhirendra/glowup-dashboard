@@ -4,7 +4,8 @@
   box-sizing: border-box;
   font-family: 'Montserrat', 'sans-serif';
 }
-a{
+
+a {
   text-decoration: none;
 }
 
@@ -33,6 +34,9 @@ a{
   -o-border-radius: 0px;
 }
 
+.MuiTablePagination-actions {
+  background-color: black;
+}
 
 .loading-gif {
   background-color: white;

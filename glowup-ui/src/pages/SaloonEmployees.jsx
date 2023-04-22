@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import TableData from "../components/Table";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { AiFillEdit } from "react-icons/ai";
@@ -12,6 +11,8 @@ import {
 import DeleteIcon from "@material-ui/icons/Delete";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css";
+
+import { DataGrid } from "@mui/x-data-grid";
 const SaloonEmployees = ({ params }) => {
   const [empIds, setEmpids] = useState([]);
   const { employees } = useSelector((state) => state.employees);
@@ -116,13 +117,13 @@ const SaloonEmployees = ({ params }) => {
             </Link>
           </div>
         </section>
-        <div style={{ marginBottom: "200px", height: "min-content" }}>
-          <TableData
-            data={employees?.length ? employees : []}
+        <div style={{ marginBottom: "200px" }}>
+          <DataGrid
+            rows={employees?.length ? employees : []}
             columns={employeesColumn}
-            title="employees"
-            selectIds={(itm) => {
-              setEmpids(itm);
+            checkboxSelection
+            onRowSelectionModelChange={(itm) => {
+                 setEmpids(itm);
             }}
           />
         </div>
