@@ -121,6 +121,10 @@ exports.allUsers = async (req, res) => {
                     saloonName: { $ifNull: ["$saloon.shopname", null] },
                     mobileno: "$mobileno"
                 }
+            }, {
+                $sort: {
+                    name:1
+                }
             }
         ])
         return res.status(200).json({

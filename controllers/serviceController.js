@@ -38,6 +38,10 @@ exports.getallServicesForSaloon = async (req, res) => {
                         $project: {
                               id: "$_id", servicetype: 1,about:1, category: 1, servicename: 1, hour: 1, price: 1,newprice:1, description: 1, myemployees: 1, owner: 1, _id: 0
                         }
+                  }, {
+                        $sort: {
+                              category:1
+                        }
                   }
             ])
             res.status(200).json({

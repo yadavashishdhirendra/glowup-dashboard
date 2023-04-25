@@ -5,7 +5,7 @@ import {
 } from "@material-ui/data-grid";
 import { useState } from "react";
 
-const TableData = ({ data, columns, title, selectIds }) => {
+const TableData = ({ data, columns, title, ...other }) => {
   const [size, setSize] = useState(100);
   const MyExportButton = () => {
     return (
@@ -26,7 +26,7 @@ const TableData = ({ data, columns, title, selectIds }) => {
       components={{
         Toolbar: MyExportButton,
       }}
-      onSelectionModelChange={selectIds}
+      {...other}
     />
   );
 };

@@ -111,6 +111,10 @@ exports.getAllEmployees = async (req, res) => {
                               outtime: "$outtime",
                               _id: 0
                         }
+                  }, {
+                        $sort: {
+                              name:1
+                        }
                   }
             ])
             res.status(200).json({
@@ -151,6 +155,10 @@ exports.getEmployeesByServiceId = async (req, res) => {
                   {
                         $project: {
                               id: "$_id", name: { $concat: ["$firstname", " ", "$lastname"] }, status: 1, intime: 1, outtime: 1
+                        }
+                  }, {
+                        $sort: {
+                              name:1
                         }
                   }
             ])

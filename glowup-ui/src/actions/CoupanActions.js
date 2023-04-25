@@ -33,7 +33,7 @@ export const createCoupanAction = (
                   usage_limit,
                   gender
             })
-            dispatch({ type: CREATE_COUPAN_SUCCESS, payload: data.newCoupan })
+            dispatch({ type: CREATE_COUPAN_SUCCESS, payload: data.success })
       } catch (error) {
             dispatch({ type: CREATE_COUPAN_ERROR, payload: error.response.data.err })
             setTimeout(() => {

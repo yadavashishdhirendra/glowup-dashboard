@@ -19,6 +19,7 @@ exports.createUserAccount = async (req, res) => {
                   mobileno: phone
             })
             return res.status(201).json({
+                  done: true,
                   newUser
             })
       } catch (error) {
@@ -54,6 +55,10 @@ exports.getAllSaloons = async (req, res) => {
                               keys: "$tags",
                               offers: 1,
                               description: 1
+                        }
+                  }, {
+                        $sort: {
+                              name: 1
                         }
                   }
             ]);
@@ -239,7 +244,7 @@ exports.updateSalon = async (req, res) => {
       try {
             const salon = await SaloonSchema.findByIdAndUpdate(req.params.id, {
                   $set: {
-                       ...req.body
+                        ...req.body
                   }
             })
             return res.status(200).json({

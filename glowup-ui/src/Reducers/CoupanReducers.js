@@ -9,6 +9,7 @@ import {
 
       CREATE_COUPAN_ERROR,
       CREATE_COUPAN_REQUEST,
+      CREATE_COUPAN_RESET,
       CREATE_COUPAN_SUCCESS,
 
       DELETE_COUPAN_ERROR,
@@ -31,18 +32,24 @@ export const createCoupanReducer = (state = {}, action) => {
             case CREATE_COUPAN_SUCCESS:
                   return {
                         creating: false,
-                        coupan: action.payload
+                        done: action.payload,
                   }
             case CREATE_COUPAN_ERROR:
                   return {
                         creating: false,
                         error: action.payload
                   }
+            case CREATE_COUPAN_RESET:
+                  return {
+                        done: null,
+                        error: null
+                  }
             case CLEAR_COUPAN_ERRORS:
                   return {
                         ...state,
                         error: null
                   }
+           
             default:
                   return state
       }

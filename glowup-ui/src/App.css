@@ -35,7 +35,17 @@ a {
 }
 
 .MuiTablePagination-actions {
-  background-color: grey;
+  background-color: black;
+  cursor: pointer;
+}
+
+.MuiTablePagination-actions path {
+  color: white;
+  cursor: pointer;
+}
+
+svg {
+  cursor: pointer;
 }
 
 .loading-gif {

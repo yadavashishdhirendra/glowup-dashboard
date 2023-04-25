@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchAllSaloonsAction } from "../actions/SaloonAction";
 import Select from "react-dropdown-select";
 import axios from "axios";
+import { CREATE_COUPAN_RESET } from "../constants/CoupanConstansts";
 const GenerareCoupans = () => {
   const [name, setName] = useState();
   const [description, setDescription] = useState();
@@ -24,9 +25,9 @@ const GenerareCoupans = () => {
   const [limit, setLimit] = useState(1);
   const [selectedVendors, setSelectedVen] = useState([]);
   const [resUse, setReUse] = useState(0);
-  const { coupan, error } = useSelector((state) => state.newCoupan);
+  const {error, done } = useSelector((state) => state.newCoupan);
   const { saloons } = useSelector((state) => state.allSaloons);
- 
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const serviceCtaegories = ["Female", "Male", "All"];
@@ -57,11 +58,14 @@ const GenerareCoupans = () => {
         gender
       )
     );
-    if (coupan.code) {
-      toast(`Coupan code ${coupan.code} is saved `);
+  };
+  useEffect(() => {
+    if (done) {
+      toast(`Coupan saved `);
+      dispatch({type:CREATE_COUPAN_RESET})
       navigate("/coupans");
     }
-  };
+  }, [done, navigate,dispatch]);
   useEffect(() => {
     if (error) {
       toast(error);
@@ -167,7 +171,7 @@ const GenerareCoupans = () => {
                     onChange={(e) => setGender(e.target.value)}
                     required={true}
                   >
-                     <option value={""}></option>
+                    <option value={""}></option>
                     {serviceCtaegories.map((cat) => (
                       <option value={cat} key={cat}>
                         {cat}
@@ -185,9 +189,7 @@ const GenerareCoupans = () => {
                     onChange={(e) => setCategory(e.target.value)}
                     required={true}
                   >
-                    <option value={""} key={""}>
-                      
-                    </option>
+                    <option value={""} key={""}></option>
                     {fetched?.map(({ category }) => (
                       <option value={category} key={category}>
                         {category}
@@ -247,7 +249,7 @@ const GenerareCoupans = () => {
                       style={{
                         width: "400px",
                       }}
-                      dropdownHeight="100px"
+                      dropdownHeight="400px"
                       searchBy="name"
                       options={saloons?.length ? saloons : []}
                       labelField="name"

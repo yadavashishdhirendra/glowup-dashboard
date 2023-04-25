@@ -22,7 +22,8 @@ const NewAccount = () => {
         password,
         name,
       });
-      if (data?.newUser) {
+      console.log(data)
+      if (data?.done) {
             navigate(`/new-salon/${data?.newUser?._id}`)
       }
     } catch (error) {
