@@ -13,7 +13,7 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import MetaTitle from "../components/MetaTitle/MetaTitle";
 import DeleteIcon from "@material-ui/icons/Delete";
-import TableData from "../components/Table";
+import { DataGrid } from "@mui/x-data-grid";
 import Select from "react-dropdown-select";
 import { UPDATE_SALOON_TAGS_RESET } from "../constants/SaloonConstants";
 let staticTags = [
@@ -44,12 +44,13 @@ let staticTags = [
   {
     id: "Spa",
   },
-  { id: "Extra Massage" },
-  { id: "Extra Piercing" },
-  { id: "Extra Threading" },
+  { id: "Massage" },
+  { id: "Piercing" },
+  { id: "Threading" },
 ];
 const Saloons = () => {
   const dispatch = useDispatch();
+  const [size,setSize]=useState(25)
   const { saloons } = useSelector((state) => state.allSaloons);
   const { deleted } = useSelector((state) => state.deleteSalonData);
   const { updated, loading } = useSelector((state) => state.tagsUpdate);
@@ -64,7 +65,7 @@ const Saloons = () => {
             style={{
               width: "400px",
             }}
-            dropdownHeight="100px"
+            dropdownHeight="250px"
             searchBy="id"
             options={staticTags}
             labelField="id"
@@ -263,10 +264,14 @@ const Saloons = () => {
             </div>
           </section>
         </form>
-        <TableData
-          data={saloons?.length ? saloons : []}
+        <DataGrid
+          rows={saloons?.length ? saloons : []}
           columns={columns}
-          onSelectionModelChange={(itm) => {
+          checkboxSelection
+          pageSize={size}
+          onPageSizeChange={(newSize) => setSize(newSize)}
+          autoHeight
+          onRowSelectionModelChange={(itm) => {
             setIds(itm);
           }}
         />
