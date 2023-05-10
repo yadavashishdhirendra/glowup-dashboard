@@ -31,6 +31,9 @@ exports.createUserAccount = async (req, res) => {
 exports.createNewSaloon = async (req, res) => {
       try {
             const newSalon = await SaloonSchema.create(req.body)
+            const user = await UserSchema.findById(req.body.owner)
+            user.saloon.push(newSalon._id)
+            await user.save()
             return res.status(201).json({
                   newSalon
             })
