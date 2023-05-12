@@ -8,7 +8,7 @@ const BookingsSchema = require("../models/BookingModel")
 const DeletedCustBookingsSchema = require("../models/DeleteCustBookings")
 const DeletedBookingsSchema = require("../models/DeletedBooking")
 const EmployeeSchema = require("../models/EmployeeSchema");
-const CustomeUserModel = require("../models/CustomeUserModel");
+const { emit } = require("../models/CustomerCareUser");
 exports.createUserAccount = async (req, res) => {
       try {
             const { email, phone, password, name } = req.body
@@ -23,6 +23,11 @@ exports.createUserAccount = async (req, res) => {
                   newUser
             })
       } catch (error) {
+            if (error.keyPattern.email) {
+                  return res.status(500).json({
+                        error: `${error.keyValue.email} is already in use`
+                  })
+            }
             return res.status(500).json({
                   error: error.message
             })
@@ -45,6 +50,7 @@ exports.createNewSaloon = async (req, res) => {
 }
 exports.getAllSaloons = async (req, res) => {
       try {
+
             const saloons = await SaloonSchema.aggregate([
                   {
                         $project: {

@@ -76,7 +76,7 @@ exports.updateServicesById = async (req, res) => {
                   query[field] = value
                   const response = await Promise.all(
                         (ids.map(async (id) => {
-                              const service = await Services.findByIdAndUpdate(id, query)
+                              const service = await ServicesSchema.findByIdAndUpdate(id, query)
                               return service
                         }))
                   )
