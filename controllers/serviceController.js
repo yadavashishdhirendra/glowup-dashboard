@@ -109,7 +109,7 @@ exports.addServicesFromSheet = async (req, res) => {
                               about:service.about,
                               hour: service.hour,
                               price: `${service.price}`,
-                              newprice: `${service["New Price"]}`,
+                              newprice: `${service["New Price"]}` ? `${service["New Price"]}`:"0",
                               description: service["Description of the Services"],
                               owner: req.params.id
                         })
