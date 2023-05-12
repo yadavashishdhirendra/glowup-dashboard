@@ -36,11 +36,11 @@ exports.getallServicesForSaloon = async (req, res) => {
                   },
                   {
                         $project: {
-                              id: "$_id", servicetype: 1,about:1, category: 1, servicename: 1, hour: 1, price: 1,newprice:1, description: 1, myemployees: 1, owner: 1, _id: 0
+                              id: "$_id", servicetype: 1, about: 1, category: 1, servicename: 1, hour: 1, price: 1, newprice: 1, description: 1, myemployees: 1, owner: 1, _id: 0
                         }
                   }, {
                         $sort: {
-                              category:1
+                              category: 1
                         }
                   }
             ])
@@ -104,13 +104,13 @@ exports.addServicesFromSheet = async (req, res) => {
                               servicename: service.servicename,
                               servicetype: service.servicetype,
                               category: service.category,
-                              addons: service["Add Ons"]?service["Add Ons"]:"0",
+                              addons: service.AddOns ? service.AddOns : "0",
                               gender: service.gender,
-                              about:service.about,
+                              about: service.about,
                               hour: service.hour,
                               price: `${service.price}`,
-                              newprice: `${service["New Price"]}` ? `${service["New Price"]}`:"0",
-                              description: service["Description of the Services"],
+                              newprice: service.NewPrice? `${service.NewPrice}` : "0",
+                              description: service.Description,
                               owner: req.params.id
                         })
                         return newService._id
