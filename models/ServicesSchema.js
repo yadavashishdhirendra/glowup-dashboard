@@ -41,6 +41,11 @@ const ServicesSchema = new mongoose.Schema({
         // required: true,
         ref: "Employee"
     }],
+    addOns_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        // required: true,
+        ref: "AddOns"
+    },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",

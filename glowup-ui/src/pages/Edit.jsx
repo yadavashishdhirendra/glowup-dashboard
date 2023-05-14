@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import SideBar from "../components/Sidebar/Sidebar";
-import {useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Input from "../components/Input/Input";
 import SelectDropDown from "../components/SelectDropDown/SelectDropDown";
 import CustomButton from "../components/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
+import DeleteIcon from "@material-ui/icons/Delete";
+
 import {
   fetchSingleSaloon,
   updateSaloonDetailsAction,
@@ -14,6 +16,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { UPDATE_SALOON_DETAILS_RESET } from "../constants/SaloonConstants";
+import { TextareaAutosize } from "@mui/material";
+import { checkString } from "../util/helper";
 const companyType = [
   "Sole Proprietorship",
   "Private Limited",
@@ -36,7 +40,20 @@ const Edit = () => {
   const [longitude, setLongitude] = useState();
   const [offer, setOffer] = useState();
   const [description, setDescription] = useState();
-
+  const [days, setDays] = useState();
+  const [businessHours, setBusinessHours] = useState([]);
+  const [from, setFrom] = useState("");
+  const [mobileNo, setMobileNo] = useState("");
+  const [to, setTo] = useState("");
+  const weekDays = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
   const { saloon } = useSelector((state) => state.saloon);
   const { updated, loading, error } = useSelector(
     (state) => state.updateSaloon
@@ -44,6 +61,10 @@ const Edit = () => {
   const dispatch = useDispatch();
 
   const updateSaloon = () => {
+    const numbers = checkString(mobileNo);
+    if (numbers.length > 5) {
+      return toast("only 5 numbers are allowed");
+    }
     let formData = {
       shopname,
       ownername: ownerName,
@@ -56,6 +77,7 @@ const Edit = () => {
       pincode: pin,
       map,
       description,
+      mobileno: numbers,
       offers: offer,
       location: {
         type: "Point",
@@ -63,6 +85,28 @@ const Edit = () => {
       },
     };
     dispatch(updateSaloonDetailsAction(id, formData));
+  };
+  const addHoursHandler = (e, days, from, to) => {
+    e.preventDefault();
+    if (!days || !from || !to) {
+      alert("please add all fields");
+      return setBusinessHours([]);
+    }
+    if (businessHours.length >= 7) {
+      alert("7 days max can be added");
+    } else {
+      let data = {
+        id: Math.random(),
+        day: days,
+        from,
+        to,
+      };
+      setBusinessHours([...businessHours, data]);
+    }
+  };
+  const deleteDayHandler = (e, id) => {
+    e.preventDefault();
+    setBusinessHours(businessHours.filter((t) => t.id !== id));
   };
   const updateSaloonHandler = (e) => {
     e.preventDefault();
@@ -86,13 +130,13 @@ const Edit = () => {
     dispatch(fetchSingleSaloon(id));
     if (updated) {
       toast("Salon Updated");
-      dispatch(fetchSingleSaloon(id))
+      dispatch(fetchSingleSaloon(id));
       dispatch({ type: UPDATE_SALOON_DETAILS_RESET });
     }
     if (error) {
       toast(error);
     }
-  }, [dispatch, id, updated,error]);
+  }, [dispatch, id, updated, error]);
   useEffect(() => {
     setShopName(saloon?.shopname);
     setOwnerName(saloon?.ownername);
@@ -108,6 +152,7 @@ const Edit = () => {
     setLongitude(saloon?.location?.coordinates[0]);
     setDescription(saloon?.description);
     setOffer(saloon?.offers);
+    setMobileNo(saloon?.mobileno.toString());
   }, [saloon]);
   return (
     <div>
@@ -148,6 +193,7 @@ const Edit = () => {
                 value={ownerName}
                 onChange={(e) => setOwnerName(e.target.value)}
               />
+
               <Input
                 laBel={"Owner Id"}
                 inputType="text"
@@ -229,6 +275,82 @@ const Edit = () => {
                 value={longitude}
                 onChange={(e) => setLongitude(e.target.value)}
               />
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <label style={{ width: "max-content" }}>WhatsApp No</label>
+                <TextareaAutosize
+                  style={{ height: "5vh", padding: "15px" }}
+                  value={mobileNo}
+                  onChange={(e) => setMobileNo(e.target.value)}
+                />
+              </div>
+              {/* <section style={{ marginLeft: "20px" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <label>Business Hours</label>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      marginTop: "5px",
+                      alignItems: "center",
+                    }}
+                  >
+                    <SelectDropDown
+                      text={"Day"}
+                      value={days}
+                      name="Day"
+                      id="Day"
+                      array={weekDays}
+                      style={{ width: "100px" }}
+                      onChange={(e) => setDays(e.target.value)}
+                      required={true}
+                    />
+                    <Input
+                      style={{ width: "100px" }}
+                      laBel="From"
+                      value={from}
+                      required
+                      onChange={(e) => setFrom(e.target.value)}
+                      placeholder="00:00 am"
+                    ></Input>
+                    <Input
+                      style={{ width: "100px" }}
+                      laBel="To"
+                      value={to}
+                      required
+                      onChange={(e) => setTo(e.target.value)}
+                      placeholder="00:00 pm"
+                    ></Input>
+
+                    <CustomButton
+                      text={"Add"}
+                      onClick={(e) => addHoursHandler(e, days, from, to)}
+                      style={{ fontSize: "8px", marginLeft: "5px" }}
+                    />
+                  </div>
+                </div>
+                <section
+                  style={{ backgroundColor: "white", marginRight: "20px" }}
+                >
+                  {businessHours?.map((time) => (
+                    <div style={{ display: "flex" }}>
+                      <p>Day-{time.day}</p>
+                      <p> &nbsp;</p>
+                      <p>From-{time.from}</p>
+                      <p>&nbsp;</p>
+                      <p>to-{time.to}</p>
+                      <DeleteIcon
+                        style={{ color: "black" }}
+                        onClick={(e) => deleteDayHandler(e, time.id)}
+                      />
+                    </div>
+                  ))}
+                </section>
+              </section> */}
             </section>
           </div>
         </div>

@@ -3,6 +3,8 @@ const SaloonSchema = require("../models/SaloonSchema")
 const { ReadExcelFile } = require("../utils/excelFileUtil")
 const { Types } = require("mongoose")
 const UserModel = require("../models/UserModel")
+const { response } = require("express")
+const AddOnsModel = require("../models/AddOnsModel")
 exports.getallServicesForSaloon = async (req, res) => {
       try {
             const service = await SaloonSchema.aggregate([
@@ -98,6 +100,7 @@ exports.addServicesFromSheet = async (req, res) => {
             const data = await ReadExcelFile(path)
             const owner = await UserModel.findById(req.params.id)
             await ServicesSchema.deleteMany({ owner: req.params.id })
+            await AddOnsModel.deleteMany({ owner: req.params.id })
             const response = await Promise.all(
                   data.map(async (service) => {
                         const newService = await ServicesSchema.create({
@@ -109,10 +112,28 @@ exports.addServicesFromSheet = async (req, res) => {
                               about: service.about,
                               hour: service.hour,
                               price: `${service.price}`,
-                              newprice: service.NewPrice? `${service.NewPrice}` : "0",
+                              newprice: service.NewPrice ? `${service.NewPrice}` : "0",
                               description: service.Description,
                               owner: req.params.id
                         })
+                        if (service?.AddOns) {
+                              if (service.AddOns === "0") {
+                                    await ServicesSchema.findByIdAndUpdate(newService._id, { $set: { addons: service.addons } })
+                              }
+                              else {
+                                    service.AddOns.split("/").map(async (s) => {
+                                          let test = s.split(",")
+                                          let data = await AddOnsModel.create({
+                                                price: test[1],
+                                                servicename: test[0],
+                                                category: service.category ? service.category : "",
+                                                gender: service.gender,
+                                                owner: req.params.id
+                                          })
+                                          await ServicesSchema.findByIdAndUpdate(newService._id, { $addToSet: { addOns_id: data._id } })
+                                    })
+                              }
+                        }
                         return newService._id
                   })
             )

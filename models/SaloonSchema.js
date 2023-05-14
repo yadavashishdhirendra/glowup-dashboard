@@ -13,6 +13,9 @@ const SaloonSchema = new mongoose.Schema({
     companytype: {
         type: String,
     },
+    mobileno: [{
+        type: Number
+    }],
     address: {
         type: String,
     },
@@ -55,7 +58,7 @@ const SaloonSchema = new mongoose.Schema({
     }],
     offers: {
         type: String,
-        default:""
+        default: ""
     },
     images: [{
         public_id: {

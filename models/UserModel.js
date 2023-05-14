@@ -35,7 +35,6 @@ const UserModel = new mongoose.Schema({
     mobileno: {
         type: Number,
         unique: true,
-        required: true
     },
     saloon: [{
         type: mongoose.Schema.Types.ObjectId,

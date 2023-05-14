@@ -6,6 +6,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import SelectDropDown from "../components/SelectDropDown/SelectDropDown";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { TextareaAutosize } from "@material-ui/core";
+import { checkString } from "../util/helper";
 const weekDays = [
   "Monday",
   "Tuesday",
@@ -36,6 +38,7 @@ const NewSalon = () => {
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
   const [days, setDays] = useState();
+  const [number, setNumbers] = useState();
   const [businessHours, setBusinessHours] = useState([]);
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
@@ -65,6 +68,10 @@ const NewSalon = () => {
   };
   const addSaloonhandler = async (e) => {
     e.preventDefault();
+      let mobileNo = checkString(number);
+      if (mobileNo.length > 5) {
+        return alert("only 5 numbers are allowed");
+      }
     let formData = {
       shopname,
       ownername: ownerName,
@@ -77,6 +84,7 @@ const NewSalon = () => {
       pincode: pin,
       owner: id,
       map,
+      mobileno:mobileNo,
       businesshours: businessHours,
       location: {
         type: "Point",
@@ -204,6 +212,14 @@ const NewSalon = () => {
                 required
                 onChange={(e) => setLongitude(e.target.value)}
               />
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <label style={{ width: "max-content" }}>WhatsApp No</label>
+                <TextareaAutosize
+                  style={{ height: "5vh", padding: "15px" }}
+                  value={number}
+                  onChange={(e) => setNumbers(e.target.value)}
+                />
+              </div>
             </section>
             <section style={{ marginLeft: "20px" }}>
               <div
