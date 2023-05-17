@@ -331,7 +331,7 @@ const Edit = () => {
               <section style={{ backgroundColor: "white" }}>
                 {saloon?.businesshours?.map((b) => (
                   <p>
-                    Day {b?.day},&nbsp;&nbsp;&nbsp;&nbsp; From:{b?.from}
+                    {b?.day},&nbsp;&nbsp;&nbsp;&nbsp; From:{b?.from}
                     ,&nbsp;&nbsp;&nbsp;&nbsp; To:
                     {b?.to}
                   </p>
