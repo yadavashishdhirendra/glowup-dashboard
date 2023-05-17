@@ -2,7 +2,7 @@ import { legacy_createStore as createStore, combineReducers, applyMiddleware } f
 import { allUsersReducers, bookingsReducer, dateBookingsReducer, userReducer } from './Reducers/UserReducers';
 import thunk from "redux-thunk"
 import { composeWithDevTools } from "redux-devtools-extension/developmentOnly"
-import { addOfferReducer, createCoupanReducer, deleteCoupanReducer, fetchAllCoupansReducer } from "./Reducers/CoupanReducers";
+import { addOfferReducer, createCoupanReducer, deleteCoupanReducer, editCoupanReducer, fetchAllCoupansReducer, getSingleCoupanReducer } from "./Reducers/CoupanReducers";
 import { deleteSalonReducer, fetchAllSaloonsReducer, getServicesReducer, getSingleSaloonReducer, saloonImagesReducer, updateSaloonDetailsReducer, updateServicesReducer, updateTagsReducers } from "./Reducers/SaloonReducers";
 import { deleteEmployeeReducer, editEmployeeReducer, getEmployeesReducer } from "./Reducers/EmployeesReducer";
 import { CustomerCareUserReducer } from "./Reducers/CareReducer";
@@ -12,6 +12,7 @@ const reducer = combineReducers({
         bookings: bookingsReducer,
         newCoupan: createCoupanReducer,
         coupans: fetchAllCoupansReducer,
+        singleCoupan:getSingleCoupanReducer,
         deleteCoupan: deleteCoupanReducer,
         allSaloons: fetchAllSaloonsReducer,
         saloon: getSingleSaloonReducer,
@@ -28,6 +29,7 @@ const reducer = combineReducers({
         deleteSalonData: deleteSalonReducer,
         offerImages: GetAllImagesReducer,
         allUsers: allUsersReducers,
+        editCoupan:editCoupanReducer,
         updateSaloon: updateSaloonDetailsReducer
 })
 

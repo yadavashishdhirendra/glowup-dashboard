@@ -32,6 +32,7 @@ import ChangePassword from './pages/ChangePassword';
 import EmployeesServices from './pages/EmployeesServices';
 import Edit from './pages/Edit';
 import PositionSalonImages from './pages/PositionSalonImages';
+import EditCoupan from './pages/EditCoupan';
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -67,6 +68,11 @@ const App = () => {
           <Route exact path='/all-users' element={
             <ProctectedDashBoardRoute>
               <Users />
+            </ProctectedDashBoardRoute>
+          } />
+          <Route exact path='/edit/coupan/:id' element={
+            <ProctectedDashBoardRoute>
+              <EditCoupan/>
             </ProctectedDashBoardRoute>
           } />
           <Route exact path='/create-coupons' element={

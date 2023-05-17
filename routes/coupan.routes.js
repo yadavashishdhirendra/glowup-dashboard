@@ -1,8 +1,10 @@
 const router = require('express').Router()
-const { addCoupan, fetchCoupansForDsahboard, fetchCategories, deleteCoupan } = require("../controllers/coupanController")
+const { addCoupan, fetchCoupansForDsahboard, fetchCategories, deleteCoupan,getCoupan,upDateCoupan } = require("../controllers/coupanController")
 const { WebAuth } = require("../utils/authUserToken")
 router.post("/generate-coupan", WebAuth, addCoupan)
 router.get("/coupans", WebAuth, fetchCoupansForDsahboard)
 router.get("/categories", WebAuth, fetchCategories)
+router.get("/single-coupan/:id", WebAuth, getCoupan)
+router.put("/edit-coupan/:id",WebAuth,upDateCoupan)
 router.delete("/delete-coupan/:id", WebAuth, deleteCoupan)
 module.exports = router

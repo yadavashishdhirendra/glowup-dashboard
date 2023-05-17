@@ -5,8 +5,6 @@ import Input from "../components/Input/Input";
 import SelectDropDown from "../components/SelectDropDown/SelectDropDown";
 import CustomButton from "../components/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
-import DeleteIcon from "@material-ui/icons/Delete";
-
 import {
   fetchSingleSaloon,
   updateSaloonDetailsAction,
@@ -24,6 +22,15 @@ const companyType = [
   "Partnership",
   "Other",
 ];
+const weekdayMap = {
+  Monday: 1,
+  Tuesday: 2,
+  Wednesday: 3,
+  Thursday: 4,
+  Friday: 5,
+  Saturday: 6,
+  Sunday: 7,
+};
 const Edit = () => {
   const { id } = useParams();
   const [shopname, setShopName] = useState("");
@@ -60,7 +67,7 @@ const Edit = () => {
   );
   const dispatch = useDispatch();
 
-  const updateSaloon = () => {
+  const updateSaloon = (hours) => {
     const numbers = checkString(mobileNo);
     if (numbers.length > 5) {
       return toast("only 5 numbers are allowed");
@@ -77,6 +84,7 @@ const Edit = () => {
       pincode: pin,
       map,
       description,
+      businesshours: hours,
       mobileno: numbers,
       offers: offer,
       location: {
@@ -86,36 +94,27 @@ const Edit = () => {
     };
     dispatch(updateSaloonDetailsAction(id, formData));
   };
-  const addHoursHandler = (e, days, from, to) => {
-    e.preventDefault();
-    if (!days || !from || !to) {
-      alert("please add all fields");
-      return setBusinessHours([]);
-    }
-    if (businessHours.length >= 7) {
-      alert("7 days max can be added");
-    } else {
-      let data = {
-        id: Math.random(),
-        day: days,
-        from,
-        to,
-      };
-      setBusinessHours([...businessHours, data]);
-    }
-  };
-  const deleteDayHandler = (e, id) => {
-    e.preventDefault();
-    setBusinessHours(businessHours.filter((t) => t.id !== id));
-  };
   const updateSaloonHandler = (e) => {
     e.preventDefault();
+    let resp = {
+      day: days,
+      from,
+      to,
+    };
+    let newHours = businessHours.filter(
+      (h) => h?.day?.toLowerCase() !== resp?.day?.toLowerCase()
+    );
+    if (resp?.day) {
+      newHours.push(resp);
+    }
+    const compareWeekdays = (a, b) => weekdayMap[a.day] - weekdayMap[b.day];
+    newHours.sort(compareWeekdays);
     confirmAlert({
       title: "Update Salon?",
       buttons: [
         {
           label: "Yes",
-          onClick: () => updateSaloon(),
+          onClick: () => updateSaloon(newHours.sort()),
         },
         {
           label: "No",
@@ -153,6 +152,7 @@ const Edit = () => {
     setDescription(saloon?.description);
     setOffer(saloon?.offers);
     setMobileNo(saloon?.mobileno.toString());
+    setBusinessHours(saloon?.businesshours);
   }, [saloon]);
   return (
     <div>
@@ -283,7 +283,10 @@ const Edit = () => {
                   onChange={(e) => setMobileNo(e.target.value)}
                 />
               </div>
-              {/* <section style={{ marginLeft: "20px" }}>
+            </section>
+            {/* set business hours */}
+            <div style={{ marginLeft: "20px" }}>
+              <section>
                 <div
                   style={{
                     display: "flex",
@@ -307,13 +310,11 @@ const Edit = () => {
                       array={weekDays}
                       style={{ width: "100px" }}
                       onChange={(e) => setDays(e.target.value)}
-                      required={true}
                     />
                     <Input
                       style={{ width: "100px" }}
                       laBel="From"
                       value={from}
-                      required
                       onChange={(e) => setFrom(e.target.value)}
                       placeholder="00:00 am"
                     ></Input>
@@ -321,37 +322,22 @@ const Edit = () => {
                       style={{ width: "100px" }}
                       laBel="To"
                       value={to}
-                      required
                       onChange={(e) => setTo(e.target.value)}
                       placeholder="00:00 pm"
                     ></Input>
-
-                    <CustomButton
-                      text={"Add"}
-                      onClick={(e) => addHoursHandler(e, days, from, to)}
-                      style={{ fontSize: "8px", marginLeft: "5px" }}
-                    />
                   </div>
                 </div>
-                <section
-                  style={{ backgroundColor: "white", marginRight: "20px" }}
-                >
-                  {businessHours?.map((time) => (
-                    <div style={{ display: "flex" }}>
-                      <p>Day-{time.day}</p>
-                      <p> &nbsp;</p>
-                      <p>From-{time.from}</p>
-                      <p>&nbsp;</p>
-                      <p>to-{time.to}</p>
-                      <DeleteIcon
-                        style={{ color: "black" }}
-                        onClick={(e) => deleteDayHandler(e, time.id)}
-                      />
-                    </div>
-                  ))}
-                </section>
-              </section> */}
-            </section>
+              </section>
+              <section style={{ backgroundColor: "white" }}>
+                {saloon?.businesshours?.map((b) => (
+                  <p>
+                    Day {b?.day},&nbsp;&nbsp;&nbsp;&nbsp; From:{b?.from}
+                    ,&nbsp;&nbsp;&nbsp;&nbsp; To:
+                    {b?.to}
+                  </p>
+                ))}
+              </section>
+            </div>
           </div>
         </div>
         <CustomButton text={"Update Saloon"} loading={loading}></CustomButton>

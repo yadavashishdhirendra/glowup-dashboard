@@ -17,12 +17,80 @@ import {
       DELETE_COUPAN_RESET,
       DELETE_COUPAN_SUCCESS,
 
+      EDIT_COUPAN_ERROR,
+
+      EDIT_COUPAN_REQUEST,
+
+      EDIT_COUPAN_RESET,
+
+      EDIT_COUPAN_SUCCESS,
+
       FETCH_ALL_COUPANS_ERROR,
       FETCH_ALL_COUPANS_REQUEST,
-      FETCH_ALL_COUPANS_SUCCESS
+      FETCH_ALL_COUPANS_SUCCESS,
+
+      SINGLE_COUPANS_ERROR,
+      SINGLE_COUPANS_REQUEST,
+      SINGLE_COUPANS_SUCCESS,
 
 } from "../constants/CoupanConstansts";
 
+export const getSingleCoupanReducer = (state = {}, action) => {
+      switch (action.type) {
+            case SINGLE_COUPANS_REQUEST:
+                  return {
+                        loading: true
+                  }
+            case SINGLE_COUPANS_SUCCESS:
+                  return {
+                        loading: false,
+                        coupan: action.payload,
+                  }
+            case SINGLE_COUPANS_ERROR:
+                  return {
+                        loading: false,
+                        error: action.payload
+                  }
+            case CLEAR_COUPAN_ERRORS:
+                  return {
+                        ...state,
+                        error: null
+                  }
+            default:
+                  return state
+      }
+}
+export const editCoupanReducer = (state = {}, action) => {
+      switch (action.type) {
+            case EDIT_COUPAN_REQUEST:
+                  return {
+                        updating: true
+                  }
+            case EDIT_COUPAN_SUCCESS:
+                  return {
+                        updating: false,
+                        done: action.payload,
+                  }
+            case EDIT_COUPAN_ERROR:
+                  return {
+                        updating: false,
+                        error: action.payload
+                  }
+            case EDIT_COUPAN_RESET:
+                  return {
+                        updating: null,
+                        done: null,
+                        error: null
+                  }
+            case CLEAR_COUPAN_ERRORS:
+                  return {
+                        ...state,
+                        error: null
+                  }
+            default:
+                  return state
+      }
+}
 export const createCoupanReducer = (state = {}, action) => {
       switch (action.type) {
             case CREATE_COUPAN_REQUEST:
@@ -49,7 +117,7 @@ export const createCoupanReducer = (state = {}, action) => {
                         ...state,
                         error: null
                   }
-           
+
             default:
                   return state
       }

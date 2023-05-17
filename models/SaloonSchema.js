@@ -114,5 +114,5 @@ const SaloonSchema = new mongoose.Schema({
             index: '2dsphere'
         },
     },
-})
+}, { timestamps: true })
 module.exports = mongoose.model("Saloon", SaloonSchema)

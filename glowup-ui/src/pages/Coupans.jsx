@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { DELETE_COUPAN_RESET } from "../constants/CoupanConstansts";
 import TableData from "../components/Table";
 import MetaTitle from "../components/MetaTitle/MetaTitle";
+import { Link } from "react-router-dom";
 const Coupans = () => {
   const dispatch = useDispatch();
   const { coupans } = useSelector((state) => state.coupans);
@@ -82,6 +83,7 @@ const Coupans = () => {
             <Button onClick={() => deleteCoupanHandler(params.row.id)}>
               <DeleteIcon style={{ color: "black" }} />
             </Button>
+            <Link to={`/edit/coupan/${params.row.id}`}>Edit</Link>
           </>
         );
       },
