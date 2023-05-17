@@ -48,7 +48,9 @@ svg {
   cursor: pointer;
 }
 
-.loading-gif {
+.react-confirm-alert {
+  z-index: 111;
+}.loading-gif {
   background-color: white;
   height: 100vh;
   display: flex;
