@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { confirmAlert } from "react-confirm-alert"; // Import
+import "react-confirm-alert/src/react-confirm-alert.css";
 import {
   editCoupanAction,
   fetchSingleCoupanAction,
@@ -14,6 +16,7 @@ import { fetchAllSaloonsAction } from "../actions/SaloonAction";
 import Select from "react-dropdown-select";
 import axios from "axios";
 import { EDIT_COUPAN_RESET } from "../constants/CoupanConstansts";
+import CustomButton from "../components/Button/Button";
 const EditCoupan = () => {
   const [name, setName] = useState();
   const [description, setDescription] = useState();
@@ -62,7 +65,21 @@ const EditCoupan = () => {
       all_vendors: vendors,
       selected_vendors: vendors.toLowerCase() === "yes" ? [] : selectedVendors,
     };
-    dispatch(editCoupanAction(id, data));
+    confirmAlert({
+      title: "Update Salon?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => dispatch(editCoupanAction(id, data)),
+        },
+        {
+          label: "No",
+          onClick: () => {},
+        },
+      ],
+      closeOnClickOutside: true,
+      closeOnEscape: true,
+    });
   };
 
   useEffect(() => {
@@ -96,7 +113,7 @@ const EditCoupan = () => {
     if (coupanEr) {
       toast(coupanEr);
     }
-  }, [dispatch, done, error, id,coupanEr]);
+  }, [dispatch, done, error, id, coupanEr]);
   return (
     <div>
       <SideBar />
@@ -290,10 +307,11 @@ const EditCoupan = () => {
                 )}
               </div>
             </div>
-
-            <div className="login-btn">
-              <button type="submit">Submit</button>
-            </div>
+            <CustomButton
+              text={"Update Coupan"}
+              loading={updating}
+              disabled={updating}
+            />
           </form>
         </div>
       </div>
